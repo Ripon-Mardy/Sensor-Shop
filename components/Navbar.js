@@ -68,7 +68,7 @@ const Navbar = () => {
            <AnimatePresence>
            {
                 isOpen && (
-                    <div className='fixed inset-0 bg-black bg-opacity-75'>
+                    <div className='fixed inset-0 bg-black bg-opacity-75 z-50'>
                             <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} transition={{ duration: 0.3 }} exit={{ x: '-100%' }} className='absolute left-0 top-0 h-screen bg-navBgColor w-[70%] p-4 '>
 
                                 {/* ====close menu ====  */}

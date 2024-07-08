@@ -17,7 +17,7 @@ const Banner_slide = () => {
       useEffect(() => {
         const interval = setInterval(() => {
           setCurrentIndex((prevIndex) => (prevIndex + 1) % banners.length);
-        }, 12000); // Change image every 3 seconds
+        }, 1000); // Change image every 3 seconds
         return () => clearInterval(interval);
       }, [banners.length]);
     
