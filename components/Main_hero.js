@@ -11,6 +11,7 @@ import Feature_product from './Feature_product'
 
 //  ==== image=== 
 import productBanner from './../public/image/3830.jpg'
+import choose1 from './../public/image/why choose us/images.jpg'
 
 const Main_hero = () => {
     return (
@@ -60,6 +61,25 @@ const Main_hero = () => {
                         <Image src={productBanner} className='rounded-md' />
                     </div>
                     {/* ==== end left side banner ====  */}
+
+
+                    {/* ====why choose us ===  */}
+                    <div>
+                        <h1 className='text-xl font-semibold text-center mb-2'>Why Choose us?</h1>
+                        <Image src={choose1} className='rounded-md' />
+                    </div>
+                    {/* ===== end why choose us ====  */}
+
+
+                     {/* ==== left side bannar ====  */}
+                     <div>
+                        <Image src={productBanner} className='rounded-md' />
+                    </div>
+                    {/* ==== end left side banner ====  */}
+
+
+
+
                    </div>
 
 
