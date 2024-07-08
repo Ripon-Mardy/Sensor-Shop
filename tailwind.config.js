@@ -7,11 +7,25 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      container : {
+        screens: {
+          sm: "640px",
+          md: "768px",
+          lg: "1024px",
+          xl: "1300px",
+        },
       },
+
+      backgroundColor : {
+        "navBgColor" : "#227093"
+      },
+      borderColor : {
+        "navBorder" : "#227093"
+      },
+      textColor : {
+        "textNavColor" : "#227093"
+      }
+
     },
   },
   plugins: [],
