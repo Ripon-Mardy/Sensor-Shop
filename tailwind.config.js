@@ -17,7 +17,8 @@ module.exports = {
       },
 
       backgroundColor : {
-        "navBgColor" : "#227093"
+        "navBgColor" : "#227093",
+        "hoverNavBgColor" : "#4b7bec"
       },
       borderColor : {
         "navBorder" : "#227093"
