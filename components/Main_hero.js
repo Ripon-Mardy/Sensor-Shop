@@ -60,14 +60,14 @@ const Main_hero = () => {
                     </div>
 
                     {/* ==== left side bannar ====  */}
-                    <div>
+                    <div className='hidden md:block'>
                         <Image src={productBanner} className='rounded-md' />
                     </div>
                     {/* ==== end left side banner ====  */}
 
 
                     {/* ====why choose us ===  */}
-                    <div>
+                    <div className='hidden md:block'>
                         <h1 className='text-xl font-semibold text-center mb-2'>Why Choose us?</h1>
                         <Image src={choose1} className='rounded-md' />
                     </div>
@@ -75,7 +75,7 @@ const Main_hero = () => {
 
 
                      {/* ==== left side bannar ====  */}
-                     <div>
+                     <div className='hidden md:block'>
                         <Image src={productBanner} className='rounded-md' />
                     </div>
                     {/* ==== end left side banner ====  */}
