@@ -6,7 +6,7 @@ import f1 from './../public/image/Feature Product/f1.jpg'
 
 const Feature_product = () => {
 
-    const feature_products = [f1,f1,f1,f1,f1,f1,f1,f1,f1,f1,f1,f1,f1,f1,f1,f1,f1,f1]
+    const feature_products = [f1,f1,f1,f1,f1,f1,f1,f1,f1]
 
   return (
     <div>

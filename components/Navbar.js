@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -18,13 +18,33 @@ const Navbar = () => {
 
 
     const [isOpen, setIsOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false)
 
     const handleBarOpen = () => {
         setIsOpen(!isOpen);
     }
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if(window.screenY > 0) {
+                setIsScrolled(true)
+            } else {
+                setIsOpen(false)
+            }
+        } // end handleScroll
+
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+
+
+    }, [])
+
+
     return (
-        <div className=' shadow'>
+        <div className= 'shadow z-10 bg-white w-full'>
 
             <div className=' container mx-auto px-3 md:px-0 md:flex md:items-center md:justify-between relative'>
                 {/* === logo == */}
