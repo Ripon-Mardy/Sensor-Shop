@@ -13,7 +13,7 @@ const Proud_clients = () => {
         <div>
 
             {/* ====proud title ===  */}
-            <div className='md:flex md:items-center md:justify-between mb-10'>
+            <div className='md:flex md:items-center md:justify-between mb-2'>
                 <div className='text-center md:text-start'>
                     <h1 className='text-2xl md:text-2xl font-semibold'>Our Proud Clients </h1>
                 </div>

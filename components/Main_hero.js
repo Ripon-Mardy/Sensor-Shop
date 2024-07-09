@@ -204,14 +204,14 @@ const Main_hero = () => {
 
                     {/* ======  Banner botton text ===  */}
                     <div className='md:py-16'>
-                        <h1 className='text-2xl md:text-2xl text-center font-semibold'> We are one of the leading Industrial machine, Spare parts, Sensor <br /> <span className='text-textNavColor font-bold'>Importer and Supplier in Bangladesh </span> </h1>
+                        <h1 className='text-2xl md:text-3xl text-center font-semibold'> We are one of the leading Industrial machine, Spare parts, Sensor <br /> <span className='text-textNavColor font-bold'>Importer and Supplier in Bangladesh </span> </h1>
                     </div>
                     {/* === end banner bottom text ===  */}
 
 
 
                     {/* ====  Brands ====  */}
-                    <div className='py-16'>
+                    <div className=''>
                         <Brands />
                     </div>
                     {/* ==== end Brands ===  */}
@@ -231,7 +231,7 @@ const Main_hero = () => {
 
 
                     {/* ==== servcies ===  */}
-                    <div className='my-10'>
+                    <div className='my-16'>
                         <Services />
                     </div>
                     {/* ==== end services ===  */}

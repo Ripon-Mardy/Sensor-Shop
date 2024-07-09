@@ -26,7 +26,7 @@ const Industries = () => {
     const industrics = [industri1, industri1, industri1, industri1, industri1, industri1, industri1]
 
     return (
-        <div className='py-10'>
+        <div className=''>
 
             <div className='container mx-auto px-3 md:px-0'>
                 {/* ==== industriys title ===  */}

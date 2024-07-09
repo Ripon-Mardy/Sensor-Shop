@@ -12,7 +12,7 @@ const Feature_product = () => {
     <div>
 
         {/* ====== feature product title ====  */}
-        <div className='md:flex md:items-center md:justify-between py-6'>
+        <div className='md:flex md:items-center md:justify-between mb-2'>
             <h1 className='text-2xl md:text-2xl font-semibold'>Featured products</h1>
             <button className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out'>view all Featured products</button>
         </div>
