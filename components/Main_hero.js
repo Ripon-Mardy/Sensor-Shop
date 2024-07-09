@@ -7,11 +7,14 @@ import Image from 'next/image'
 import Banner_slide from './Banner_slide'
 import Brands from './Brands'
 import Feature_product from './Feature_product'
+import Proud_clients from './Proud_clients'
+import Services from './Services'
 
 
 //  ==== image=== 
 import productBanner from './../public/image/3830.jpg'
 import choose1 from './../public/image/why choose us/images.jpg'
+
 
 const Main_hero = () => {
     return (
@@ -90,7 +93,7 @@ const Main_hero = () => {
 
 
                 {/* ==== right side bar ===  */}
-                <div className=' xl:w-full'>
+                <div className=' xl:w-full overflow-hidden'>
                     <div className='mt-10 md:mt-0 md:h-fit'>
                         <Banner_slide />
                     </div>
@@ -115,6 +118,19 @@ const Main_hero = () => {
                         <Feature_product />
                     </div>
                     {/* ==== end feature product ====  */}
+
+                    {/* ==== proud clients ====  */}
+                    <div>
+                        <Proud_clients/>
+                    </div>
+                    {/* ====end proud clients ====  */}
+
+
+                    {/* ==== servcies ===  */}
+                    <div className='my-10'>
+                        <Services/>
+                    </div>
+                    {/* ==== end services ===  */}
 
 
 
