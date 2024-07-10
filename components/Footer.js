@@ -19,11 +19,11 @@ import {
 
 const Footer = () => {
   return (
-    <div className='bg-gray-600 py-10 px-3 md:px-0'>
+    <div className=' py-10 px-3 md:px-0 bg-zinc-200'>
       <div className='container mx-auto grid grid-cols-2 md:grid-cols-4 gap-7'>
 
 
-        <div className='text-white'>
+        <div className=''>
           <h1 className='text-xl font-semibold'>Products</h1>
           <div className='flex flex-col gap-3 mt-4'>
             <Link href={'#'}>List 1</Link>
@@ -35,7 +35,7 @@ const Footer = () => {
         </div>
 
 
-        <div className='text-white'>
+        <div className=''>
           <h1 className='text-xl font-semibold'>Support</h1>
           <div className='flex flex-col gap-3 mt-3'>
             <Link href={'#'}>List 1</Link>
@@ -46,7 +46,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className='text-white'>
+        <div className=''>
           <h1 className='text-xl font-semibold'>Compnay</h1>
           <div className='flex flex-col gap-3 mt-3'>
             <Link href={'#'}>List 1</Link>

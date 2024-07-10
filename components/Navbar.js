@@ -13,34 +13,25 @@ import { IoIosSearch } from "react-icons/io";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { FaAngleDown } from "react-icons/fa6";
 
 const Navbar = () => {
 
 
     const [isOpen, setIsOpen] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false)
+    const [isMobileMenu, setIsMobileMenu] = useState(false)
+    const [isMobileMenuIndex, setIsMobileMenuIndex] = useState(null)
 
     const handleBarOpen = () => {
         setIsOpen(!isOpen);
     }
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if(window.screenY > 0) {
-                setIsScrolled(true)
-            } else {
-                setIsOpen(false)
-            }
-        } // end handleScroll
 
+const handleMobileMenuClick = (tabname) => {
+    setIsMobileMenu(!isMobileMenu)
+    setIsMobileMenuIndex(tabname)
+}
 
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-        }
-
-
-    }, [])
 
 
     return (
@@ -62,18 +53,68 @@ const Navbar = () => {
                 </div>
                 {/* === end logo ===  */}
                 {/* === navigation menu ===  */}
-                <div className='xl:flex items-center justify-center gap-10 border border-navBorder rounded-sm p-2 px-4 hidden'>
-                    <Link href={'#'} className='uppercase text-sm font-medium'>menu 1</Link>
-                    <Link href={'#'} className='uppercase text-sm font-medium'>menu 2</Link>
-                    <Link href={'#'} className='uppercase text-sm font-medium'>menu 3</Link>
-                    <Link href={'#'} className='uppercase text-sm font-medium'>menu 4</Link>
-                    <Link href={'#'} className='uppercase text-sm font-medium'>menu 5</Link>
-                    <Link href={'#'} className='uppercase text-sm font-medium'>menu 6</Link>
+                <div className='xl:flex items-center justify-center gap-10 border border-navBorder rounded-sm px-4 hidden z-30'>
+                    <Link href={'#'} className='uppercase py-2 text-sm font-medium'>menu 1</Link>
+                    <Link href={'#'} className='uppercase py-2 text-sm font-medium flex items-center justify-center gap-1 relative group'>menu 2 <FaAngleDown/>
+
+                    <div className='absolute left-0 top-full rounded-md bg-gray-100 shadow-md flex flex-col gap-4 w-52 font-medium overflow-hidden invisible group-hover:visible'>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                    </div>
+
+
+                     </Link>
+                    <Link href={'#'} className='uppercase py-2 text-sm font-medium flex items-center justify-center gap-1 group relative'>menu 3  <FaAngleDown/>
+
+
+                    <div className='absolute left-0 top-full rounded-md bg-gray-100 shadow-md flex flex-col gap-4 w-52 font-medium overflow-hidden invisible group-hover:visible'>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                    </div>
+
+
+                     </Link>
+                    <Link href={'#'} className='uppercase py-2 text-sm font-medium flex items-center justify-center gap-1 relative group'>menu 4  <FaAngleDown/>
+                    
+
+
+                    <div className='absolute left-0 top-full rounded-md bg-gray-100 shadow-md flex flex-col gap-4 w-52 font-medium overflow-hidden invisible group-hover:visible'>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                    </div>
+
+
+
+                     </Link>
+                    <Link href={'#'} className='uppercase py-2 text-sm font-medium flex items-center justify-center gap-1 relative group'>menu 5  <FaAngleDown/>
+                    
+                    
+                    <div className='absolute left-0 top-full rounded-md bg-gray-100 shadow-md flex flex-col gap-4 w-52 font-medium overflow-hidden invisible group-hover:visible'>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                        <Link href={'#'} className='hover:bg-navBgColor py-2 px-3 hover:text-white hover:duration-100 hover:ease-in'>Dropdown Menu</Link>
+                    </div>
+
+
+                    
+                     </Link>
+                    <Link href={'#'} className='uppercase py-2 text-sm font-medium'>menu 6</Link>
                 </div>
                 {/* === end navigation menu ===  */}
                 {/* ==== search bar ====  */}
-                <div className='xl:flex md:items-center md:justify-center border border-navBorder rounded-sm hidden'>
-                    <input type='search' className='outline-none p-1 px-3 font-medium text-base' placeholder='Search a product' />
+                <div className='xl:flex md:items-center md:justify-between border border-navBorder rounded-sm hidden md:w-[30%]'>
+                    <input type='search' className=' w-full outline-none p-1 px-3 font-medium text-base' placeholder='Search a product' />
                     <span className='px-3 bg-navBgColor overflow-hidden py-1.5 cursor-pointer font-semibold text-white text-xl'><IoIosSearch /></span>
                 </div>
                 {/* === end search bar ====  */}
@@ -103,10 +144,82 @@ const Navbar = () => {
 
                                 <div className='flex flex-col gap-6 text-white mt-16'>
                                     <Link href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2'>menu 1</Link>
-                                    <Link href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2'>menu 2</Link>
-                                    <Link href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2'>menu 3</Link>
-                                    <Link href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2'>menu 4</Link>
-                                    <Link href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2'>menu 5</Link>
+                                    <Link onClick={() => handleMobileMenuClick(1)} href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2 flex flex-col'> <span className='flex items-center justify-between w-full'>menu 2 <FaAngleDown className='text-base ' /></span>
+                                    
+
+                                   {
+                                    isMobileMenuIndex ===1 && (
+                                        isMobileMenu && (
+                                            <div className=' mt-3 bg-white text-black flex flex-col p-2 gap-4 text-sm rounded-md'>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                        </div>
+                                        )
+                                    )
+                                   }
+                                    
+                                     </Link>
+                                    <Link onClick={() => handleMobileMenuClick(2)} href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2 flex flex-col'> <span className='flex items-center justify-between w-full'>menu 3 <FaAngleDown className='text-base '/></span>
+                                    
+                                    
+                                    {
+                                    isMobileMenuIndex === 2 && (
+                                        isMobileMenu && (
+                                            <div className=' mt-3 bg-white text-black flex flex-col p-2 gap-4 text-sm rounded-md'>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                        </div>
+                                        )
+                                    )
+                                   }
+
+                                    
+                                    
+                                     </Link>
+                                    <Link onClick={() => handleMobileMenuClick(3)} href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2 flex flex-col'><span className='flex items-center justify-between w-full'>menu 4 <FaAngleDown className='text-base ' /></span>
+                                    
+
+                                    {
+                                    isMobileMenuIndex === 3 && (
+                                        isMobileMenu && (
+                                            <div className=' mt-3 bg-white text-black flex flex-col p-2 gap-4 text-sm rounded-md'>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                        </div>
+                                        )
+                                    )
+                                   }
+
+                                    
+                                    </Link>
+                                    <Link onClick={() => handleMobileMenuClick(4)} href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2 flex flex-col'><span className='flex items-center justify-between w-full'>menu 5 <FaAngleDown className='text-base ' /></span>
+                                    
+
+                                    {
+                                    isMobileMenuIndex === 4 && (
+                                        isMobileMenu && (
+                                            <div className=' mt-3 bg-white text-black flex flex-col p-2 gap-4 text-sm rounded-md'>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                            <Link href={'#'}>Dropdown Menu</Link>
+                                        </div>
+                                        )
+                                    )
+                                   }
+                                    
+                                    
+                                     </Link>
                                     <Link href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2'>menu 6</Link>
                                 </div>
 

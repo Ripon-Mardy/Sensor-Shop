@@ -138,7 +138,7 @@ const Main_hero = () => {
 
 
     return (
-        <div className='container mx-auto px-3 md:px-0 py-10'>
+        <div className='container mx-auto px-3 md:px-0 py-5'>
 
             <div className='md:flex md:justify-between md:gap-10'>
 
@@ -203,7 +203,7 @@ const Main_hero = () => {
                     </div>
 
                     {/* ======  Banner botton text ===  */}
-                    <div className='md:py-16'>
+                    <div className='md:py-6'>
                         <h1 className='text-2xl md:text-3xl text-center font-semibold'> We are one of the leading Industrial machine, Spare parts, Sensor <span className='text-textNavColor font-bold'>Importer and Supplier in Bangladesh </span> </h1>
                     </div>
                     {/* === end banner bottom text ===  */}

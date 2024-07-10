@@ -36,7 +36,7 @@ const Banner_slide = () => {
     <div>
 
 
-<div className="relative w-full md:h-64 h-40 overflow-hidden">
+<div className="relative w-full md:h-40 h-40 overflow-hidden">
       {banners.map((banner, index) => (
         <div
           key={index}
