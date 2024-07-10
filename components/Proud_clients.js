@@ -7,7 +7,7 @@ import prooud1 from './../public/image/Brands/brand1.png'
 
 const Proud_clients = () => {
 
-    const proudsClients = [prooud1,prooud1,prooud1,prooud1,prooud1,prooud1,prooud1,prooud1,prooud1];
+    const proudsClients = [prooud1, prooud1, prooud1, prooud1, prooud1, prooud1, prooud1, prooud1, prooud1];
 
     return (
         <div>
@@ -23,16 +23,19 @@ const Proud_clients = () => {
 
 
             {/* ==== proud clients image ===  */}
-            <div className='grid grid-cols-3 md:grid-cols-6 md:grid md:gap-6 mt-6'>
+            <div>
+                <div className='grid grid-cols-3 md:grid-cols-6 md:grid md:gap-6 gap-6 mt-6'>
 
-                {
-                    proudsClients.map((proudsClient, proudIndex) => (
-                        <div key={proudIndex} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out' >
-                            <Image src={proudsClient} width={300} height={300} />
-                        </div>
-                    ))
-                }
+                    {
+                        proudsClients.map((proudsClient, proudIndex) => (
+                            <div key={proudIndex} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out' >
+                                <Image src={proudsClient} width={300} height={300} />
+                            </div>
+                        ))
+                    }
 
+                </div>
+                <button className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm md:block hover:bg-hoverNavBgColor duration-200 ease-in-out mt-6'>View all clients</button>
             </div>
             {/* ==== end prooud clients====  */}
 

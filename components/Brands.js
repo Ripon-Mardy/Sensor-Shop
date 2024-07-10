@@ -10,7 +10,7 @@ const Brands = () => {
     const brands = [brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1];
 
     return (
-        <div>
+        <div className='py-16 md:py-0'>
 
             {/* ====banner title ===  */}
             <div className='md:flex md:items-center md:justify-between'>
@@ -18,7 +18,9 @@ const Brands = () => {
                     <h1 className='text-2xl md:text-2xl font-semibold'>Our Trusted Brands </h1>
                     <p className='mt-2 text-sm md:text-base font-medium'>Explore our range of trusted brands and discover high-quality solutions for your automation needs.</p>
                 </div>
-                <button className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out'>View all Brands</button>
+
+                <button className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out mt-4'>View all Brands</button>
+
             </div>
             {/* === end Banner title ====  */}
 
@@ -35,7 +37,7 @@ const Brands = () => {
                         ))
                     }
                 </div>
-                <button className=' font-medium capitalize text-base bg-navBgColor text-white p-1.5 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out md:hidden'>View all Brands</button>
+                <button className=' font-medium capitalize text-base bg-navBgColor text-white p-1.5 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out md:hidden mt-6'>View all Brands</button>
             </div>
 
 

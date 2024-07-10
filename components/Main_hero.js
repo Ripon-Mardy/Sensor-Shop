@@ -204,7 +204,7 @@ const Main_hero = () => {
 
                     {/* ======  Banner botton text ===  */}
                     <div className='md:py-16'>
-                        <h1 className='text-2xl md:text-3xl text-center font-semibold'> We are one of the leading Industrial machine, Spare parts, Sensor <br /> <span className='text-textNavColor font-bold'>Importer and Supplier in Bangladesh </span> </h1>
+                        <h1 className='text-2xl md:text-3xl text-center font-semibold'> We are one of the leading Industrial machine, Spare parts, Sensor <span className='text-textNavColor font-bold'>Importer and Supplier in Bangladesh </span> </h1>
                     </div>
                     {/* === end banner bottom text ===  */}
 
@@ -218,20 +218,20 @@ const Main_hero = () => {
 
 
                     {/* ==== feature product ===  */}
-                    <div className='py-16'>
+                    <div className='md:py-16'>
                         <Feature_product />
                     </div>
                     {/* ==== end feature product ====  */}
 
                     {/* ==== proud clients ====  */}
-                    <div>
+                    <div className='md:py-16 py-14'>
                         <Proud_clients />
                     </div>
                     {/* ====end proud clients ====  */}
 
 
                     {/* ==== servcies ===  */}
-                    <div className='my-16'>
+                    <div className='py-10'>
                         <Services />
                     </div>
                     {/* ==== end services ===  */}

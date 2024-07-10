@@ -38,7 +38,7 @@ const Feature_product = () => {
     <div>
 
         {/* ====== feature product title ====  */}
-        <div className='md:flex md:items-center md:justify-between mb-2'>
+        <div className='md:flex md:items-center md:justify-between'>
             <h1 className='text-2xl md:text-2xl font-semibold'>Featured products</h1>
             <button className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out'>view all Featured products</button>
         </div>
@@ -47,7 +47,7 @@ const Feature_product = () => {
 
         {/* ====== feature products ===  */}
         <div>
-            <div className='grid grid-cols-3 md:grid-cols-5 gap-6 mt-5'>
+            <div className='grid grid-cols-2 md:grid-cols-5 gap-6 mt-5'>
                 {
                     feature_products.map((product, index) => (
                         <Link href={'#'} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
@@ -62,7 +62,7 @@ const Feature_product = () => {
                     ))
                 }
             </div>
-            <button className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out md:hidden'>view all Featured products</button>
+            <button className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out md:hidden mt-6'>view all Featured products</button>
         </div>
 
 
