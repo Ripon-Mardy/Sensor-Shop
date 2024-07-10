@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 
 // image ==== 
-import sensor_logo from './../public/image/logo4.png'
+import sensor_logo from './../public/image/logo.png'
 
 
 // === icons ==== 
@@ -49,9 +49,9 @@ const Navbar = () => {
             <div className=' container mx-auto px-3 md:px-0 md:flex md:items-center md:justify-between relative'>
                 {/* === logo == */}
                 <div className='flexitems-center justify-between w-fit'>
-                    <div className=' flex items-center justify-between '>
+                    <div className=' flex items-center justify-between py-1 md:py-0 '>
                         <div>
-                            <Image src={sensor_logo} width={200} height={200} className='md:w-72'></Image>
+                            <Image src={sensor_logo} width={150} height={150} className='md:w-52'></Image>
                         </div>
                         {/* ===== mobile bar ===  */}
                         <div onClick={handleBarOpen} className='xl:hidden border border-navBorder p-1 absolute right-5 top-4 px-2 text-center rounded-sm'>
