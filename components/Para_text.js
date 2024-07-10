@@ -41,9 +41,9 @@ const Para_text = () => {
             </div>
 
             <div className='flex gap-6 flex-wrap items-center justify-center'>
-                <Image src={gallary1} width={300} height={300} alt='gallary1' />
-                <Image src={gallary1} width={300} height={300} alt='gallary1' />
-                <Image src={gallary1} width={300} height={300} alt='gallary1' />
+                <Image src={gallary1} width={300} height={300} className='rounded-md' alt='gallary1' />
+                <Image src={gallary1} width={300} height={300} className='rounded-md' alt='gallary1' />
+                <Image src={gallary1} width={300} height={300} className='rounded-md' alt='gallary1' />
             </div>
         </div>
       

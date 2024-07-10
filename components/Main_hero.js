@@ -150,7 +150,7 @@ const Main_hero = () => {
                         <div className='border-2 border-navBorder rounded-md'>
                             <h1 className='bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium'>categories</h1>
 
-                            <div className='flex flex-col gap-4 p-3 text-textNavColor font-semibold text-sm capitalize'>
+                            <div className='flex flex-col gap-3 p-3 text-textNavColor font-semibold text-sm capitalize'>
                                 {
                                     displayedLink.map((linkText, linkIndex) => (
                                         <div key={linkIndex}>

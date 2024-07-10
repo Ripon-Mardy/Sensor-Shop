@@ -1,12 +1,38 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 
 import f1 from './../public/image/Feature Product/f1.jpg'
+import f2 from './../public/image/Feature Product/f2.jpg'
+import f3 from './../public/image/Feature Product/f3.jpg'
+import f4 from './../public/image/Feature Product/f4.jpg'
+
 
 const Feature_product = () => {
 
-    const feature_products = [f1,f1,f1,f1,f1,f1,f1,f1,f1]
+    const feature_products = [
+        {
+            "product_image" : f1,
+            "product_title" : "PIR Sensor/MOTION Sensor WIth alarm",
+            "product_description" : "৳ 1220.00"
+        },
+        {
+            "product_image" : f2,
+            "product_title" : "PIR Sensor/MOTION Sensor WIth alarm",
+            "product_description" : "৳ 1220.00"
+        },
+        {
+            "product_image" : f3,
+            "product_title" : "PIR Sensor/MOTION Sensor WIth alarm",
+            "product_description" : "৳ 1220.00"
+        },
+        {
+            "product_image" : f4,
+            "product_title" : "PIR Sensor/MOTION Sensor WIth alarm",
+            "product_description" : "৳ 1220.00"
+        }
+    ]
 
   return (
     <div>
@@ -21,14 +47,18 @@ const Feature_product = () => {
 
         {/* ====== feature products ===  */}
         <div>
-            <div className='grid grid-cols-3 md:grid-cols-6 gap-6'>
+            <div className='grid grid-cols-3 md:grid-cols-5 gap-6 mt-5'>
                 {
                     feature_products.map((product, index) => (
-                        <div key={index}>
+                        <Link href={'#'} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
 
-                            <Image src={product} width={300} height={300} />
+                            <Image src={product.product_image} width={300} height={300} />
+                            <div className='text-center'>
+                                <h1 className='font-semibold capitalize text-base'> {product.product_title} </h1>
+                                <p className='font-medium text-red-500 text-sm mt-1'> {product.product_description} </p>
+                            </div>
 
-                        </div>
+                        </Link>
                     ))
                 }
             </div>
