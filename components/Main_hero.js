@@ -130,11 +130,6 @@ const Main_hero = () => {
 
     ]
 
-    const displayedLink = isShowLessNav ? linkTexts : linkTexts.slice(0, 11);
-
-    const handleshowClick = () => {
-        setShowLessNav(!isShowLessNav);
-    }
 
 
     return (
@@ -150,17 +145,15 @@ const Main_hero = () => {
                         <div className='border-2 border-navBorder rounded-md'>
                             <h1 className='bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium'>categories</h1>
 
-                            <div className='flex flex-col gap-3 p-3 text-textNavColor font-semibold text-sm capitalize'>
+                            <div className='flex flex-col h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto'>
                                 {
-                                    displayedLink.map((linkText, linkIndex) => (
+                                    linkTexts.map((linkText, linkIndex) => (
                                         <div key={linkIndex}>
                                             <Link href={linkText.href} >{linkText.linkText} </Link>
                                         </div>
                                     ))
                                 }
                             </div>
-
-                            <button onClick={handleshowClick} className='bg-navBgColor text-white text-base py-0.5 capitalize font-medium block w-full'> {isShowLessNav ? 'See Less' : 'See More'} </button>
                         </div>
 
                         {/* ==== left side bannar ====  */}

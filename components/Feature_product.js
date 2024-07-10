@@ -50,7 +50,7 @@ const Feature_product = () => {
             <div className='grid grid-cols-2 md:grid-cols-5 gap-6 mt-5'>
                 {
                     feature_products.map((product, index) => (
-                        <Link href={'#'} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
+                        <div href={'#'} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
 
                             <Image src={product.product_image} width={300} height={300} />
                             <div className='text-center'>
@@ -58,7 +58,7 @@ const Feature_product = () => {
                                 <p className='font-medium text-red-500 text-sm mt-1'> {product.product_description} </p>
                             </div>
 
-                        </Link>
+                        </div>
                     ))
                 }
             </div>
