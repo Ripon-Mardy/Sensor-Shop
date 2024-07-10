@@ -130,7 +130,7 @@ const Main_hero = () => {
 
     ]
 
-    const displayedLink = isShowLessNav ? linkTexts : linkTexts.slice(0, 10);
+    const displayedLink = isShowLessNav ? linkTexts : linkTexts.slice(0, 11);
 
     const handleshowClick = () => {
         setShowLessNav(!isShowLessNav);
