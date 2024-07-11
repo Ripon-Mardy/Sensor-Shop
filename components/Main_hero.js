@@ -189,7 +189,6 @@ const Main_hero = () => {
 
 
 
-
                     </div>
 
 

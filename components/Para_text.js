@@ -36,7 +36,7 @@ const Para_text = () => {
         <div className='flex items-center justify-center flex-col gap-10 py-16'>
             {/* ==== title ===  */}
             <div>
-                <h1 className='text-2xl font-semibold'>Techsense Bangladesh Ltd</h1>
+                <h1 className='text-2xl font-bold'>Techsense Bangladesh Ltd</h1>
                 <p className='text-center font-semibold'>Our concern</p>
             </div>
 
