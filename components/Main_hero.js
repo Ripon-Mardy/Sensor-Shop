@@ -12,6 +12,10 @@ import Proud_clients from './Proud_clients'
 import Services from './Services'
 
 
+// === icnos === 
+import { IoSearch } from "react-icons/io5";
+
+
 //  ==== image=== 
 import productBanner from './../public/image/3830.jpg'
 import choose1 from './../public/image/why choose us/images.jpg'
@@ -142,7 +146,7 @@ const Main_hero = () => {
                 {/* ==== left side bar ===  */}
                 <div className=' xl:w-1/4'>
                     <div className='flex flex-col gap-8'>
-                        <div className='border-2 border-navBorder rounded-md'>
+                        <div className='border-2 border-navBorder rounded-md hidden md:block'>
                             <h1 className='bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium'>categories</h1>
 
                             <div className='flex flex-col h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto'>
@@ -156,6 +160,12 @@ const Main_hero = () => {
                             </div>
                         </div>
 
+                        {/* === mobile search Bar === */}
+                        <div className='md:hidden w-full flex items-center justify-between border border-navBorder rounded-md overflow-hidden'>
+                            <input type="search" className=' w-full py-1.5 outline-none text-base pl-2' placeholder='Search...' />
+                            <span className='bg-navBgColor py-2.5 px-2.5'><IoSearch className='text-base text-white'/></span>
+                        </div>
+                        {/* ===== end mobile search bar ====  */}
                         {/* ==== left side bannar ====  */}
                         <div className='hidden md:block'>
                             <Image src={productBanner} className='rounded-md' />
@@ -191,7 +201,7 @@ const Main_hero = () => {
 
                 {/* ==== right side bar ===  */}
                 <div className=' xl:w-full overflow-hidden'>
-                    <div className='mt-10 md:mt-0 md:h-fit'>
+                    <div className='mt-6 md:mt-0 md:h-fit'>
                         <Banner_slide />
                     </div>
 

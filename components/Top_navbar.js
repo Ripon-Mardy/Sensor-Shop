@@ -9,7 +9,7 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube, FaLink   } from "react-
 
 const Top_navbar = () => {
   return (
-    <div className=' bg-navBgColor md:p-1 py-2'>
+    <div className=' bg-navBgColor md:p-1 py-2 hidden md:block'>
 
         <div className='container mx-auto px-3 md:px-0 flex md:gap-10 items-center md:justify-end justify-center'>
 

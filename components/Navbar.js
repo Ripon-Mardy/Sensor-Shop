@@ -144,10 +144,10 @@ const handleMobileMenuClick = (tabname) => {
                                     <IoCloseSharp />
                                 </div>
 
-                                <div className='mt-16 rounded-sm w-full flex bg-white px-2 items-center'>
+                                {/* <div className='mt-16 rounded-sm w-full flex bg-white px-2 items-center'>
                                     <input type="search" className='p-2 outline-none w-full' placeholder='Search' />
                                     <IoIosSearch className='text-xl' />
-                                </div>
+                                </div> */}
 
                                 <div className='flex flex-col gap-6 text-white mt-16'>
                                     <Link href={'#'} className='uppercase text-sm font-medium  border-b border-gray-400 pb-2'>menu 1</Link>
