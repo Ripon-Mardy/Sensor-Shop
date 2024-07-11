@@ -31,7 +31,7 @@ const Services = () => {
         <div>
 
             {/* ==== services title ===  */}
-            <div>
+            <div className='text-center md:text-left'>
                 <h1 className='text-2xl font-semibold'>Our Services</h1>
                 <p className='font-medium mt-3 text-sm md:text-base'>Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize you operations and increase efficiency.</p>
             </div>

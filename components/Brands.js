@@ -10,7 +10,7 @@ const Brands = () => {
     const brands = [brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1];
 
     return (
-        <div className='py-16 md:py-0'>
+        <div className=' md:py-0'>
 
             {/* ====banner title ===  */}
             <div className='md:flex md:items-center md:justify-between'>
@@ -27,7 +27,7 @@ const Brands = () => {
 
             {/* ====== brands =====  */}
             <div>
-                <div className='grid grid-cols-3 md:grid-cols-6 gap-6 mt-5'>
+                <div className='grid grid-cols-3 md:grid-cols-6 gap-6  mt-8'>
 
                     {
                         brands.map((brand, index) => (

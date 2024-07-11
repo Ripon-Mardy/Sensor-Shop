@@ -24,7 +24,7 @@ const Proud_clients = () => {
 
             {/* ==== proud clients image ===  */}
             <div>
-                <div className='grid grid-cols-3 md:grid-cols-6 md:grid md:gap-6 gap-6 mt-6'>
+                <div className='grid grid-cols-3 md:grid-cols-6 md:grid md:gap-6 gap-6 mt-8'>
 
                     {
                         proudsClients.map((proudsClient, proudIndex) => (

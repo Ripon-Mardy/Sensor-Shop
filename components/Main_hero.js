@@ -145,7 +145,7 @@ const Main_hero = () => {
 
                 {/* ==== left side bar ===  */}
                 <div className=' xl:w-1/4'>
-                    <div className='flex flex-col gap-8'>
+                    <div className='flex flex-col gap-16'>
                         <div className='border-2 border-navBorder rounded-md hidden md:block'>
                             <h1 className='bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium'>categories</h1>
 
@@ -201,12 +201,12 @@ const Main_hero = () => {
 
                 {/* ==== right side bar ===  */}
                 <div className=' xl:w-full overflow-hidden'>
-                    <div className='mt-6 md:mt-0 md:h-fit'>
+                    <div className=' mt-6 md:mt-0 md:h-fit'>
                         <Banner_slide />
                     </div>
 
                     {/* ======  Banner botton text ===  */}
-                    <div className='md:py-6'>
+                    <div className='md:py-10 py-5'>
                         <h1 className='text-2xl md:text-3xl text-center font-semibold'> We are one of the leading Industrial machine, Spare parts, Sensor <span className='text-textNavColor font-bold'>Importer and Supplier in Bangladesh </span> </h1>
                     </div>
                     {/* === end banner bottom text ===  */}
@@ -214,27 +214,27 @@ const Main_hero = () => {
 
 
                     {/* ====  Brands ====  */}
-                    <div className=''>
+                    <div className='md:py-7 py-14'>
                         <Brands />
                     </div>
                     {/* ==== end Brands ===  */}
 
 
                     {/* ==== feature product ===  */}
-                    <div className='md:py-16'>
+                    <div className='py-14'>
                         <Feature_product />
                     </div>
                     {/* ==== end feature product ====  */}
 
                     {/* ==== proud clients ====  */}
-                    <div className='md:py-16 py-14'>
+                    <div className='md:py-12 py-14'>
                         <Proud_clients />
                     </div>
                     {/* ====end proud clients ====  */}
 
 
                     {/* ==== servcies ===  */}
-                    <div className='py-10'>
+                    <div className='py-14'>
                         <Services />
                     </div>
                     {/* ==== end services ===  */}

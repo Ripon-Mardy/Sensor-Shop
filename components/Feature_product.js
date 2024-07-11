@@ -39,7 +39,7 @@ const Feature_product = () => {
 
         {/* ====== feature product title ====  */}
         <div className='md:flex md:items-center md:justify-between'>
-            <h1 className='text-2xl md:text-2xl font-semibold'>Featured products</h1>
+            <h1 className='text-2xl md:text-2xl font-semibold text-center'>Featured products</h1>
             <button className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out'>view all Featured products</button>
         </div>
         {/* ====== feature product title end =====  */}
@@ -47,10 +47,10 @@ const Feature_product = () => {
 
         {/* ====== feature products ===  */}
         <div>
-            <div className='grid grid-cols-2 md:grid-cols-5 gap-6 mt-5'>
+            <div className='grid grid-cols-2 md:grid-cols-5 gap-6 mt-8'>
                 {
                     feature_products.map((product, index) => (
-                        <div href={'#'} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
+                        <Link href={'#'} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
 
                             <Image src={product.product_image} width={300} height={300} />
                             <div className='text-center'>
@@ -58,7 +58,7 @@ const Feature_product = () => {
                                 <p className='font-medium text-red-500 text-sm mt-1'> {product.product_description} </p>
                             </div>
 
-                        </div>
+                        </Link>
                     ))
                 }
             </div>

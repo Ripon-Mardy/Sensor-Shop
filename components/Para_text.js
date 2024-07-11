@@ -10,22 +10,22 @@ const Para_text = () => {
 
         {/* ==== text === */}
 
-        <div className='flex flex-col gap-10'>
+        <div className='flex flex-col gap-16'>
 
             <div>
-                <h1 className='text-2xl font-semibold'>Best spare parts supplier in Bangladesh</h1>
+                <h1 className='text-2xl font-bold'>Best spare parts supplier in Bangladesh</h1>
                 <p className=' mt-3 md:text-base'>Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize you operations and increase efficiency. Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize your operations and increase efficiency</p>
             </div>
 
 
             <div>
-                <h1 className='text-2xl font-semibold'>Best Automation solution company in Bangladesh</h1>
+                <h1 className='text-2xl font-bold'>Best Automation solution company in Bangladesh</h1>
                 <p className=' mt-3 md:text-base'>Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize you operations and increase efficiency. Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize your operations and increase efficiency</p>
             </div>
 
 
             <div>
-                <h1 className='text-2xl font-semibold'>Industrial parts Importer & supplier in Bangladesh</h1>
+                <h1 className='text-2xl font-bold'>Industrial parts Importer & supplier in Bangladesh</h1>
                 <p className='mt-3 md:text-base'>Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize you operations and increase efficiency. Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize your operations and increase efficiency</p>
             </div>
 
@@ -33,7 +33,7 @@ const Para_text = () => {
 
         {/* ==== end text===  */}
 
-        <div className='flex items-center justify-center flex-col gap-6 py-16'>
+        <div className='flex items-center justify-center flex-col gap-10 py-16'>
             {/* ==== title ===  */}
             <div>
                 <h1 className='text-2xl font-semibold'>Techsense Bangladesh Ltd</h1>
