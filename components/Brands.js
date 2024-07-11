@@ -7,7 +7,7 @@ import brand1 from './../public/image/Brands/brand1.png'
 const Brands = () => {
 
 
-    const brands = [brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1];
+    const brands = [brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1, brand1];
 
     return (
         <div className='py-16 md:py-0'>
