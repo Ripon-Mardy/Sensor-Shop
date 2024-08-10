@@ -4,12 +4,13 @@ import Image from 'next/image';
 
 
 // ==== image === 
-import product1 from './../../public/image/Feature Product/f4.jpg'
+import product1 from './../../public/image/Feature Product/f1.jpg'
 
 
 // === icons === 
 import { FaAnglesRight } from "react-icons/fa6";
 import Related_product from '@/components/Related_product';
+import Product_slide from '@/components/Product_slide';
 
 const page = () => {
   return (
@@ -20,10 +21,10 @@ const page = () => {
             <span>Product</span>
         </div>
 
-        <div className='flex flex-col md:flex-row md:items-center md:justify-center md:gap-10'>
+        <div className='flex flex-col md:flex-row md:items-center md:justify-between md:gap-20 md:w-3/4 mx-auto'>
 
-            <div>
-                <Image src={product1} width={300} height={300 } className='w-2/3 md:w-full' />
+            <div className='flex items-center justify-center py-5 mt-5'>
+                <Product_slide/>
             </div>
 
             <div>
