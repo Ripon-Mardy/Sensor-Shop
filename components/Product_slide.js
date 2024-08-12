@@ -26,13 +26,13 @@ const Product_slide = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handlePrev = () => {
+  const handlePrevbutton = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? products.length - 1 : prevIndex - 1
     );
   };
 
-  const handleNext = () => {
+  const handleNextbutton = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % products.length);
   };
 
@@ -64,7 +64,7 @@ const Product_slide = () => {
       </motion.div>
       <div className="absolute inset-y-0 left-0 flex items-center">
         <button
-          onClick={handlePrev}
+          onClick={handlePrevbutton}
           className="bg-gray-400 text-white p-1 rounded-full"
         >
           &lt;
@@ -72,7 +72,7 @@ const Product_slide = () => {
       </div>
       <div className="absolute inset-y-0 right-0 flex items-center">
         <button
-          onClick={handleNext}
+          onClick={handleNextbutton}
           className="bg-gray-400 text-white p-1 rounded-full"
         >
           &gt;
