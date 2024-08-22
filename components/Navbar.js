@@ -53,12 +53,17 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchCategory = async () => {
-      const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=categories');
+      try {
+        const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=categories');
       if(!res.ok) {
         throw new Error('Failed to fetch categories');
       }
       const data = await res.json();
       setCategoryItems(data.data);
+      } catch (error) {
+        console.log(error);
+        
+      }
     }
     fetchCategory()
   }, [])
@@ -122,10 +127,6 @@ const Navbar = () => {
                 <option value={item.name}></option>
               </div>
             ))}
-            {/* <option className="bg-white" value="product 1"></option>
-            <option value="product 1"></option>
-            <option value="product 1"></option>
-            <option value="product 1"></option> */}
           </datalist>
           <span className="px-3 bg-navBgColor overflow-hidden py-1.5 cursor-pointer text-white text-xl">
             <IoIosSearch />

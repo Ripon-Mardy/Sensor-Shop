@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -6,46 +7,39 @@ import Link from 'next/link'
 import category1 from './../../public/image/Feature Product/f2.jpg'
 
 const page = () => {
-    const products = [
-        {
-            "product_image": category1,
-            "product_title": '3RH1140-1AP00 Siemens',
-            "product_description": "3RH1140-1AP00, Contactor relay, 4 NO 230 V AC 50 / 60 Hz Screw terminal size S00 !!!"
-        },
-        {
-            "product_image": category1,
-            "product_title": '3RH1140-1AP00 Siemens',
-            "product_description": "3RH1140-1AP00, Contactor relay, 4 NO 230 V AC 50 / 60 Hz Screw terminal size S00 !!!"
-        },
-        {
-            "product_image": category1,
-            "product_title": '3RH1140-1AP00 Siemens',
-            "product_description": "3RH1140-1AP00, Contactor relay, 4 NO 230 V AC 50 / 60 Hz Screw terminal size S00 !!!"
-        },
-        {
-            "product_image": category1,
-            "product_title": '3RH1140-1AP00 Siemens',
-            "product_description": "3RH1140-1AP00, Contactor relay, 4 NO 230 V AC 50 / 60 Hz Screw terminal size S00 !!!"
-        },
-        {
-            "product_image": category1,
-            "product_title": '3RH1140-1AP00 Siemens',
-            "product_description": "3RH1140-1AP00, Contactor relay, 4 NO 230 V AC 50 / 60 Hz Screw terminal size S00 !!!"
+
+    const [productList, setProductList] = useState([]);
+
+    useEffect(() => {
+        const fetchProductList = async () => {
+            try {
+                const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=products');
+                if(!res.ok) {
+                    throw new Error('Failed to fetch product list');
+                }
+                const data = await res.json();
+                setProductList(data.data);
+            } catch (error) {
+                console.log(error.message);
+                
+            }
         }
-    ]
+        fetchProductList()
+    }, [])
+
     return (
         <div className=' container mx-auto py-10 md:py-10 px-3 md:px-0 md:w-3/4'>
 
             {
-                products.map((product, product_index) => (
+                productList.map((product, product_index) => (
                     <Link href={'#'} key={product_index} className='flex items-center py-4 md:py-0 gap-2 border-b border-gray-400'>
                         <div className='w-2/6'>
-                        <Image src={product.product_image} width={400} height={400}  className='w-72'/>
+                        <Image src={product.featured_image} width={400} height={400}  className='w-72'/>
                         </div>
                         <div className='w-full md:flex md:items-center md:justify-between md:w-[90%]'>
                             <div className='flex flex-col gap-2 md:w-[90%]'>
-                                <h1 className='text-xl font-bold'> {product.product_title} </h1>
-                                <p className='text-sm'> {product.product_description} </p>
+                                <h1 className='text-xl font-bold'> {product.name} </h1>
+                                <p className='text-sm'> {product.slug} </p>
                             </div>
                             <button className='bg-navBgColor text-white p-1.5 md:p-2 rounded-md text-sm font-semibold mt-3 hover:bg-hoverNavBgColor duration-200 ease-in-out w-40'> Request a Quote </button>
                         </div>
