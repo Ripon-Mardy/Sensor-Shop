@@ -1,10 +1,29 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-// === image === 
-import gallary1 from './../public/image/industries/industri1.png'
-
 const Para_text = () => {
+
+    
+
+    const [techsense, setTechsense] = useState([]);
+
+    useEffect(() => {
+        const techsenseList = async () => {
+            try {
+                const response = await fetch('http://mathmozocms.test/api/v1/posts?term_type=techsense');
+                if(!response.ok) {
+                    throw new Error('Faild to fetch techsense')
+                }
+                const data = await response.json();
+                setTechsense(data.data);
+            } catch (error) {
+                
+            }
+        }
+        techsenseList()
+    }, [])
+
   return (
     <div className='container mx-auto px-3 md:px-0 py-10'>
 
@@ -41,9 +60,11 @@ const Para_text = () => {
             </div>
 
             <div className='flex gap-6 flex-wrap items-center justify-center'>
-                <Image src={gallary1} width={300} height={300} className='rounded-md' alt='gallary1' />
-                <Image src={gallary1} width={300} height={300} className='rounded-md' alt='gallary1' />
-                <Image src={gallary1} width={300} height={300} className='rounded-md' alt='gallary1' />
+                {techsense.map((techList, techIndex) => (
+                    <div key={techIndex}>
+                        <Image src={techList.featured_image} width={300} height={300} className='rounded-md' alt='gallary1' />
+                    </div>
+                ))}
             </div>
         </div>
       

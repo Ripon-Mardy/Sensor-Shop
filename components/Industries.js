@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 
 //  ==== image === 
-import industri1 from './../public/image/industries/industri1.png'
+// import industri1 from './../public/image/industries/industri1.png'
 
 
 // Import Swiper React components
@@ -23,7 +23,27 @@ import { Autoplay, Pagination } from 'swiper/modules';
 const Industries = () => {
 
 
-    const industrics = [industri1, industri1, industri1, industri1, industri1, industri1, industri1]
+    // const industrics = [industri1, industri1, industri1, industri1, industri1, industri1, industri1]
+
+    const [industrics, setIndustrices] = useState([]);
+
+    useEffect(() => {
+        const industricsList = async () => {
+            try {
+                const response = await fetch('http://mathmozocms.test/api/v1/posts?term_type=industries');
+
+                if(!response.ok) {
+                    throw new Error('Network response was not ok')
+                }
+                const data = await response.json();
+                setIndustrices(data.data);
+            } catch (error) {
+                console.error(error);
+                
+            }
+        }
+        industricsList();
+    })
 
     return (
         <div className=' py-6'>
@@ -74,8 +94,8 @@ const Industries = () => {
                             industrics.map((product, index) => (
                                 <SwiperSlide key={index} className='py-10'>
                                     <div className='border border-gray-300 p-2 rounded-sm shadow w-full'>
-                                        <Image src={product} width={200} height={200} className='object-cover rounded-md w-full' />
-                                        <h1 className='text-base font-semibold my-2 capitalize'>live panel cleanning</h1>
+                                        <Image src={product.featured_image} width={200} height={200} className='object-cover rounded-md w-full' />
+                                        <h1 className='text-base font-semibold my-2 capitalize'> {product.name} </h1>
                                     </div>
                                 </SwiperSlide>
                             ))

@@ -30,7 +30,7 @@ const page = () => {
             <div>
                 <h1 className='text-xl font-bold'>3RH2911-1FA40 Siemens</h1> 
                 <div className='mt-3'>
-                    <div className='flex items-center gap-20 border-b border-gray-300 py-2'>
+                    <div className=' flex items-center border-b border-gray-300 py-2'>
                         <span>Condition</span>
                         <span>New Factory Sealed</span>
                     </div>

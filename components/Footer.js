@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -18,6 +19,27 @@ import {
 
 
 const Footer = () => {
+
+  const [footerMenu, setFooterMenu] = useState([]);
+
+  useEffect(() => {
+    const footerMenuList = async () => {
+      try {
+        const response = await fetch('http://mathmozocms.test/api/v1/menus');
+        if(!response.ok) {
+          throw new Error('Faild to fetch Menu')
+        }
+
+        const data = await response.json();
+        setFooterMenu(data.data[0].items);
+      } catch (error) {
+        console.log(error);
+        
+      }
+    }
+    footerMenuList()
+  }, [])
+
   return (
     <div className=' py-10 px-3 md:px-0 bg-zinc-200'>
       <div className='container mx-auto grid grid-cols-2 md:grid-cols-4 gap-7'>
@@ -26,11 +48,11 @@ const Footer = () => {
         <div className=''>
           <h1 className='text-xl font-semibold'>Products</h1>
           <div className='flex flex-col gap-3 mt-4'>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
+            {footerMenu.map((footerItem, footerIndex) => (
+              <div key={footerIndex}>
+                <Link href={'#'}> {footerItem.label} </Link>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -38,22 +60,22 @@ const Footer = () => {
         <div className=''>
           <h1 className='text-xl font-semibold'>Support</h1>
           <div className='flex flex-col gap-3 mt-3'>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
+          {footerMenu.map((footerItem, footerIndex) => (
+              <div key={footerIndex}>
+                <Link href={'#'}> {footerItem.label} </Link>
+              </div>
+            ))}
           </div>
         </div>
 
         <div className=''>
           <h1 className='text-xl font-semibold'>Compnay</h1>
           <div className='flex flex-col gap-3 mt-3'>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
-            <Link href={'#'}>List 1</Link>
+          {footerMenu.map((footerItem, footerIndex) => (
+              <div key={footerIndex}>
+                <Link href={'#'}> {footerItem.label} </Link>
+              </div>
+            ))}
           </div>
         </div>
 

@@ -1,77 +1,88 @@
 'use client'
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
 
 
-// ===== images ===== 
-import banner1 from './../public/image/Banner/banner1.png';
-import banner2 from './../public/image/Banner/banner2.jpg';
-import banner3 from './../public/image/Banner/banner3.jpg';
+
 
 const Banner_slide = () => {
 
-    const banners = [ banner1, banner2, banner3 ];
-    
-      const [currentIndex, setCurrentIndex] = useState(0);
-    
-      useEffect(() => {
-        const interval = setInterval(() => {
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % banners.length);
-        }, 10000); // Change image every 3 seconds
-        return () => clearInterval(interval);
-      }, [banners.length]);
-    
-      const prevSlide = () => {
-        setCurrentIndex((prevIndex) =>
-          prevIndex === 0 ? banners.length - 1 : prevIndex - 1
-        );
-      };
-    
-      const nextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % banners.length);
-      };
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [slider, setSlider] = useState([])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % slider.length);
+    }, 10000); // Change image every 3 seconds
+    return () => clearInterval(interval);
+  }, [slider.length]);
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? slider.length - 1 : prevIndex - 1
+    );
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % slider.length);
+  };
+
+  // === slider api == 
+  useEffect(() => {
+    const slider = async () => {
+      const response = await fetch('http://mathmozocms.test/api/v1/posts?term_type=sensor_slider');
+      // if(!response.ok) {
+      //   throw new Error('Faild to fetch data from sensor slider')
+      // }
+      const data = await response.json();
+      setSlider(data.data)
+    }
+    slider()
+  }, [])
 
 
   return (
     <div>
 
 
-<div className="relative w-full md:h-40 h-40 overflow-hidden">
-      {banners.map((banner, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentIndex ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <Image
-            src={banner}
-            alt={`Banner ${index + 1}`}
-            // layout='responsive'
-            className="w-full h-32 md:h-full object-cover rounded-sm"
-          />
+      <div className="relative w-full md:h-40 h-40 overflow-hidden">
+        {slider.map((banner, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+          >
+            <Image
+              src={banner.featured_image}
+              alt={`Banner ${index + 1}`}
+              width={300}
+              height={300}
+              layout='responsive'
+              className="w-full h-32 md:h-full object-cover rounded-sm"
+            />
+          </div>
+        ))}
+
+
+        <div className='flex items-center justify-center'>
+          <button
+            onClick={prevSlide}
+            className="absolute md:top-1/2 top-[40%] left-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2"
+          >
+            &lt;
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute md:top-1/2 top-[40%] right-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2"
+          >
+            &gt;
+          </button>
         </div>
-      ))}
 
 
-      <div className='flex items-center justify-center'>
-      <button
-        onClick={prevSlide}
-        className="absolute md:top-1/2 top-[40%] left-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2"
-      >
-        &lt;
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute md:top-1/2 top-[40%] right-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2"
-      >
-        &gt;
-      </button>
       </div>
 
-
-    </div>
-      
     </div>
   )
 }

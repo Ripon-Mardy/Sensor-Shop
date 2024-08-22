@@ -34,7 +34,7 @@ const page = () => {
         }
     ]
     return (
-        <div className=' container mx-auto py-10 md:py-10 px-3 md:px-0'>
+        <div className=' container mx-auto py-10 md:py-10 px-3 md:px-0 md:w-3/4'>
 
             {
                 products.map((product, product_index) => (
@@ -47,7 +47,7 @@ const page = () => {
                                 <h1 className='text-xl font-bold'> {product.product_title} </h1>
                                 <p className='text-sm'> {product.product_description} </p>
                             </div>
-                            <button className='bg-navBgColor text-white p-2 rounded-md text-sm font-semibold mt-3 hover:bg-hoverNavBgColor duration-200 ease-in-out md:w-52'> Request a Quote </button>
+                            <button className='bg-navBgColor text-white p-1.5 md:p-2 rounded-md text-sm font-semibold mt-3 hover:bg-hoverNavBgColor duration-200 ease-in-out w-40'> Request a Quote </button>
                         </div>
                     </Link>
                 ))

@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
 
-// === image ==
-import service1 from './../public/image/services/service1.jpg'
-
 
 
 // Import Swiper React components
@@ -25,7 +22,25 @@ import { Autoplay, Pagination } from 'swiper/modules';
 
 const Services = () => {
 
-    const products = [service1, service1, service1, service1, service1, service1, service1, service1, service1, service1, service1];
+
+    const [services, setSerives] = useState([]);
+
+    useEffect(() => {
+        const servicesList = async () => {
+            try {
+                const response = await fetch('http://mathmozocms.test/api/v1/posts?term_type=services');
+                if(!response.ok) {
+                    throw new Error('Faild to fetch service')
+                }
+                const data = await response.json();
+                setSerives(data.data)
+            } catch (error) {
+                console.error('Failed to fetch service: ', error.message)
+            }
+        }
+
+        servicesList();
+    }, [])
 
     return (
         <div>
@@ -73,11 +88,11 @@ const Services = () => {
                     className="mySwiper"
                 >
                     {
-                        products.map((product, index) => (
+                        services.map((product, index) => (
                             <SwiperSlide key={index} className='py-10'>
                                 <div className='border border-gray-300 p-2 rounded-sm shadow'>
-                                    <Image src={product} width={200} height={200} className='object-cover rounded-md' />
-                                    <h1 className='text-base font-semibold my-2 capitalize'>live panel cleanning</h1>
+                                    <Image src={product.featured_image} width={200} height={200} className='object-cover rounded-md w-full h-full' />
+                                    <h1 className='text-base font-semibold my-2 capitalize'> {product.name} </h1>
                                     <button className='bg-buttonBgColor text-white text-center p-1.5 text-sm capitalize' >Read more</button>
                                 </div>
                             </SwiperSlide>

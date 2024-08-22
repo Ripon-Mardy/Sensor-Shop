@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 
@@ -23,118 +23,24 @@ import choose1 from './../public/image/why choose us/images.jpg'
 
 const Main_hero = () => {
 
-    const [isShowLessNav, setShowLessNav] = useState(false);
+    const [categoryData, setCategoryData] = useState([])
+    const [error, setError] = useState(true);
 
-
-    const linkTexts = [
-        {
-            "linkText": "adhesives & Sealants",
-            "href": "#"
-        },
-        {
-            "linkText": "ATEX",
-            "href": "#"
-        },
-        {
-            "linkText": "Automation & Control Components",
-            "href": "#"
-        },
-        {
-            "linkText": "Batteries",
-            "href": "#"
-        },
-        {
-            "linkText": "Cable Accessories",
-            "href": "#"
-        },
-        {
-            "linkText": "Circuit Protection",
-            "href": "#"
-        },
-        {
-            "linkText": "Clean Room",
-            "href": "#"
-        },
-        {
-            "linkText": "Computing & Peripherals",
-            "href": "#"
-        },
-        {
-            "linkText": "Displays, Lighting & Optoelectronics",
-            "href": "#"
-        },
-        {
-            "linkText": "Electrical Cables & Wires",
-            "href": "#"
-        },
-        {
-            "linkText": "Electrical Conectors & Cables",
-            "href": "#"
-        },
-        {
-            "linkText": "Electrical Test & Measurement Equipment",
-            "href": "#"
-        },
-        {
-            "linkText": "Enclosures, Storage & Material Handling",
-            "href": "#"
-        },
-        {
-            "linkText": "HVAC, Fans & Thermal Management",
-            "href": "#"
-        },
-        {
-            "linkText": "Network, Power & Signal Connectors",
-            "href": "#"
-        },
-        {
-            "linkText": "Panel Meters & Accessories",
-            "href": "#"
-        },
-        {
-            "linkText": "Passive Components, Crystals & Oscillators",
-            "href": "#"
-        },
-        {
-            "linkText": "Pneumatics, Hydraulics & Power Transmission",
-            "href": "#"
-        },
-        {
-            "linkText": "Power Supplies",
-            "href": "#"
-        },
-        {
-            "linkText": "Fire Alarms, Safety Control & Security",
-            "href": "#"
-        },
-        {
-            "linkText": "Semiconductor Devices",
-            "href": "#"
-        },
-        {
-            "linkText": "Sensors, Encoders & Transducers",
-            "href": "#"
-        },
-        {
-            "linkText": "Hand Tools & Supplies Computer Engineering Software & Licences",
-            "href": "#"
-        },
-        {
-            "linkText": "PPE - Personal Protective Equipment",
-            "href": "#"
-        },
-        {
-            "linkText": "Adhesives & Sealants",
-            "href": "#"
-        },
-        {
-            "linkText": "Adhesives & Sealants",
-            "href": "#"
-        },
-
-    ]
-
-
+    useEffect(() => {
+        const fetchCategory = async () => {
+            try {
+                const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=categories');
+                if(!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await res.json();
+                setCategoryData(data.data)
+            } catch (error) {
+                setError('Error', error.message)
+            }
+        }
+        fetchCategory();
+    })
 
     return (
         <div className='container mx-auto px-3 md:px-0 py-5'>
@@ -142,28 +48,34 @@ const Main_hero = () => {
             <div className='md:flex md:justify-between md:gap-10'>
 
 
-
-                {/* ==== left side bar ===  */}
+                {/* ==== categories ===  */}
                 <div className=' xl:w-1/4'>
                     <div className='flex flex-col gap-16'>
                         <div className='border-2 border-navBorder rounded-md hidden md:block'>
                             <h1 className='bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium'>categories</h1>
 
                             <div className='flex flex-col h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto'>
-                                {
-                                    linkTexts.map((linkText, linkIndex) => (
+                                {/* {
+                                    categories.map((linkText, linkIndex) => (
                                         <div key={linkIndex}>
-                                            <Link href={linkText.href} >{linkText.linkText} </Link>
+                                            <Link href={linkText.slug} >{linkText.name} </Link>
                                         </div>
                                     ))
-                                }
+                                } */}
+
+                                {categoryData.map((categoryItem, categoryIndex) => (
+                                    <div key={categoryIndex}>
+                                        <Link href={categoryItem.slug} >{categoryItem.name} </Link>
+                                    </div>
+                                ))}
+
                             </div>
                         </div>
 
                         {/* === mobile search Bar === */}
                         <div className='md:hidden w-full flex items-center justify-between border border-navBorder rounded-md overflow-hidden'>
                             <input type="search" className=' w-full py-1.5 outline-none text-base pl-2' placeholder='Search...' />
-                            <span className='bg-navBgColor py-2.5 px-2.5'><IoSearch className='text-base text-white'/></span>
+                            <span className='bg-navBgColor py-2.5 px-2.5'><IoSearch className='text-base text-white' /></span>
                         </div>
                         {/* ===== end mobile search bar ====  */}
                         {/* ==== left side bannar ====  */}
@@ -193,7 +105,8 @@ const Main_hero = () => {
 
 
                 </div>
-                {/* === end left side bar ===  */}
+                {/* === end categories ===  */}
+
 
 
 

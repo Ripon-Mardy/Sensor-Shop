@@ -19,7 +19,6 @@ const Top_navbar = () => {
             <Link href={'#'} className='flex items-center justify-center gap-1 md:text-sm text-xs uppercase'> <FaLink/> about us</Link>
             <Link href={'#'} className='flex items-center justify-center gap-1 md:text-sm text-xs uppercase'> <MdOutlineContentPasteSearch/> career</Link>
             <Link href={'#'} className='flex items-center justify-center gap-1 md:text-sm text-xs uppercase'> <GoMail/> contact us</Link>
-
            </div>
            {/* ===== end navigation menu ==== */}
 
