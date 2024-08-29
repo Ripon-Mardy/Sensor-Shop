@@ -101,7 +101,7 @@ const Navbar = () => {
           {
             menuitems.map((item, index) => (
               <div key={index}>
-                <Link href={'#'} className='uppercase py-2 text-sm font-medium'>
+                <Link href={item.link} className='uppercase py-2 text-sm font-medium'>
                   {item.label}
                 </Link>
               </div>

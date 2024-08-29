@@ -53,7 +53,6 @@ const Main_hero = () => {
                     <div className='flex flex-col gap-16'>
                         <div className='border-2 border-navBorder rounded-md hidden md:block'>
                             <h1 className='bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium'>categories</h1>
-
                             <div className='flex flex-col h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto'>
                                 {/* {
                                     categories.map((linkText, linkIndex) => (
@@ -65,7 +64,7 @@ const Main_hero = () => {
 
                                 {categoryData.map((categoryItem, categoryIndex) => (
                                     <div key={categoryIndex}>
-                                        <Link href={categoryItem.slug} >{categoryItem.name} </Link>
+                                        <Link href={categoryItem.slug} >{categoryItem.name} </Link> 
                                     </div>
                                 ))}
 

@@ -14,9 +14,11 @@ const Product_slide = () => {
         { id: 1, name: 'Product 1', image: product1 },
         { id: 2, name: 'Product 2', image: product2 },
       ];
-
-
     const [currentIndex, setCurrentIndex] = useState(0);
+
+
+
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -55,7 +57,7 @@ const Product_slide = () => {
             <Image
               src={product.image}
               alt={product.name}
-              className="object-cover md:w-3/4 w-1/2 h-60"
+              className="object-cover md:w-1/2 w-1/2 h-60"
               width={300}
               height={300}
             />

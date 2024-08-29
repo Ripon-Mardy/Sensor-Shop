@@ -19,11 +19,7 @@ const page = () => {
                 throw new Error('Network response was not ok')
             }
             const data = await res.json();
-            // console.log('data value', data.data);
-            
             setProuducts(data.data)
-
-            // console.log('products value', products);
             
            } catch (error) {
             setError(error.message)
@@ -57,7 +53,6 @@ const page = () => {
                     {
                         products.map((product, index) => (
                             <Link href={`/products/${product.slug}`} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
-
                                 <Image src={product.featured_image} width={300} height={300} alt='product' />
                                 <div className='text-center'>
                                     <h1 className='font-semibold capitalize text-base'> {product.name} </h1>

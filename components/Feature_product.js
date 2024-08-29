@@ -4,11 +4,6 @@ import Link from 'next/link'
 import Loading from './Loading';
 
 
-// import f1 from './../public/image/Feature Product/f1.jpg'
-// import f2 from './../public/image/Feature Product/f2.jpg'
-// import f3 from './../public/image/Feature Product/f3.jpg'
-// import f4 from './../public/image/Feature Product/f4.jpg'
-
 
 const Feature_product = () => {
 
@@ -83,7 +78,7 @@ const Feature_product = () => {
                 <div className='grid grid-cols-2 md:grid-cols-5 gap-6 mt-8'>
                     {
                         product.map((product, index) => (
-                            <Link href={'#'} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
+                            <Link href={`/products/${product.id}`} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
 
                                 <Image src={product.featured_image} width={300} height={300} />
                                 <div className='text-center'>
