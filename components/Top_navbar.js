@@ -16,9 +16,9 @@ const Top_navbar = () => {
            {/* ====== navigation menu ====  */}
            <div className='flex text-white items-center justify-center gap-6'>
 
-            <Link href={'#'} className='flex items-center justify-center gap-1 md:text-sm text-xs uppercase'> <FaLink/> about us</Link>
-            <Link href={'#'} className='flex items-center justify-center gap-1 md:text-sm text-xs uppercase'> <MdOutlineContentPasteSearch/> career</Link>
-            <Link href={'#'} className='flex items-center justify-center gap-1 md:text-sm text-xs uppercase'> <GoMail/> contact us</Link>
+            <Link href={'/about-us'} className='flex items-center justify-center gap-1 md:text-sm text-xs uppercase'> <FaLink/> about us</Link>
+            <Link href={'/careers'} className='flex items-center justify-center gap-1 md:text-sm text-xs uppercase'> <MdOutlineContentPasteSearch/> career</Link>
+            <Link href={'/contact-us'} className='flex items-center justify-center gap-1 md:text-sm text-xs uppercase'> <GoMail/> contact us</Link>
            </div>
            {/* ===== end navigation menu ==== */}
 

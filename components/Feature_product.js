@@ -37,7 +37,7 @@ const Feature_product = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=products');
+                const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=product');
                 if (!res.ok) {
                     throw new Error('Network response was not ok')
                 }
@@ -78,7 +78,7 @@ const Feature_product = () => {
                 <div className='grid grid-cols-2 md:grid-cols-5 gap-6 mt-8'>
                     {
                         product.map((product, index) => (
-                            <Link href={`/products/${product.id}`} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
+                            <Link href={`/products/${product.slug}`} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
 
                                 <Image src={product.featured_image} width={300} height={300} />
                                 <div className='text-center'>

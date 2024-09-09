@@ -19,13 +19,16 @@ module.exports = {
       backgroundColor : {
         "navBgColor" : "#227093",
         "hoverNavBgColor" : "#4b7bec",
-        "buttonBgColor" : "#218c74"
+        "buttonBgColor" : "#218c74",
+        "footerColor" : "#2A2D32"
       },
       borderColor : {
         "navBorder" : "#227093"
       },
       textColor : {
-        "textNavColor" : "#227093"
+        "textNavColor" : "#227093",
+        "header_text" : "#454545",
+        "para_color" : "#454545"
       }
 
     },

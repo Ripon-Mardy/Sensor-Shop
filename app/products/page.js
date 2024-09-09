@@ -14,7 +14,7 @@ const page = () => {
     useEffect(() => {
         const brandsList = async () => {
            try {
-            const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=products');
+            const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=product');
             if(!res.ok) {
                 throw new Error('Network response was not ok')
             }

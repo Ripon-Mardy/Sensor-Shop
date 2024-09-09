@@ -1,108 +1,82 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-
-// ==== image ====
-import logo from './../public/image/logo.png'
-
-// === icons ===
-
-import {
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaYoutube,
-  FaLink
-} from 'react-icons/fa'
-
-
+import React from "react";
+import Link from "next/link";
 
 const Footer = () => {
-
-  const [footerMenu, setFooterMenu] = useState([]);
-
-  useEffect(() => {
-    const footerMenuList = async () => {
-      try {
-        const response = await fetch('http://mathmozocms.test/api/v1/menus');
-        if(!response.ok) {
-          throw new Error('Faild to fetch Menu')
-        }
-
-        const data = await response.json();
-        setFooterMenu(data.data[0].items);
-      } catch (error) {
-        console.log(error);
-        
-      }
-    }
-    footerMenuList()
-  }, [])
-
   return (
-    <div className=' py-10 px-3 md:px-0 bg-zinc-200'>
-      <div className='container mx-auto grid grid-cols-2 md:grid-cols-4 gap-7'>
-
-
-        <div className=''>
-          <h1 className='text-xl font-semibold'>Products</h1>
-          <div className='flex flex-col gap-3 mt-4'>
-            {footerMenu.map((footerItem, footerIndex) => (
-              <div key={footerIndex}>
-                <Link href={'#'}> {footerItem.label} </Link>
-              </div>
-            ))}
+    <>
+      <footer className="bg-footerColor">
+        <div className="container mx-auto px-3 py-10 grid gap-10 md:grid-cols-2 xl:grid-cols-4">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-2xl text-gray-200 font-semibold">Support</h1>
+            <p className="text-gray-400 text-sm">House#3, Block#A, Road#5</p>
+            <p className="text-gray-400 text-sm">
+              Section-6, Mirpur, Dhaka-1216 Beside of Aalok Hospital Mirpur 10
+            </p>
+            <p className="text-gray-400 text-sm">
+              Mobile: 01711-261553 (Whats'App)
+            </p>
+            <p className="text-gray-400 text-sm">info@sensor-shopbd.com </p>
           </div>
-        </div>
 
-
-        <div className=''>
-          <h1 className='text-xl font-semibold'>Support</h1>
-          <div className='flex flex-col gap-3 mt-3'>
-          {footerMenu.map((footerItem, footerIndex) => (
-              <div key={footerIndex}>
-                <Link href={'#'}> {footerItem.label} </Link>
-              </div>
-            ))}
+          <div className="flex flex-col gap-2">
+            <h1 className="text-2xl text-gray-200 font-semibold">
+              German Address
+            </h1>
+            <p className="text-gray-400 text-sm">Md Rezaul Karim Siddique</p>
+            <p className="text-gray-400 text-sm">Tegernseer Landstraße</p>
+            <p className="text-gray-400 text-sm">Munich, Germany</p>
+            <p className="text-gray-400 text-sm">rezaul@sensor-shopbd.com</p>
           </div>
-        </div>
 
-        <div className=''>
-          <h1 className='text-xl font-semibold'>Compnay</h1>
-          <div className='flex flex-col gap-3 mt-3'>
-          {footerMenu.map((footerItem, footerIndex) => (
-              <div key={footerIndex}>
-                <Link href={'#'}> {footerItem.label} </Link>
-              </div>
-            ))}
+          <div className="flex flex-col gap-2">
+            <h1 className="text-2xl text-gray-200 font-semibold">
+              Payment Method
+            </h1>
+            <p className="text-gray-400 text-sm">
+              BKash: 01711261553 (personal)
+            </p>
+            <p className="text-gray-400 text-sm">
+              Bank Account No:1555204780015001
+            </p>
+            <p className="text-gray-400 text-sm">
+              Account Name: Techsense Bangladesh Ltd.
+            </p>
+            <p className="text-gray-400 text-sm">
+              Bank Name: BRAC Bank Limited{" "}
+            </p>
+            <p className="text-gray-400 text-sm">
+              Branch of Bank: Banani 11, Dhaka, Bangladesh{" "}
+            </p>
           </div>
-        </div>
 
-        <div>
-          <div className='flex flex-col gap-3'>
-            <div>
-              <Image  src={logo} width={200} height={200} alt='logo'/>
-            </div>
-            <div className='md:flex md:gap-6 md:items-center md:justify-start flex items-center justify-center gap-6 mt-3'>
-              <Link href={'#'} className='text-base bg-white p-1 rounded-sm '>
-                <FaFacebook />
-              </Link>
-              <Link href={'#'} className='text-base bg-white p-1 rounded-sm '>
-                <FaInstagram />
-              </Link>
-              <Link href={'#'} className='text-base bg-white p-1 rounded-sm '>
-                <FaLinkedin />
-              </Link>
-              <Link href={'#'} className='text-base bg-white p-1 rounded-sm '>
-                <FaYoutube />
-              </Link>
+          <div className="flex flex-col gap-2">
+            <h1 className="text-2xl text-gray-200 font-semibold">
+              Knowledge Base
+            </h1>
+            <div className="flex flex-col gap-3 text-sm text-gray-400">
+              <Link href={"/about-us"}>About us</Link>
+              <Link href={"/contact-us"}>Contact us</Link>
+              <Link href={"#"}>Sensor-Shopbd.com</Link>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  )
-}
+        <div className="w-full h-0.5 bg-gray-600 "></div>
+        <div className="container mx-auto px-3 pt-5 flex items-center justify-center text-sm text-gray-400 pb-2 gap-5">
+          <p>©2023 Sensor Shop Bangladesh. All Right Reserved</p>
+          <p className="flex gap-3">
+            Developed By
+            <Link
+              className="text-green-600 font-semibold"
+              href={"https://mathmozo.com"}
+              target="_blank"
+            >
+              Mathmozo IT
+            </Link>
+          </p>
+        </div>
+      </footer>
+    </>
+  );
+};
 
-export default Footer
+export default Footer;

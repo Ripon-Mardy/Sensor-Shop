@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,14 +12,21 @@ import { IoIosSearch } from "react-icons/io";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
-import { FaAngleDown } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   const [isMobileMenuIndex, setIsMobileMenuIndex] = useState(null);
   const [menuitems, setMenuItems] = useState([]);
-  const [categoryItems, setCategoryItems] = useState([]);
+  const inputRef = useRef(null);
+  const router = useRouter();
+
+  const [product, setProduct] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterProducts, setFilterProducts] = useState([]);
+  const [suggestion, setSuggestion] = useState([]);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleBarOpen = () => {
     setIsOpen(!isOpen);
@@ -30,6 +37,7 @@ const Navbar = () => {
     setIsMobileMenuIndex(tabname);
   };
 
+  // === menu api ===
   useEffect(() => {
     const fetchMenu = async () => {
       try {
@@ -42,31 +50,73 @@ const Navbar = () => {
 
         setMenuItems(data.data[0].items);
       } catch (error) {
-        console.log('fail to fetch menu');
-
+        console.log("fail to fetch menu");
       } // end try
     }; // end fetchMenu
 
     fetchMenu();
   }, []);
 
+  // ====== search Term ====
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await fetch(
+          "http://mathmozocms.test/api/v1/posts?term_type=product"
+        );
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await res.json();
+        setProduct(data.data);
+      } catch (error) {
+        console.log("error", error.message);
+      }
+    };
+    fetchProduct();
+  }, []);
 
   useEffect(() => {
-    const fetchCategory = async () => {
-      try {
-        const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=categories');
-      if(!res.ok) {
-        throw new Error('Failed to fetch categories');
-      }
-      const data = await res.json();
-      setCategoryItems(data.data);
-      } catch (error) {
-        console.log(error);
-        
-      }
+    if (searchTerm) {
+      const productFilter = product.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilterProducts(productFilter);
+    } else {
+      setFilterProducts([]);
     }
-    fetchCategory()
-  }, [])
+  }, [searchTerm, product]);
+
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        setIsFocused(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setIsFocused(true);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const product = filterProducts.find(
+      (product) => product.name.toLowerCase() === searchTerm.toLowerCase()
+    );
+    if (product) {
+      setSearchTerm("");
+      setFilterProducts([]);
+      setIsFocused(false);
+      router.push(`/products/${product.slug}`);
+    }
+  };
 
   return (
     <div className="shadow z-10 bg-white w-full">
@@ -75,12 +125,14 @@ const Navbar = () => {
         <div className="flexitems-center justify-between w-fit">
           <div className=" flex items-center justify-between py-1 md:py-0 ">
             <div>
-             <Link href={'/'}> <Image
-                src={sensor_logo}
-                width={150}
-                height={150}
-                className="md:w-52"
-              ></Image></Link>
+              <Link href={"/"}>
+                <Image
+                  src={sensor_logo}
+                  width={150}
+                  height={150}
+                  className="md:w-52"
+                ></Image>
+              </Link>
             </div>
             {/* ===== mobile bar ===  */}
             <div
@@ -97,41 +149,63 @@ const Navbar = () => {
         {/* === end logo ===  */}
 
         {/* ===dynamic menu ===  */}
-        <div className="xl:flex items-center justify-center gap-10 border border-navBorder rounded-sm py-1 px-4 hidden z-30">
-          {
-            menuitems.map((item, index) => (
-              <div key={index}>
-                <Link href={item.link} className='uppercase py-2 text-sm font-medium'>
-                  {item.label}
-                </Link>
-              </div>
-            ))
-          }
+        <div className="xl:flex items-center justify-center gap-10 border border-gray-300 rounded-sm py-1 px-4 hidden z-30">
+          {menuitems.map((item, index) => (
+            <div key={index}>
+              <Link
+                href={item.link}
+                className="uppercase py-2 text-sm font-medium"
+              >
+                {item.label}
+              </Link>
+            </div>
+          ))}
         </div>
         {/* ===== end dynamic menu ==-  */}
 
-
-
-
         {/* ==== search bar ====  */}
-        <div className="xl:flex md:items-center md:justify-between border border-navBorder rounded-sm hidden md:w-[30%]">
+        <form
+          onSubmit={handleSearchSubmit}
+          className=" xl:flex md:items-center md:justify-between border border-navBorder rounded-sm hidden md:w-[30%] relative"
+        >
           <input
-            type="search"
-            className=" w-full outline-none p-1 px-3 text-base flex"
+            type="text"
+            className=" w-full outline-none p-1 px-3 text-sm flex"
             placeholder="Search a product"
-            list="datalist-queries"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            onFocus={() => setIsFocused(true)}
           />
-          <datalist id="datalist-queries" className="bg-white">
-            {categoryItems.map((item, index) => (
-              <div key={index}>
-                <option value={item.name}></option>
-              </div>
-            ))}
-          </datalist>
-          <span className="px-3 bg-navBgColor overflow-hidden py-1.5 cursor-pointer text-white text-xl">
+
+          <button
+            type="submit"
+            className="px-3 bg-navBgColor overflow-hidden py-1.5 cursor-pointer text-white text-xl"
+          >
             <IoIosSearch />
-          </span>
-        </div>
+          </button>
+          {isFocused && filterProducts.length > 0 && (
+            <ul className="absolute bg-white border rounded left-0 top-full w-full z-10">
+              {filterProducts.map((product) => (
+                <li
+                  key={product.id}
+                  className="p-2 cursor-pointer hover:bg-gray-200"
+                >
+                  <Link
+                    href={`/products/${product.slug}`}
+                    onClick={() => {
+                      setSearchTerm("");
+                      setFilterProducts([]);
+                      setIsFocused(false);
+                    }}
+                  >
+                    {product.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </form>
+
         {/* === end search bar ====  */}
       </div>
 
@@ -155,7 +229,6 @@ const Navbar = () => {
               </div>
 
               <div className="flex flex-col gap-6 text-white mt-16">
-
                 {menuitems.map((menuList, menuIndex) => (
                   <Link
                     key={menuIndex}
@@ -165,8 +238,6 @@ const Navbar = () => {
                     {menuList.label}
                   </Link>
                 ))}
-
-              
               </div>
 
               {/* ==== social ====  */}

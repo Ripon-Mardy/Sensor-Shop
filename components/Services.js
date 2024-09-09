@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
-
+import Link from 'next/link';
 
 
 // Import Swiper React components
@@ -47,7 +47,10 @@ const Services = () => {
 
             {/* ==== services title ===  */}
             <div className='text-center md:text-left'>
-                <h1 className='text-2xl font-semibold'>Our Services</h1>
+               <div className='flex items-center justify-between gap-4'>
+               <h1 className='text-2xl font-semibold'>Our Services</h1>
+               {/* <Link href={'/all-services'} className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out'>View all services</Link> */}
+               </div>
                 <p className='font-medium mt-3 text-sm md:text-base'>Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize you operations and increase efficiency.</p>
             </div>
             {/* ==== end services title ====  */}
@@ -93,7 +96,7 @@ const Services = () => {
                                 <div className='border border-gray-300 p-2 rounded-sm shadow'>
                                     <Image src={product.featured_image} width={200} height={200} className='object-cover rounded-md w-full h-full' />
                                     <h1 className='text-base font-semibold my-2 capitalize'> {product.name} </h1>
-                                    <button className='bg-buttonBgColor text-white text-center p-1.5 text-sm capitalize' >Read more</button>
+                                    <Link href={`/${product.slug}`} className='bg-buttonBgColor text-white text-center p-1.5 text-sm capitalize' >Read more</Link>
                                 </div>
                             </SwiperSlide>
                         ))

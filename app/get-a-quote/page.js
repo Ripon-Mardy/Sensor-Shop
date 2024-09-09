@@ -8,17 +8,14 @@ import { AiOutlineBars } from "react-icons/ai";
 
 
 export default function page() {
+
+  
   const [formData, setFormData] = useState({
     first_name: '',
-    last_name: '',
     email: '',
     phone: '',
     address: '',
     city: '',
-    state: '',
-    zip: '',
-    website: '',
-    hosting: '',
     comment: '',
   });
 
@@ -45,8 +42,8 @@ export default function page() {
 
         {/* First Name */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            First Name
+          <label className="block text-gray-700 text-sm font-semibold mb-2">
+            Name
           </label>
           <div className="flex">
             <div className="relative w-full">
@@ -66,32 +63,10 @@ export default function page() {
           </div>
         </div>
 
-        {/* Last Name */}
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Last Name
-          </label>
-          <div className="flex">
-            <div className="relative w-full">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <FaUser/>
-              </span>
-              <input
-                name="last_name"
-                type="text"
-                placeholder="Last Name"
-                className="pl-10 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                value={formData.last_name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-        </div>
 
         {/* Email */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm font-semibold mb-2">
             E-Mail
           </label>
           <div className="flex">
@@ -114,7 +89,7 @@ export default function page() {
 
         {/* Phone */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm font-semibold mb-2">
             Phone #
           </label>
           <div className="flex">
@@ -137,7 +112,7 @@ export default function page() {
 
         {/* Address */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm font-semibold mb-2">
             Address
           </label>
           <div className="flex">
@@ -160,7 +135,7 @@ export default function page() {
 
         {/* City */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm font-semibold mb-2">
             City
           </label>
           <div className="flex">
@@ -180,59 +155,6 @@ export default function page() {
             </div>
           </div>
         </div>
-
-        {/* State */}
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            State
-          </label>
-          <div className="flex">
-            <div className="relative w-full">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <AiOutlineBars/>
-              </span>
-              <select
-                name="state"
-                className="pl-10 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                value={formData.state}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Please select your state</option>
-                <option>Dhaka</option>
-                <option>Dinajpur</option>
-                <option>Rangpur</option> 
-                {/* Add more options as needed */}
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Zip Code */}
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Zip Code
-          </label>
-          <div className="flex">
-            <div className="relative w-full">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <FaHome/>
-              </span>
-              <input
-                name="zip"
-                type="text"
-                placeholder="Zip Code"
-                className="pl-10 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                value={formData.zip}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-        </div>
-
-
-
 
         {/* Comment */}
         <div className="mb-4">

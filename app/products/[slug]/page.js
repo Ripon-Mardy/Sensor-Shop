@@ -1,141 +1,206 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-// === icons ===
-import { FaAnglesRight } from "react-icons/fa6";
 import Related_product from "@/components/Related_product";
-
-import { motion } from "framer-motion";
-
-// ==== imges ====
-import product1 from "../../../public/image/Feature Product/f1.jpg";
-import product2 from "../../../public/image/Feature Product/f2.jpg";
+import Loading from "@/components/Loading";
+import Get_a_quote from "@/components/Get_a_quote";
 
 const page = ({ params }) => {
   const slug = params.slug;
 
   const [product, setProduct] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [productExtraFieldIndex1, setProductExtraField1] = useState([]);
+  const [productExtraFieldIndex2, setProductExtraField2] = useState([]);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const res = await fetch(`http://mathmozocms.test/api/v1/post/${slug}`);
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await res.json();
-      setProduct(data.data);
-    };
-    fetchProduct();
-  }, [slug]);
+  const [productImages, setProudctImages] = useState([]);
+  
+  const [mainImage, setMainImage] = useState(product);
 
-  // ===== product slide ===
+  // const [mainImage, setMainImage] = useState(images[0]);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({ x: "50%", y: "50%" });
+  const imageContainerRef = useRef(null);
 
-  const products = [
-      { id: 1, name: 'Product 1', image: product1 },
-      { id: 2, name: 'Product 2', image: product2 },
-    ];
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % products.length);
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const handlePrevbutton = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? products.length - 1 : prevIndex - 1
-    );
+  const openPopUp = () => {
+    setIsFormVisible(!isFormVisible);
   };
 
-  const handleNextbutton = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % products.length);
+  const handleCloseForm = () => {
+    setIsFormVisible(false);
+  };
+
+  useEffect(() => {
+    const fetchsingleProduct = async () => {
+      try {
+        const res = await fetch(
+          `http://mathmozocms.test/api/v1/post?slug=${slug}`
+        );
+        if (!res.ok) {
+          throw new Error("Failed to fetch product");
+        }
+        const data = await res.json();
+        setProduct(data.data);
+        setProductExtraField1(data.data.extra_fields[0]);
+        setProductExtraField2(data.data.extra_fields[1]);
+        setProudctImages(data.data.extra_fields[0].meta_value);
+        setMainImage(data.data.extra_fields[0].meta_value[0]);
+      } catch (error) {
+        setError("Error", error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchsingleProduct();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div> {error} </div>;
+  }
+
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } =
+      imageContainerRef.current.getBoundingClientRect();
+    const x = ((e.pageX - left) / width) * 100;
+    const y = ((e.pageY - top) / height) * 100;
+    setZoomPosition({ x: `${x}%`, y: `${y}%` });
+  };
+
+  const handleMouseEnter = () => {
+    setIsZoomed(true);
+  };
+  const handleMouseLeave = () => {
+    setIsZoomed(false);
+  };
+
+  const handleImageClick = (image) => {
+    setMainImage(image);
   };
 
   return (
     <>
       <section>
-        <div className="container mx-auto px-3 md:px-0 py-10">
-          <div className="flex items-center gap-2">
-            <Link href={"/"} className="flex items-center gap-1">
-              Home <FaAnglesRight className="text-sm" />
-            </Link>
-            <span>Product</span>
+        <div className="container mx-auto px-3 py-10">
+          {/* === home link ==  */}
+          <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
+            <Link href={"/"}>Home /</Link>
+            <span> Product /</span>
+            <span className="text-gray-600"> {product.name} </span>
           </div>
+          {/* ===== product details ====  */}
+          <div className="flex flex-col md:flex-row gap-10 md:gap-20 py-10">
+            <div className="md:basis-1/2 border border-gray-200 rounded-md">
+              <Image
+                src={product.featured_image}
+                className=" mx-auto w-3/4 md:w-2/3"
+                width={200}
+                height={200}
+              />
 
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between md:gap-20 md:w-3/4 mx-auto">
-            <div className="flex items-center justify-center py-5 mt-5">
-              <div className="relative w-full max-w-xl mx-auto overflow-hidden">
-                <motion.div
-                  className="flex"
-                  initial={{ x: "-100%" }}
-                  animate={{ x: `-${currentIndex * 100}%` }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {products.map((product) => (
+              {/* ==== product slider ====  */}
+                {/* <div className="flex flex-col items-center">
                   <div
-                    key={product.id}
-                    className="min-w-full flex-shrink-0 flex justify-center items-center"
+                    className="w-3/4 h-full mb-3 overflow-hidden relative"
+                    onMouseMove={handleMouseMove}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    ref={imageContainerRef}
                   >
                     <Image
-                      src={product.image}
-                      alt={product.name}
-                      className="object-cover md:w-1/2 w-1/2 h-60"
-                      width={300}
-                      height={300}
+                      src={mainImage}
+                      width={200}
+                      height={200}
+                      alt="Main Product"
+                      className={`w-full h-full object-cover transition-transform duration-300 ${
+                        isZoomed ? "md:scale-150" : ""
+                      } `}
                     />
                   </div>
-                   ))}
-                </motion.div>
 
-                <div className="absolute inset-y-0 left-0 flex items-center">
-                  <button
-                    onClick={handlePrevbutton}
-                    className="bg-gray-400 text-white p-1 rounded-full"
-                  >
-                    &lt;
-                  </button>
-                </div>
-                <div className="absolute inset-y-0 right-0 flex items-center">
-                  <button
-                    onClick={handleNextbutton}
-                    className="bg-gray-400 text-white p-1 rounded-full"
-                  >
-                    &gt;
-                  </button>
-                </div>
-              </div>
+                  <div className="flex space-x-4">
+                    { productImages.length === 0 && productImages.map((image, index) => (
+                      <Image
+                        key={index}
+                        src={image}
+                        width={100}
+                        height={100}
+                        alt={`Product ${index + 1}`}
+                        onClick={() => handleImageClick(image)}
+                        className={`w-16 h-16 object-cover cursor-pointer transform transition-transform duration-300 hover:scale-105 ${
+                          image === mainImage
+                            ? "border-2 border-blue-500"
+                            : "border border-gray-300"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div> */}
+              {/* === end product slider ===  */}
+
+
             </div>
-
-            <div>
-              <h1 className="text-xl font-bold"> {product.name} </h1>
-              <div className="mt-3">
-                <div className=" flex items-center justify-between gap-5 border-b border-gray-300 py-2">
-                  <div>Condition</div>
-                  <div>New Factory Sealed</div>
-                </div>
-                <div className="flex items-center justify-between gap-5 border-b border-gray-300 py-2">
-                  <span>Shipping</span>
-                  <span>Weight: 0.20 kg</span>
-                </div>
-                <div className="flex items-center justify-between gap-5 border-b border-gray-300 py-2">
-                  <span>From</span>
-                  <span>United Arab Emirates</span>
-                </div>
-                <div className="flex items-center justify-between gap-5 border-b border-gray-300 py-2">
-                  <span>Warranty</span>
-                  <span>1 Year Against the Manufacturer Defect</span>
+            {/* ===right ==  */}
+            <div className="md:basis-1/2 flex flex-col gap-5 md:gap-5">
+              <h1 className="text-2xl md:text-3xl text-header_text font-bold">
+                {product.name}
+              </h1>
+              <p className="text-para_color">
+                {productExtraFieldIndex1.meta_value}
+              </p>
+              <h2 className="text-xl text-header_text font-semibold">
+                Regular Price : {productExtraFieldIndex2.meta_value} tk
+              </h2>
+              <div>
+                <div className="text-para_color font-medium mt-1 md:mt-0 flex flex-col gap-2 text-sm text-left">
+                  <h1 className="flex gap-5">
+                    Product Code : <span> {product.meta_title} </span>
+                  </h1>
+                  <h1 className="flex gap-5">
+                    Delivery Area : <span> {product.meta_description} </span>
+                  </h1>
+                  <h1 className="flex gap-5">
+                    Condition : <span> New Factory Sealed</span>
+                  </h1>
+                  <h1 className="flex gap-5">
+                    From : <span> {product.meta_keyword} </span>
+                  </h1>
+                  <h1 className="flex gap-5">
+                    Warranty :<span> {product.meta_author} </span>
+                  </h1>
                 </div>
               </div>
+              <button
+                onClick={() => openPopUp(product.name)}
+                href={"/get-a-quote"}
+                className=" capitalize text-sm bg-navBgColor text-white p-2 px-4 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out w-1/2 text-center font-semibold"
+              >
+                Get a quote
+              </button>
+              {/* === get a quote form ==  */}
+              <Get_a_quote
+                visible={isFormVisible}
+                onClose={handleCloseForm}
+                productName={product.name}
+              />
+              {/* ==== end get a quote form ===  */}
             </div>
           </div>
+          {/* ==== end  */}
 
-          {/* ==== related product ===  */}
-          <div className="py-14">
+          <div className="py-10">
             <Related_product />
           </div>
         </div>
