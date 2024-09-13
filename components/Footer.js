@@ -62,8 +62,8 @@ const Footer = () => {
         </div>
         <div className="w-full h-0.5 bg-gray-600 "></div>
         <div className="container mx-auto px-3 pt-5 flex items-center justify-center text-sm text-gray-400 pb-2 gap-5">
-          <p>©2023 Sensor Shop Bangladesh. All Right Reserved</p>
-          <p className="flex gap-3">
+          <p>All Rights Reserved © Sensor Shop Bangladesh.</p>
+          <p className="flex">
             Developed By
             <Link
               className="text-green-600 font-semibold"
