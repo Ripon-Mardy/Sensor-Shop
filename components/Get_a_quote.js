@@ -8,6 +8,8 @@ import { IoCloseSharp } from "react-icons/io5";
 
 const Get_a_quote = ({ visible, onClose, productName }) => {
   if(!visible) return null
+
+
   const [formData, setFormData] = useState({
     first_name: "",
     email: "",
@@ -28,6 +30,8 @@ const Get_a_quote = ({ visible, onClose, productName }) => {
     e.preventDefault();
     console.log(formData);
     // Handle form submission, e.g., send data to an API
+
+
   };
 
   return (
