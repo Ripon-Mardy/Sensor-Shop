@@ -95,11 +95,11 @@ const page = ({ params }) => {
       <section>
         <div className="container mx-auto px-3 py-10">
           {/* === home link ==  */}
-          <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
+          {/* <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
             <Link href={"/"}>Home /</Link>
             <span> Product /</span>
             <span className="text-gray-600"> {product.name} </span>
-          </div>
+          </div> */}
           {/* ===== product details ====  */}
           <div className="flex flex-col md:flex-row gap-10 md:gap-20 py-10">
             <div className="md:basis-1/2 border border-gray-200 rounded-md">

@@ -131,6 +131,7 @@ const Navbar = () => {
                   width={150}
                   height={150}
                   className="md:w-52"
+                  alt='sensor shop'
                 ></Image>
               </Link>
             </div>

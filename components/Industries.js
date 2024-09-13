@@ -94,7 +94,7 @@ const Industries = () => {
                             industrics.map((product, index) => (
                                 <SwiperSlide key={index} className='py-10'>
                                     <div className='border border-gray-300 p-2 rounded-sm shadow w-full'>
-                                        <Image src={product.featured_image} width={200} height={200} className='object-cover rounded-md w-full' />
+                                        <Image src={product.featured_image} width={200} height={200} className='object-cover rounded-md w-full' alt={product.name} />
                                         <h1 className='text-base font-semibold my-2 capitalize'> {product.name} </h1>
                                     </div>
                                 </SwiperSlide>

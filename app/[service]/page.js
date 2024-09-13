@@ -34,11 +34,11 @@ const page = ({ params }) => {
     <>
       <section>
         <div className="container mx-auto px-3 py-10">
-          <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
+          {/* <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
             <Link href={"/"}>Home /</Link>
             <span> services /</span>
             <span className="text-gray-600"> {services.name} </span>
-          </div>
+          </div> */}
 
           {/* ==== services ===  */}
           <div className="mt-10">

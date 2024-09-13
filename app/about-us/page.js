@@ -6,12 +6,12 @@ const page = () => {
     <>
       <section className="md:w-4/5 mx-auto">
         <div className="container mx-auto py-10 px-3">
-          <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
+          {/* <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
             <Link href={"/"}>Home /</Link>
             <span> About us</span>
-          </div>
+          </div> */}
 
-          <div className="flex flex-col gap-4 mt-5 text-para_color">
+          <div className="flex flex-col gap-4 text-para_color">
             <h1 className="text-3xl text-header_text font-semibold">
               About us
             </h1>

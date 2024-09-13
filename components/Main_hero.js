@@ -116,7 +116,7 @@ const Main_hero = () => {
   };
 
   return (
-    <div className="container mx-auto px-3 md:px-0 py-5">
+    <div className="container mx-auto px-3 md:px-0 py-10">
       <div className="md:flex md:justify-between md:gap-10">
         {/* ==== categories ===  */}
         <div className=" xl:w-1/4">

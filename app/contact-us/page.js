@@ -8,12 +8,12 @@ const page = () => {
     <>
       <section>
         <div className="container mx-auto px-3 py-10">
-          <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
+          {/* <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
             <Link href={"/"}>Home /</Link>
             <span> Contact Us</span>
-          </div>
+          </div> */}
 
-          <div className="flex flex-col md:flex-row items-center justify-center md:gap-20 gap-10 mt-10">
+          <div className="flex flex-col md:flex-row items-center justify-center md:gap-20 gap-10">
             {/* ===contact ===  */}
             <div className="basis-1/2 border border-gray-300 md:p-10 rounded-md w-full p-5">
               <form action="#" className="flex flex-col gap-5">
