@@ -17,7 +17,7 @@ const page = ({ params }) => {
   const [productExtraFieldIndex2, setProductExtraField2] = useState([]);
 
   const [productImages, setProudctImages] = useState([]);
-  
+
   const [mainImage, setMainImage] = useState(product);
 
   // const [mainImage, setMainImage] = useState(images[0]);
@@ -111,7 +111,7 @@ const page = ({ params }) => {
               />
 
               {/* ==== product slider ====  */}
-                {/* <div className="flex flex-col items-center">
+              {/* <div className="flex flex-col items-center">
                   <div
                     className="w-3/4 h-full mb-3 overflow-hidden relative"
                     onMouseMove={handleMouseMove}
