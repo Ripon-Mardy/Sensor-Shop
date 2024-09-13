@@ -95,7 +95,7 @@ const Related_product = () => {
                 width={300}
                 height={300}
                 className="w-56 h-40 object-cover"
-                alt="product"
+                alt={product.name}
               />
               <div className="text-center">
                 <h1 className="font-semibold capitalize text-base">

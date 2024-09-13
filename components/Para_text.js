@@ -62,7 +62,7 @@ const Para_text = () => {
             <div className='flex gap-6 flex-wrap items-center justify-center'>
                 {techsense.map((techList, techIndex) => (
                     <div key={techIndex}>
-                        <Image src={techList.featured_image} width={300} height={300} className='rounded-md' alt='gallary1' />
+                        <Image src={techList.featured_image} width={300} height={300} className='rounded-md' alt={techList.name} />
                     </div>
                 ))}
             </div>

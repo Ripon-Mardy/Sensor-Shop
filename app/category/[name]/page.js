@@ -14,7 +14,6 @@ const page = ({ params }) => {
   const [error, setError] = useState(null);
   const [selectCategory, setSelectCategory] = useState(null);
   const [filterProducuts, setFilterProducts] = useState([]);
-  console.log("filter products", filterProducuts);
 
   // ==== fetch category ==
   useEffect(() => {

@@ -59,7 +59,7 @@ const Brands = () => {
                     {
                         brandsList.map((brand, index) => (
                             <div key={index} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
-                                <Image src={brand.featured_image} width={400} height={400} alt='brand' />
+                                <Image src={brand.featured_image} width={400} height={400} alt={brand.name} />
                             </div>
                         ))
                     }
