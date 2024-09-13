@@ -58,16 +58,14 @@ const page = () => {
                   src={product.featured_image}
                   width={300}
                   height={300}
-                  alt="product"
+                  alt={product.name}
                 />
                 <div className="text-center">
                   <h1 className="font-semibold capitalize text-base">
-                    {" "}
-                    {product.name}{" "}
+                    {product.name}
                   </h1>
                   <p className="font-medium text-red-500 text-sm mt-1">
-                    {" "}
-                    {product.slug}{" "}
+                    {product.slug}
                   </p>
                 </div>
               </Link>

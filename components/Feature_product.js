@@ -7,28 +7,7 @@ import Loading from './Loading';
 
 const Feature_product = () => {
 
-    // const feature_products = [
-    //     {
-    //         "product_image" : f1,
-    //         "product_title" : "PIR Sensor/MOTION Sensor WIth alarm",
-    //         "product_description" : "৳ 1220.00"
-    //     },
-    //     {
-    //         "product_image" : f2,
-    //         "product_title" : "PIR Sensor/MOTION Sensor WIth alarm",
-    //         "product_description" : "৳ 1220.00"
-    //     },
-    //     {
-    //         "product_image" : f3,
-    //         "product_title" : "PIR Sensor/MOTION Sensor WIth alarm",
-    //         "product_description" : "৳ 1220.00"
-    //     },
-    //     {
-    //         "product_image" : f4,
-    //         "product_title" : "PIR Sensor/MOTION Sensor WIth alarm",
-    //         "product_description" : "৳ 1220.00"
-    //     }
-    // ]
+
 
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -80,7 +59,7 @@ const Feature_product = () => {
                         product.map((product, index) => (
                             <Link href={`/products/${product.slug}`} key={index} className=' border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
 
-                                <Image src={product.featured_image} width={300} height={300} />
+                                <Image src={product.featured_image} width={300} height={300} alt={product.name} />
                                 <div className='text-center'>
                                     <h1 className='font-semibold capitalize text-base'> {product.name} </h1>
                                     <p className='font-medium text-red-500 text-sm mt-1'> {product.slug} </p>

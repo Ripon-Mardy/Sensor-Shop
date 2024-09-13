@@ -43,7 +43,7 @@ const page = ({ params }) => {
           {/* ==== services ===  */}
           <div className="mt-10">
             <div>
-             <Image src={services.featured_image} className="w-2/3 mx-auto md:w-1/4 rounded-md" width={200} height={200} alt="servics" />
+             <Image src={services.featured_image} className="w-2/3 mx-auto md:w-1/4 rounded-md" width={200} height={200} alt={service.name} />
              <p className="md:w-2/3 mt-3 text-para_color"> {services.meta_description} </p>
             </div>
           </div>

@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-// images ===
-import category1 from './../../public/image/Feature Product/f2.jpg'
 
 const page = () => {
 

@@ -177,7 +177,7 @@ const Main_hero = () => {
 
             {/* ==== left side bannar ====  */}
             <div className="hidden md:block">
-              <Image src={productBanner} className="rounded-md" />
+              <Image src={productBanner} className="rounded-md" alt="image" />
             </div>
             {/* ==== end left side banner ====  */}
 
@@ -186,13 +186,13 @@ const Main_hero = () => {
               <h1 className="text-xl font-semibold text-center mb-2">
                 Why Choose us?
               </h1>
-              <Image src={choose1} className="rounded-md" />
+              <Image src={choose1} className="rounded-md" alt="choose" />
             </div>
             {/* ===== end why choose us ====  */}
 
             {/* ==== left side bannar ====  */}
             <div className="hidden md:block">
-              <Image src={productBanner} className="rounded-md" />
+              <Image src={productBanner} className="rounded-md" alt="choose" />
             </div>
             {/* ==== end left side banner ====  */}
           </div>
@@ -208,11 +208,10 @@ const Main_hero = () => {
           {/* ======  Banner botton text ===  */}
           <div className="md:py-10 py-5">
             <h1 className="text-2xl md:text-3xl text-center font-semibold">
-              {" "}
-              We are one of the leading Industrial machine, Spare parts, Sensor{" "}
+              We are one of the leading Industrial machine, Spare parts, Sensor
               <span className="text-textNavColor font-bold">
-                Importer and Supplier in Bangladesh{" "}
-              </span>{" "}
+                Importer and Supplier in Bangladesh
+              </span>
             </h1>
           </div>
           {/* === end banner bottom text ===  */}
