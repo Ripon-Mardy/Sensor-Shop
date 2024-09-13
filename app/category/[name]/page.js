@@ -102,7 +102,7 @@ const page = ({ params }) => {
                   <div key={category.id}>
                     <button
                       onClick={() => handleCategoryClick(category.slug)}
-                      // href={`/category/${category.name}`}
+                    // href={`/category/${category.name}`}
                     >
                       {category.name}
                     </button>
@@ -128,7 +128,7 @@ const page = ({ params }) => {
                       src={product.featured_image}
                       width={300}
                       height={300}
-                      alt="product"
+                      alt="{product.name}"
                     />
                     <div className="text-center">
                       <h1 className="font-semibold capitalize text-base">
