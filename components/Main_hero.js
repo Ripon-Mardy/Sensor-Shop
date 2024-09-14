@@ -2,7 +2,6 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import HtmlContent from './Html_render'
 
 // ===== components ====
 import Banner_slide from "./Banner_slide";
@@ -10,6 +9,7 @@ import Brands from "./Brands";
 import Feature_product from "./Feature_product";
 import Proud_clients from "./Proud_clients";
 import Services from "./Services";
+import HtmlRenderer from './HtmlRenderer'
 
 // === icnos ===
 import { IoSearch } from "react-icons/io5";
@@ -35,7 +35,6 @@ const Main_hero = () => {
   const [selectCategory, setSelectCategory] = useState([])
 
   useEffect(() => {
-
     // fetch category
     const fetchCategory = async () => {
       try {
@@ -226,7 +225,7 @@ const Main_hero = () => {
           {/* ======  Banner botton text ===  */}
           <div className="md:py-10 py-5">
             <h1 className="text-2xl md:text-3xl text-center font-semibold">
-              <HtmlContent html={main_speech?.meta_value} />
+              <HtmlRenderer html={main_speech?.meta_value} />
             </h1>
           </div>
           {/* === end banner bottom text ===  */}
