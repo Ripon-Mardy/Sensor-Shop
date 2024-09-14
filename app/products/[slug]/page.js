@@ -14,7 +14,7 @@ const page = ({ params }) => {
 
   const [product, setProduct] = useState([]); // set product data
   console.log('product', product);
-  
+
   const [loading, setLoading] = useState(true); // set loading 
   const [error, setError] = useState(false); // set error
   const [productExtraFieldIndex1, setProductExtraField1] = useState([]);
@@ -104,36 +104,38 @@ const page = ({ params }) => {
                 </div>
                 {/* ==== full screen image ====  */}
                 {/* Full Screen Modal */}
-            {isFullScreen && (
-              <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
-                <div className="relative">
-                  <img
-                    src={productImage}
-                    alt="Full Screen"
-                    className="w-full h-full object-cover"
-                  />
-                  <button
-                    className="absolute top-4 right-4 bg-gray-800 text-white p-2 rounded-full"
-                    onClick={closeFullScreen}
-                  >
-                    <IoIosClose/>
-                  </button>
-                </div>
-              </div>
-            )}
+                {isFullScreen && (
+                  <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+                    <div className="relative">
+                      <img
+                        src={productImage}
+                        alt="Full Screen"
+                        className="w-full h-full object-cover"
+                      />
+                      <button
+                        className="absolute top-4 right-4 bg-gray-800 text-white p-2 rounded-full"
+                        onClick={closeFullScreen}
+                      >
+                        <IoIosClose />
+                      </button>
+                    </div>
+                  </div>
+                )}
                 {/* ==== end full screen images ====  */}
                 <div className="flex items-center justify-center gap-4 mt-5">
-                  {product.extra_fields[0]?.meta_value.map((img) => (
-                    <div className="border border-gray-200">
-                      <Image
-                        onClick={() => setProductImage(img)}
-                        src={img}
-                        width={100}
-                        height={100}
-                        className="cursor-pointer rounded-md"
-                      />
-                    </div>
-                  ))}
+                  {Array.isArray(product.extra_fields[0]?.meta_value) &&
+                    product.extra_fields[0]?.meta_value.map((img, index) => (
+                      <div key={index} className="border border-gray-200">
+                        <Image
+                          onClick={() => setProductImage(img)}
+                          src={img}
+                          width={100}
+                          height={100}
+                          className="cursor-pointer rounded-md"
+                        />
+                      </div>
+                    ))
+                  }
                 </div>
                 {/* === end product slider ===  */}
               </div>
@@ -145,7 +147,7 @@ const page = ({ params }) => {
               </h1>
               <p> {product.meta_description} </p>
 
-              <div className="flex flex-col gap-3"> 
+              <div className="flex flex-col gap-3">
                 {/* <div className="flex items-start gap-7">
                   <h1 className="font-medium w-20">Brand</h1>
                   <span> {product.extra_fields[1].term_type} </span>
