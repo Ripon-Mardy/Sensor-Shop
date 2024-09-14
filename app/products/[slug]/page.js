@@ -8,6 +8,8 @@ import Loading from "@/components/Loading";
 import Get_a_quote from "@/components/Get_a_quote";
 import { SlSizeFullscreen } from "react-icons/sl";
 import { IoIosClose } from "react-icons/io";
+// ==== image ==== 
+import seimens from '../../../public/image/siemens.png'
 
 const page = ({ params }) => {
   const slug = params.slug;
@@ -72,24 +74,18 @@ const page = ({ params }) => {
       <section>
         <div className="container mx-auto px-3 py-10">
           {/* === home link ==  */}
-          {/* <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
+          <div className=" w-fit p-2 text-sm">
             <Link href={"/"}>Home /</Link>
             <span> Product /</span>
             <span className="text-gray-600"> {product.name} </span>
-          </div> */}
+          </div>
           {/* ===== product details ====  */}
-          <div className="flex flex-col md:flex-row gap-10 md:gap-20 py-10">
-            <div className="md:basis-1/2 border border-gray-200 rounded-md flex flex-col gap-5 p-5">
-              {/* <Image
-                src={product.featured_image}
-                className=" mx-auto w-3/4 md:w-2/3"
-                width={200}
-                height={200}
-              /> */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 py-10">
+            <div className="md:basis-1/2 flex flex-col gap-5 p-5">
 
               <div className="md:w-3/4 md:h-1/2 mx-auto">
                 {/* ==== product slider ====  */}
-                <div className="relative border border-gray-200">
+                <div className="relative">
                   <Image
                     src={productImage}
                     width={200}
@@ -131,7 +127,7 @@ const page = ({ params }) => {
                           src={img}
                           width={100}
                           height={100}
-                          className="cursor-pointer rounded-md"
+                          className="cursor-pointer rounded-md w-28 h-28 object-cover"
                         />
                       </div>
                     ))
@@ -141,32 +137,37 @@ const page = ({ params }) => {
               </div>
             </div>
             {/* ===right ==  */}
-            <div className="md:basis-1/2 flex flex-col gap-5 md:gap-5">
-              <h1 className="text-2xl md:text-3xl text-header_text font-bold">
+            <div className="md:basis-1/2 flex flex-col gap-4 md:gap-8">
+             <div className="flex gap-8 items-center justify-start">
+              <Image src={seimens} width={100} height={100} alt="seimens" />
+             <h1 className="text-2xl md:text-2xl text-header_text font-bold border-b border-gray-100 pb-1">
                 {product.name}
               </h1>
-              <p> {product.meta_description} </p>
 
-              <div className="flex flex-col gap-3">
-                {/* <div className="flex items-start gap-7">
-                  <h1 className="font-medium w-20">Brand</h1>
-                  <span> {product.extra_fields[1].term_type} </span>
-                </div> */}
-                <div className="flex items-start gap-4 text-lg">
-                  <h1 className="font-medium">Origin</h1>
-                  <span> {product.term_type} </span>
+             </div>
+              <p className="text-lg border-b border-gray-100 pb-1 font-medium"> {product.meta_description} </p>
+
+              <div className="flex flex-col gap-4 md:w-4/5">
+                <div className=" flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
+                  <h1 className="w-32 text-base text-header_text font-medium">Brand</h1>
+                  <span className="font-medium">SIEMENS</span>
                 </div>
-                <div className="flex items-start gap-4">
-                  <h1 className="font-medium">Condition</h1>
-                  <span> {product.meta_title} </span>
+                <div className=" flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
+                  <h1 className="w-32 text-base text-header_text font-medium">Origin</h1>
+                  <span className="font-medium text-base">Germany</span>
                 </div>
-                <div className="flex items-start gap-4">
-                  <h1 className="font-medium">warranty</h1>
-                  <span> {product.term_type} </span>
+                <div className=" flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
+                  <h1 className="w-32 text-base text-header_text font-medium">Condition</h1>
+                  <span className="font-medium">Brand New</span>
                 </div>
-                <div className="flex items-start gap-4">
-                  <h1 className="font-medium">Price</h1>
-                  <span className="text-lg font-semibold"> {product.extra_fields[1].meta_value} tk </span>
+                <div className=" flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
+                  <h1 className="w-32 text-base text-header_text font-medium">Warranty</h1>
+                  <span className="font-medium">10 months from the daily delivery date.</span>
+                </div>
+                <div className=" flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
+                  <h1 className="w-32 text-base text-header_text font-medium">Price</h1>
+                  <span className="font-semibold text-lg ">BDT, 1000  </span>
+                  <span className="text-sm"> 2 pcs in stock </span>
                 </div>
               </div>
               <button
