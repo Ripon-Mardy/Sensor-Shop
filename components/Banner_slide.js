@@ -11,16 +11,9 @@ const Banner_slide = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slider, setSlider] = useState([])
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slider.length);
-    }, 10000); // Change image every 3 seconds
-    return () => clearInterval(interval);
+  // useEffect(() => {
 
-    
-
-
-  }, [slider.length]);
+  // }, [slider.length]);
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -34,6 +27,7 @@ const Banner_slide = () => {
 
   // === slider api == 
   useEffect(() => {
+
     const slider = async () => {
       const response = await fetch('http://mathmozocms.test/api/v1/posts?term_type=sensor_slider');
       // if(!response.ok) {
@@ -43,7 +37,13 @@ const Banner_slide = () => {
       setSlider(data.data)
     }
     slider()
-  }, [])
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % slider.length);
+    }, 10000); // Change image every 3 seconds
+    return () => clearInterval(interval);
+    
+  }, [slider.length])
 
 
   return (

@@ -65,7 +65,7 @@ const Related_product = () => {
         freeMode={true}
         pagination={{
           clickable: true,
-        }}
+        }}  
         breakpoints={{
           640: {
             slidesPerView: 2,

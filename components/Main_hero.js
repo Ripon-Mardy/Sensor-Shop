@@ -2,7 +2,6 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import HtmlContent from './Html_render'
 
 // ===== components ====
 import Banner_slide from "./Banner_slide";
@@ -10,6 +9,7 @@ import Brands from "./Brands";
 import Feature_product from "./Feature_product";
 import Proud_clients from "./Proud_clients";
 import Services from "./Services";
+import HtmlRenderer from "./HtmlRenderer";
 
 // === icnos ===
 import { IoSearch } from "react-icons/io5";
@@ -32,10 +32,9 @@ const Main_hero = () => {
   const router = useRouter();
   const [main_speech, setMainSpeech] = useState();
 
-  const [selectCategory, setSelectCategory] = useState([])
+  const [selectCategory, setSelectCategory] = useState([]);
 
   useEffect(() => {
-
     // fetch category
     const fetchCategory = async () => {
       try {
@@ -52,7 +51,6 @@ const Main_hero = () => {
       }
     };
     fetchCategory();
-
 
     // Fetch Product
     const fetchProduct = async () => {
@@ -74,18 +72,17 @@ const Main_hero = () => {
     // Fetch Main Speech
     const main_speech = async () => {
       try {
-        const response = await fetch('http://mathmozocms.test/api/v1/frontend/settings?meta_name=main_speech&meta_type=Text');
+        const response = await fetch(
+          "http://mathmozocms.test/api/v1/frontend/settings?meta_name=main_speech&meta_type=Text"
+        );
         if (!response.ok) {
-          throw new Error('Faild to fetch techsense')
+          throw new Error("Faild to fetch techsense");
         }
         const data = await response.json();
         setMainSpeech(data.data);
-      } catch (error) {
-
-      }
-    }
-    main_speech()
-
+      } catch (error) {}
+    };
+    main_speech();
 
     // Search Term
     if (searchTerm) {
@@ -96,7 +93,6 @@ const Main_hero = () => {
     } else {
       setFilterProducts([]);
     }
-
 
     // Handle Click outside
 
@@ -110,10 +106,7 @@ const Main_hero = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-
-
   }, [searchTerm, product]);
-
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -144,10 +137,11 @@ const Main_hero = () => {
                 Categories
               </h1>
               <div className="flex flex-col h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
-
                 {categoryData.map((categoryItem, categoryIndex) => (
                   <div key={categoryIndex}>
-                    <Link href={`/category/${categoryItem.slug}`}>{categoryItem.name} </Link>
+                    <Link href={`/category/${categoryItem.slug}`}>
+                      {categoryItem.name}{" "}
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -226,7 +220,7 @@ const Main_hero = () => {
           {/* ======  Banner botton text ===  */}
           <div className="md:py-10 py-5">
             <h1 className="text-2xl md:text-3xl text-center font-semibold">
-              <HtmlContent html={main_speech?.meta_value} />
+              <HtmlRenderer html={main_speech?.meta_value} />
             </h1>
           </div>
           {/* === end banner bottom text ===  */}

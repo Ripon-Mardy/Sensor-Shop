@@ -37,8 +37,9 @@ const Navbar = () => {
     setIsMobileMenuIndex(tabname);
   };
 
-  // === menu api ===
+
   useEffect(() => {
+    // menu api
     const fetchMenu = async () => {
       try {
         const response = await fetch("http://mathmozocms.test/api/v1/menus");
@@ -53,12 +54,9 @@ const Navbar = () => {
         console.log("fail to fetch menu");
       } // end try
     }; // end fetchMenu
-
     fetchMenu();
-  }, []);
 
-  // ====== search Term ====
-  useEffect(() => {
+    // search term 
     const fetchProduct = async () => {
       try {
         const res = await fetch(
@@ -74,9 +72,8 @@ const Navbar = () => {
       }
     };
     fetchProduct();
-  }, []);
 
-  useEffect(() => {
+
     if (searchTerm) {
       const productFilter = product.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -85,9 +82,8 @@ const Navbar = () => {
     } else {
       setFilterProducts([]);
     }
-  }, [searchTerm, product]);
 
-  useEffect(() => {
+
     const handleClickOutside = () => {
       if (inputRef.current && !inputRef.current.contains(event.target)) {
         setIsFocused(false);
@@ -98,7 +94,9 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+
+  }, [searchTerm, product]);
+
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);

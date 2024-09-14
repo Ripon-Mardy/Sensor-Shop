@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import Loading from "@/components/Loading";
-
 const page = ({ params }) => {
   const slugName = params.name;
 
@@ -34,10 +32,8 @@ const page = ({ params }) => {
       }
     };
     fetchCategory();
-  }, []);
 
-  // ==== fetch product ===
-  useEffect(() => {
+    // fetch product
     const fetchProduct = async () => {
       const res = await fetch(
         "http://mathmozocms.test/api/v1/posts?term_type=product"
@@ -49,15 +45,12 @@ const page = ({ params }) => {
       setProducts(data.data);
     };
     fetchProduct();
-  }, []);
 
-  // ==== filtered ===
-
-  useEffect(() => {
+    // filtered
     const metchToslug = products.filter((product) =>
       product.categories.some((category) => category.slug === slugName)
     );
-    setFilterProducts(metchToslug)
+    setFilterProducts(metchToslug);
   }, [products]);
 
   const handleCategoryClick = (slug) => {
@@ -101,7 +94,7 @@ const page = ({ params }) => {
                   <div key={category.id}>
                     <button
                       onClick={() => handleCategoryClick(category.slug)}
-                    // href={`/category/${category.name}`}
+                      // href={`/category/${category.name}`}
                     >
                       {category.name}
                     </button>
@@ -134,7 +127,7 @@ const page = ({ params }) => {
                         {product.name}
                       </h1>
                       <p className="font-medium text-red-500 text-sm mt-1">
-                      {/* {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split(" ").slice(0, 10).join(" ")} */}
+                        {/* {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split(" ").slice(0, 10).join(" ")} */}
                       </p>
                     </div>
                   </Link>
