@@ -89,7 +89,7 @@ const page = ({ params }) => {
 
               <div className="md:w-3/4 md:h-1/2 mx-auto">
                 {/* ==== product slider ====  */}
-                <div className="relative border border-gray-200">
+                <div className="relative">
                   <Image
                     src={productImage}
                     width={200}
