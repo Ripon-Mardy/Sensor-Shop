@@ -63,7 +63,7 @@ const Feature_product = () => {
                                 <div className='text-center'>
                                     <h1 className='font-semibold capitalize text-base'> {product.name} </h1>
                                     <p className='font-medium text-red-500 text-sm mt-1'>
-                                        {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split(" ").slice(0, 10).join(" ")}
+                                        {/* {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split("").slice(0, 10).join(" ")} */}
                                     </p>
                                 </div>
 

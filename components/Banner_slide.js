@@ -16,6 +16,10 @@ const Banner_slide = () => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slider.length);
     }, 10000); // Change image every 3 seconds
     return () => clearInterval(interval);
+
+    
+
+
   }, [slider.length]);
 
   const prevSlide = () => {
