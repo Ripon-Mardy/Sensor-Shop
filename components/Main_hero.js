@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import HtmlContent from './Html_render'
 
 // ===== components ====
 import Banner_slide from "./Banner_slide";
@@ -29,11 +30,13 @@ const Main_hero = () => {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
   const router = useRouter();
+  const [main_speech, setMainSpeech] = useState();
 
   const [selectCategory, setSelectCategory] = useState([])
 
-  //   ==== fetch category ====
   useEffect(() => {
+
+    // fetch category
     const fetchCategory = async () => {
       try {
         const res = await fetch(
@@ -49,10 +52,9 @@ const Main_hero = () => {
       }
     };
     fetchCategory();
-  });
 
-  //   ==== fetch products =====
-  useEffect(() => {
+
+    // Fetch Product
     const fetchProduct = async () => {
       try {
         const res = await fetch(
@@ -68,12 +70,24 @@ const Main_hero = () => {
       }
     };
     fetchProduct();
-  }, []);
+
+    // Fetch Main Speech
+    const main_speech = async () => {
+      try {
+        const response = await fetch('http://mathmozocms.test/api/v1/frontend/settings?meta_name=main_speech&meta_type=Text');
+        if (!response.ok) {
+          throw new Error('Faild to fetch techsense')
+        }
+        const data = await response.json();
+        setMainSpeech(data.data);
+      } catch (error) {
+
+      }
+    }
+    main_speech()
 
 
-
-// ==== search term === 
-  useEffect(() => {
+    // Search Term
     if (searchTerm) {
       const productFilter = product.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -82,9 +96,10 @@ const Main_hero = () => {
     } else {
       setFilterProducts([]);
     }
-  }, [searchTerm, product]);
 
-  useEffect(() => {
+
+    // Handle Click outside
+
     const handleClickOutside = () => {
       if (inputRef.current && !inputRef.current.contains(event.target)) {
         setIsFocused(false);
@@ -95,7 +110,10 @@ const Main_hero = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+
+
+  }, [searchTerm, product]);
+
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -123,7 +141,7 @@ const Main_hero = () => {
           <div className="flex flex-col gap-16">
             <div className="border-2 border-navBorder rounded-md hidden md:block">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">
-                categories
+                Categories
               </h1>
               <div className="flex flex-col h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
 
@@ -208,10 +226,7 @@ const Main_hero = () => {
           {/* ======  Banner botton text ===  */}
           <div className="md:py-10 py-5">
             <h1 className="text-2xl md:text-3xl text-center font-semibold">
-              We are one of the leading Industrial machine, Spare parts, Sensor
-              <span className="text-textNavColor font-bold">
-                Importer and Supplier in Bangladesh
-              </span>
+              <HtmlContent html={main_speech?.meta_value} />
             </h1>
           </div>
           {/* === end banner bottom text ===  */}

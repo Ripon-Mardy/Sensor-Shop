@@ -35,7 +35,7 @@ const Feature_product = () => {
     if (loading) {
         return <Loading />
     }
-    
+
     // if (error) {
     //     return <h1>Error: {error}</h1>
     // }
@@ -62,7 +62,9 @@ const Feature_product = () => {
                                 <Image src={product.featured_image} width={300} height={300} alt={product.name} />
                                 <div className='text-center'>
                                     <h1 className='font-semibold capitalize text-base'> {product.name} </h1>
-                                    <p className='font-medium text-red-500 text-sm mt-1'> {product.slug} </p>
+                                    <p className='font-medium text-red-500 text-sm mt-1'>
+                                        {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split(" ").slice(0, 10).join(" ")}
+                                    </p>
                                 </div>
 
                             </Link>

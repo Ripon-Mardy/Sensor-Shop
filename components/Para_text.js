@@ -1,12 +1,11 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import HtmlContent from './Html_render'
 
 const Para_text = () => {
-
-    
-
     const [techsense, setTechsense] = useState([]);
+    const [paratext, setParaText] = useState();    
 
     useEffect(() => {
         const techsenseList = async () => {
@@ -22,6 +21,22 @@ const Para_text = () => {
             }
         }
         techsenseList()
+
+        const para_text = async() => {
+            try {
+                const response = await fetch('http://mathmozocms.test/api/v1/frontend/settings?meta_name=paragraphs&meta_type=Textarea');
+                if(!response.ok) {
+                    throw new Error('Faild to fetch techsense')
+                }
+                const data = await response.json();
+                setParaText(data.data);
+            } catch (error) {
+                
+            }
+        }
+
+        para_text()
+
     }, [])
 
   return (
@@ -30,24 +45,9 @@ const Para_text = () => {
         {/* ==== text === */}
 
         <div className='flex flex-col gap-16'>
-
-            <div>
-                <h1 className='text-2xl font-bold'>Best spare parts supplier in Bangladesh</h1>
-                <p className=' mt-3 md:text-base'>Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize you operations and increase efficiency. Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize your operations and increase efficiency</p>
-            </div>
-
-
-            <div>
-                <h1 className='text-2xl font-bold'>Best Automation solution company in Bangladesh</h1>
-                <p className=' mt-3 md:text-base'>Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize you operations and increase efficiency. Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize your operations and increase efficiency</p>
-            </div>
-
-
-            <div>
-                <h1 className='text-2xl font-bold'>Industrial parts Importer & supplier in Bangladesh</h1>
-                <p className='mt-3 md:text-base'>Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize you operations and increase efficiency. Our team of experts is highly trained and experienced in a variety of fields, including VFD repair, PCB repair, PLC programming, and more. Explore our services below to learn more about how we can help you optimize your operations and increase efficiency</p>
-            </div>
-
+            {/* {JSON.stringify(paratext?.meta_value)} */}
+            {/* {paratext?.meta_value} */}
+            <HtmlContent html={paratext?.meta_value} />
         </div>
 
         {/* ==== end text===  */}
