@@ -139,10 +139,10 @@ const page = ({ params }) => {
             {/* ===right ==  */}
             <div className="md:basis-1/2 flex flex-col gap-4 md:gap-8">
              <div className="flex gap-8 items-center justify-start">
+              <Image src={seimens} width={100} height={100} alt="seimens" />
              <h1 className="text-2xl md:text-2xl text-header_text font-bold border-b border-gray-100 pb-1">
                 {product.name}
               </h1>
-              <Image src={seimens} width={100} height={100} alt="seimens" />
 
              </div>
               <p className="text-lg border-b border-gray-100 pb-1 font-medium"> {product.meta_description} </p>
