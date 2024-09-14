@@ -170,6 +170,7 @@ const page = ({ params }) => {
                   <span className="text-sm"> 2 pcs in stock </span>
                 </div>
               </div>
+              
               <button
                 onClick={() => openPopUp(product.name)}
                 href={"/get-a-quote"}
@@ -177,11 +178,12 @@ const page = ({ params }) => {
               >
                 Get a quote
               </button>
-              {/* === get a quote form ==  */}
+              {/* === get a quote form ==  */}              
               <Get_a_quote
                 visible={isFormVisible}
                 onClose={handleCloseForm}
-                productName={product.name}
+                productName={product?.name}
+                productId={product?.id}
               />
               {/* ==== end get a quote form ===  */}
             </div>
