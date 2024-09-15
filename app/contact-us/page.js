@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import axiosInstance from "@/helpers/axiosInstance";
+import { toast } from "react-toastify";
 
 const page = () => {
   const [formData, setFormData] = useState({
@@ -10,9 +12,11 @@ const page = () => {
     subject: "",
     message: "",
   }); // contact state
+  console.log('form data', formData);
+  
   const [loading, setLoading] = useState(false); //loading state
-  const [error, setError] = useState('') // error state
-  const [success, setSucess]  = useState('') // success message 
+  // const [error, setError] = useState('') // error state
+  // const [success, setSucess]  = useState('') // success message 
   
 
   const handleForm = (e) => {
@@ -25,28 +29,22 @@ const page = () => {
 
   const handleSubmitForm = async  (e) => {
     e.preventDefault();
-    setLoading(true)
-    setError('')
-    setSucess('')
+    // setLoading(true)
+    // setError('')
+    // setSucess('')
     try {
-      const response = await fetch('api value', {
-        method : 'POST',
-        headers : {
-          'Content-Type' : 'application/json',
-        },
-        body : JSON.stringify(formData)
-      })
-      const data = await response.json();
-      if(response.ok) {
-        setSucess('message send sucessfully')
-        setFormData({name : '', email : '', number : '', subject : '', message : ''})
-      } else {
-        setError(data.message || 'Something went wrong, please try again.')
-      }
+      const response = await axiosInstance.post('/contacts/create', formData); // Replace with your API endpoint
+
+      toast.success("Your query has been submitted", {
+        position: "bottom-left", // Position toast in the bottom-left corner
+      });
+      onClose();
+      //console.log('Response:', response.data);
+      // Handle success, e.g., show a success message or redirect
     } catch (error) {
-      setError('Failed to send message. Please try again later.')
-    } finally {
-      setLoading(false)
+      toast.error(error.response?.data || error.message);
+      // console.error('Error:', error.response?.data || error.message);
+      // Handle error, e.g., show an error message
     }
 
   }
