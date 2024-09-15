@@ -3,30 +3,32 @@ import React, { useState, useEffect } from "react";
 import Loading from "@/components/Loading";
 import Link from "next/link";
 import Image from "next/image";
+import axiosInstance from "@/helpers/axiosInstance";
+import { AxiosError } from "axios";
 
-const page = () => {
-  const [products, setProuducts] = useState([]);
+const Products = () => {
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const brandsList = async () => {
+    const fetchProducts = async (retries = 3) => {
       try {
-        const res = await fetch(
-          "http://mathmozocms.test/api/v1/posts?term_type=product"
-        );
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await res.json();
-        setProuducts(data.data);
+        const res = await axiosInstance.get("/posts?term_type=product");
+        setProducts(res.data.data);
       } catch (error) {
-        setError(error.message);
+        if (error.response?.status === 429 && retries > 0) {
+          // Retry after a delay if rate limited
+          setTimeout(() => fetchProducts(retries - 1), 1000);
+        } else {
+          setError(error.message);
+        }
       } finally {
         setLoading(false);
       }
     };
-    brandsList();
+
+    fetchProducts();
   }, []);
 
   if (loading) {
@@ -45,14 +47,14 @@ const page = () => {
     <>
       <section className="py-10">
         <div className="container mx-auto px-3">
-          <h1 className="text-2xl capitalize font-medium">all products</h1>
+          <h1 className="text-2xl capitalize font-medium">All Products</h1>
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-8">
             {products.map((product, index) => (
               <Link
                 href={`/products/${product.slug}`}
                 key={index}
-                className=" border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out"
+                className="border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out"
               >
                 <Image
                   src={product.featured_image}
@@ -66,7 +68,7 @@ const page = () => {
                     {product.name}
                   </h1>
                   <p className="font-medium text-red-500 text-sm mt-1">
-                    {product.slug}
+                    {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split("").slice(0, 10).join(" ")}
                   </p>
                 </div>
               </Link>
@@ -78,4 +80,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Products;

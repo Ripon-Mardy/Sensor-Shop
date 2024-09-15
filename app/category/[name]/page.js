@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import axiosInstance from "@/helpers/axiosInstance";
+import Loading from "@/components/Loading";
 
-const page = ({ params }) => {
+const Category = ({ params }) => {
   const slugName = params.name;
 
   const [categorys, setCategorys] = useState([]);
@@ -11,124 +13,105 @@ const page = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectCategory, setSelectCategory] = useState(null);
-  const [filterProducuts, setFilterProducts] = useState([]);
+  const [filterProducts, setFilterProducts] = useState([]);
 
-  // ==== fetch category ==
   useEffect(() => {
-    const fetchCategory = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch(
-          "http://mathmozocms.test/api/v1/categories?taxonomy_type=categories"
+        // Fetch categories
+        const categoriesRes = await axiosInstance.get("/categories?taxonomy_type=categories");
+        setCategorys(categoriesRes.data.data);
+
+        // Fetch products
+        const productsRes = await axiosInstance.get("/posts?term_type=product");
+        const fetchedProducts = productsRes.data.data;
+        setProducts(fetchedProducts);
+
+        // Filter products based on slugName
+        const matchedProducts = fetchedProducts.filter((product) =>
+          product.categories.some((category) => category.slug === slugName)
         );
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await res.json();
-        setCategorys(data.data);
+        setFilterProducts(matchedProducts);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
-    fetchCategory();
 
-    // fetch product
-    const fetchProduct = async () => {
-      const res = await fetch(
-        "http://mathmozocms.test/api/v1/posts?term_type=product"
-      );
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await res.json();
-      setProducts(data.data);
-    };
-    fetchProduct();
-
-    // filtered
-    const metchToslug = products.filter((product) =>
-      product.categories.some((category) => category.slug === slugName)
-    );
-    setFilterProducts(metchToslug);
-  }, [products]);
+    fetchData();
+  }, [slugName]); // Add `slugName` as a dependency to trigger re-fetching if it changes
 
   const handleCategoryClick = (slug) => {
     setSelectCategory(slug);
-    const matchedProduct = products.filter((product) =>
+    const matchedProducts = products.filter((product) =>
       product.categories.some((category) => category.slug === slug)
     );
-    setFilterProducts(matchedProduct);
+    setFilterProducts(matchedProducts);
   };
 
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <Loading />
-  //     </>
-  //   );
-  // }
+  if (loading) {
+    return <Loading />;
+  }
+
   if (error) {
-    return <div>Error {error} </div>;
+    return <div>Error: {error}</div>;
   }
 
   return (
     <>
       <section>
         <div className="container mx-auto px-3 md:px-0 py-10">
-          {/* === home link ==  */}
+          {/* === home link == */}
           {/* <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
             <Link href={"/"}>Home /</Link>
             <span> Category / {slugName} </span>
           </div> */}
 
-          <div className="mt-10 flex flex-col md:flex-row md:flex gap-10">
+          <div className="mt-10 flex flex-col md:flex-row gap-10">
             {/* ==== category menus === */}
             <div className="md:basis-[20%]">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium rounded-tl-md rounded-tr-md">
-                categories
+                Categories
               </h1>
 
-              <div className="flex flex-col gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto border border-gray-300 h-52 md:h-screen rounded-md ">
+              <div className="flex flex-col gap-3 items-start p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto border border-gray-300 h-52 md:h-screen rounded-md">
                 {categorys.map((category) => (
-                  <div key={category.id}>
-                    <button
-                      onClick={() => handleCategoryClick(category.slug)}
-                      // href={`/category/${category.name}`}
-                    >
-                      {category.name}
-                    </button>
-                  </div>
+                  <button
+                    key={category.id}
+                    onClick={() => handleCategoryClick(category.slug)}
+                  >
+                    {category.name}
+                  </button>
                 ))}
               </div>
             </div>
-            {/* ==== category list ===  */}
+            {/* ==== category list === */}
             <div className="md:basis-[80%]">
               <div>
-                {selectCategory && filterProducuts.length === 0 && (
-                  <div className="text-red-500">Not find related product</div>
+                {selectCategory && filterProducts.length === 0 && (
+                  <div className="text-red-500">No related products found</div>
                 )}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {filterProducuts.map((product, index) => (
+                {filterProducts.map((product, index) => (
                   <Link
                     href={`/products/${product.slug}`}
                     key={index}
-                    className=" border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out"
+                    className="border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out"
                   >
                     <Image
                       src={product.featured_image}
                       width={300}
                       height={300}
-                      alt={categorys.name}
-                      priority={false}
+                      alt={product.name}
                     />
                     <div className="text-center">
                       <h1 className="font-semibold capitalize text-base">
                         {product.name}
                       </h1>
                       <p className="font-medium text-red-500 text-sm mt-1">
-                        {/* {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split(" ").slice(0, 10).join(" ")} */}
+                        {/* You can add product short description here */}
                       </p>
                     </div>
                   </Link>
@@ -142,4 +125,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Category;

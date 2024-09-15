@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
 
-
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -11,31 +10,29 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-// import './styles.css';
-
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules";
 
 const Industries = () => {
-  // const industrics = [industri1, industri1, industri1, industri1, industri1, industri1, industri1]
-
   const [industrics, setIndustrices] = useState([]);
 
   useEffect(() => {
     const industricsList = async () => {
       try {
-        const response = await axiosInstance.get('/posts?term_type=industries')
-        // setIndustrices(data.data);
-        setIndustrices(response.data.data)
+        const response = await axiosInstance.get(
+          "/posts?term_type=industries"
+        );
+        setIndustrices(response.data.data);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching industries:", error);
       }
     };
+
     industricsList();
-  });
+  }, []); // Add dependency array to avoid multiple calls
 
   return (
-    <div className=" py-6">
+    <div className="py-6">
       <div className="container mx-auto px-3 md:px-0">
         {/* ==== industriys title ===  */}
         <div>
@@ -47,7 +44,6 @@ const Industries = () => {
         <div>
           <Swiper
             slidesPerView={2}
-            // slidesPerView={}
             spaceBetween={10}
             breakpoints={{
               640: {
@@ -85,8 +81,7 @@ const Industries = () => {
                     priority={false}
                   />
                   <h1 className="text-base font-semibold my-2 capitalize">
-                    {" "}
-                    {product.name}{" "}
+                    {product.name}
                   </h1>
                 </div>
               </SwiperSlide>

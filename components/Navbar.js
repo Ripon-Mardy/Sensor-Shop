@@ -1,19 +1,18 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "@/helpers/axiosInstance";
-
-// image ====
-import sensor_logo from "./../public/image/logo.png";
-
-// === icons ====
 import { IoIosSearch } from "react-icons/io";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { debounce } from "lodash";
+
+// image
+import sensor_logo from "./../public/image/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,11 +22,10 @@ const Navbar = () => {
   const inputRef = useRef(null);
   const router = useRouter();
 
-  const [product, setProduct] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterProducts, setFilterProducts] = useState([]);
-  const [suggestion, setSuggestion] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
+  const [isMenuFetched, setIsMenuFetched] = useState(false);
 
   const handleBarOpen = () => {
     setIsOpen(!isOpen);
@@ -38,56 +36,46 @@ const Navbar = () => {
     setIsMobileMenuIndex(tabname);
   };
 
-
-  useEffect(() => {
-    // menu api
-    const fetchMenu = async () => {
-      try {
-        const response = await axiosInstance.get('/menus')
-        // setMenuItems(data.data[0].items);
-        setMenuItems(response.data.data[0].items)
-      } catch (error) {
-        console.log("fail to fetch menu");
-      } // end try
-    }; // end fetchMenu
-    fetchMenu();
-
-    // search term 
-    const fetchProduct = async () => {
-      try {
-        const res = await axiosInstance.get('/posts?term_type=product')
-        // setProduct(data.data);
-        setProduct(res.data.data)
-      } catch (error) {
-        console.log("error", error.message);
-      }
-    };
-    fetchProduct();
-
-
-    if (searchTerm) {
-      const productFilter = product.filter((product) =>
+  const debouncedSearch = useCallback(debounce(async (searchTerm) => {
+    try {
+      const res = await axiosInstance.get("/posts?term_type=product");
+      const products = res.data.data;
+      const productFilter = products.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilterProducts(productFilter);
+    } catch (error) {
+      console.log("Error fetching products:", error.message);
+    }
+  }, 300), []);
+
+  const debouncedFetchMenu = useCallback(debounce(async () => {
+    if (isMenuFetched) return;
+    
+    try {
+      const response = await axiosInstance.get("/menus");
+      setMenuItems(response.data.data[0].items);
+      setIsMenuFetched(true);
+    } catch (error) {
+      console.log("Failed to fetch menu:", error.message);
+    }
+  }, 300), [isMenuFetched]);
+
+  useEffect(() => {
+    debouncedFetchMenu();
+    
+    return () => {
+      debouncedFetchMenu.cancel();
+    };
+  }, [debouncedFetchMenu]);
+
+  useEffect(() => {
+    if (searchTerm) {
+      debouncedSearch(searchTerm);
     } else {
       setFilterProducts([]);
     }
-
-
-    const handleClickOutside = () => {
-      if (inputRef.current && !inputRef.current.contains(event.target)) {
-        setIsFocused(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-
-  }, [searchTerm, product, menuitems]);
-
+  }, [searchTerm, debouncedSearch]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -107,12 +95,25 @@ const Navbar = () => {
     }
   };
 
+  const handleClickOutside = (event) => {
+    if (inputRef.current && !inputRef.current.contains(event.target)) {
+      setIsFocused(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="shadow z-10 bg-white w-full">
-      <div className=" container mx-auto px-3 md:px-0 md:flex md:items-center md:justify-between relative">
-        {/* === logo == */}
+      <div className="container mx-auto px-3 md:px-0 md:flex md:items-center md:justify-between relative">
+        {/* logo */}
         <div className="flexitems-center justify-between w-fit">
-          <div className=" flex items-center justify-between py-1 md:py-0 ">
+          <div className="flex items-center justify-between py-1 md:py-0">
             <div>
               <Link href={"/"}>
                 <Image
@@ -120,12 +121,11 @@ const Navbar = () => {
                   width={150}
                   height={150}
                   className="md:w-52"
-                  alt='sensor shop'
-                  priority={false}
-                ></Image>
+                  alt="sensor shop"
+                />
               </Link>
             </div>
-            {/* ===== mobile bar ===  */}
+            {/* mobile bar */}
             <div
               onClick={handleBarOpen}
               className="xl:hidden border border-navBorder p-1 absolute right-5 top-4 px-2 text-center rounded-sm"
@@ -134,12 +134,12 @@ const Navbar = () => {
                 <FaBarsStaggered />
               </span>
             </div>
-            {/* === end mobile bar =====  */}
+            {/* end mobile bar */}
           </div>
         </div>
-        {/* === end logo ===  */}
+        {/* end logo */}
 
-        {/* ===dynamic menu ===  */}
+        {/* dynamic menu */}
         <div className="xl:flex items-center justify-center gap-10 border border-gray-300 rounded-sm py-1 px-4 hidden z-30">
           {menuitems.map((item, index) => (
             <div key={index}>
@@ -152,20 +152,21 @@ const Navbar = () => {
             </div>
           ))}
         </div>
-        {/* ===== end dynamic menu ==-  */}
+        {/* end dynamic menu */}
 
-        {/* ==== search bar ====  */}
+        {/* search bar */}
         <form
           onSubmit={handleSearchSubmit}
-          className=" xl:flex md:items-center md:justify-between border border-navBorder rounded-sm hidden md:w-[30%] relative"
+          className="xl:flex md:items-center md:justify-between border border-navBorder rounded-sm hidden md:w-[30%] relative"
         >
           <input
             type="text"
-            className=" w-full outline-none p-1 px-3 text-sm flex"
+            className="w-full outline-none p-1 px-3 text-sm flex"
             placeholder="Search a product"
             value={searchTerm}
             onChange={handleSearchChange}
             onFocus={() => setIsFocused(true)}
+            ref={inputRef}
           />
 
           <button
@@ -196,11 +197,10 @@ const Navbar = () => {
             </ul>
           )}
         </form>
-
-        {/* === end search bar ====  */}
+        {/* end search bar */}
       </div>
 
-      {/* ==== mobile menu ===  */}
+      {/* mobile menu */}
       <AnimatePresence>
         {isOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-75 z-50">
@@ -209,9 +209,9 @@ const Navbar = () => {
               animate={{ x: 0 }}
               transition={{ duration: 0.3 }}
               exit={{ x: "-100%" }}
-              className="absolute left-0 top-0 h-screen bg-navBgColor w-[70%] p-4 "
+              className="absolute left-0 top-0 h-screen bg-navBgColor w-[70%] p-4"
             >
-              {/* ====close menu ====  */}
+              {/* close menu */}
               <div
                 onClick={handleBarOpen}
                 className="absolute right-4 top-3 text-white text-xl border border-white p-1 cursor-pointer w-fit"
@@ -224,34 +224,34 @@ const Navbar = () => {
                   <Link
                     key={menuIndex}
                     href={"#"}
-                    className="uppercase text-sm font-medium  border-b border-gray-400 pb-2"
+                    className="uppercase text-sm font-medium border-b border-gray-400 pb-2"
                   >
                     {menuList.label}
                   </Link>
                 ))}
               </div>
 
-              {/* ==== social ====  */}
-              <div className=" flex items-center justify-center gap-8 mt-16 flex-wrap">
-                <Link href={"#"} className="text-xl bg-white p-1 rounded-sm ">
+              {/* social */}
+              <div className="flex items-center justify-center gap-8 mt-16 flex-wrap">
+                <Link href={"#"} className="text-xl bg-white p-1 rounded-sm">
                   <FaFacebook />
                 </Link>
-                <Link href={"#"} className="text-xl bg-white p-1 rounded-sm ">
+                <Link href={"#"} className="text-xl bg-white p-1 rounded-sm">
                   <FaInstagram />
                 </Link>
-                <Link href={"#"} className="text-xl bg-white p-1 rounded-sm ">
+                <Link href={"#"} className="text-xl bg-white p-1 rounded-sm">
                   <FaLinkedin />
                 </Link>
-                <Link href={"#"} className="text-xl bg-white p-1 rounded-sm ">
+                <Link href={"#"} className="text-xl bg-white p-1 rounded-sm">
                   <FaYoutube />
                 </Link>
               </div>
-              {/* === social end ====  */}
+              {/* end social */}
             </motion.div>
           </div>
         )}
       </AnimatePresence>
-      {/* === end mobile menu ==== */}
+      {/* end mobile menu */}
     </div>
   );
 };

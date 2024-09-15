@@ -15,8 +15,14 @@ const Brands = () => {
     useEffect(() => {
         const brandsList = async () => {
             try {
-                const response = await axiosInstance.get('/posts?term_type=brands')
-                setBrandsList(response.data.data)
+                const response = await fetch('/posts?term_type=brands');
+                if (!response.ok) {
+                    throw new Error('Faild response')
+                }
+                const data = await response.json();
+                // console.log(data.data);
+                setBrandsList(data.data)
+
             } catch (error) {
                 setError(error.message)
             } finally {
