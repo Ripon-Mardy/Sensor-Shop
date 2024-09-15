@@ -3,10 +3,10 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import axiosInstance from '@/helpers/axiosInstance';
-import Banner_slide from './BannerSlide';
+import BannerSlide from './BannerSlide';
 import Brands from './Brands';
-import Feature_product from './FeatureProduct';
-import Proud_clients from './ProudClients';
+import FeatureProduct from './FeatureProduct';
+import ProudClients from './ProudClients';
 import Services from './Services';
 import HtmlRenderer from './HtmlRenderer';
 import { IoSearch } from 'react-icons/io5';
@@ -134,7 +134,7 @@ const MainHero = () => {
         {/* ==== right side bar ==== */}
         <div className="xl:w-full overflow-hidden">
           <div className="mt-6 md:mt-0 md:h-fit">
-            <Banner_slide />
+            <BannerSlide />
           </div>
 
           {/* ====== Banner bottom text ====== */}
@@ -151,12 +151,12 @@ const MainHero = () => {
 
           {/* ==== Feature product ==== */}
           <div className="py-14">
-            <Feature_product />
+            <FeatureProduct />
           </div>
 
           {/* ==== Proud clients ==== */}
           <div className="md:py-12 py-14">
-            <Proud_clients />
+            <ProudClients />
           </div>
 
           {/* ==== Services ==== */}

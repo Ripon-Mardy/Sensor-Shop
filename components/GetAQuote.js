@@ -14,8 +14,8 @@ const GetAQuote = ({ visible, onClose, productName, productId }) => {
 
   const [formData, setFormData] = useState({
     subject: "Quotation Query",
-    product_id: productId || "", // Pre-populate with the productId prop
-    product_name: productName || "", // Pre-populate with the productName prop
+    product_id: "", // Pre-populate with the productId prop
+    product_name: "", // Pre-populate with the productName prop
     name: "",
     email: "",
     phone: "",
@@ -40,7 +40,7 @@ const GetAQuote = ({ visible, onClose, productName, productId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log(formData);
+    console.log(formData);
 
     // Handle form submission, e.g., send data to an API
     try {
@@ -91,13 +91,13 @@ const GetAQuote = ({ visible, onClose, productName, productId }) => {
             />
             <input
               type="hidden"
-              value={formData.product_id}
+              value="NULL"
               name="product_id"
               required
             />
             <input
               type="hidden"
-              value={formData.product_name}
+              value="NULL"
               name="product_name"
               required
             />

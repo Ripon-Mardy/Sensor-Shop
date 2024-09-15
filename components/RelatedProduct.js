@@ -93,7 +93,22 @@ const RelatedProduct = () => {
                 <h1 className="font-semibold capitalize text-base">
                   {product.name}
                 </h1>
+                <p className="">
+                  {typeof product?.extraFields?.find(
+                    (field) => field.meta_name === "product_short_description"
+                  )?.meta_value === "string"
+                    ? product.extraFields
+                      .find(
+                        (field) =>
+                          field.meta_name === "product_short_description"
+                      )
+                      .meta_value.split("")
+                      .slice(0, 10)
+                      .join(" ")
+                    : ""}
+                </p>
               </div>
+
             </Link>
           </SwiperSlide>
         ))}
