@@ -6,16 +6,19 @@ import { FaUser, FaPhone, FaHome } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 
-const Get_a_quote = ({ visible, onClose, productName }) => {
-  if(!visible) return null
+const Get_a_quote = ({ visible, onClose, productName, productId }) => {
+  if (!visible) return null
 
 
   const [formData, setFormData] = useState({
-    first_name: "",
+    subject: "",
+    product_id: "",
+    product_name: "",
+    name: "",
     email: "",
     phone: "",
-    address: "",
-    city: "",
+    // address: "",
+    // city: "",
     comment: "",
   });
 
@@ -49,9 +52,12 @@ const Get_a_quote = ({ visible, onClose, productName }) => {
               <IoCloseSharp />
             </span>
             <div className="mb-6">
-            <h2 className="text-2xl font-bold text-center">Get a quote</h2>
-            <span className=" flex items-start justify-center text-xs font-normal"> Prduct Name : {productName} </span>
+              <h2 className="text-2xl font-bold text-center">Get a quote</h2>
+              <span className=" flex items-start justify-center text-xs font-normal"> Prduct Name : {productName} </span>
             </div>
+            <input type="hidden" value="Quotation Query" name="subject" required />
+            <input type="hidden" value={productId} name="product_id" required />
+            <input type="hidden" value={productName} name="product_name" required />
 
             {/* First Name */}
             <div className="mb-4">
@@ -64,11 +70,11 @@ const Get_a_quote = ({ visible, onClose, productName }) => {
                     <FaUser />
                   </span>
                   <input
-                    name="first_name"
+                    name="name"
                     type="text"
-                    placeholder="First Name"
+                    placeholder="Full Name"
                     className="pl-10 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
-                    value={formData.first_name}
+                    value={formData.name}
                     onChange={handleChange}
                     required
                   />
@@ -123,7 +129,7 @@ const Get_a_quote = ({ visible, onClose, productName }) => {
             </div>
 
             {/* Address */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block text-gray-700 text-sm font-semibold mb-2">
                 Address
               </label>
@@ -143,10 +149,10 @@ const Get_a_quote = ({ visible, onClose, productName }) => {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* City */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block text-gray-700 text-sm font-semibold mb-2">
                 City
               </label>
@@ -166,12 +172,12 @@ const Get_a_quote = ({ visible, onClose, productName }) => {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Comment */}
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Comments or questions
+                Comments or Questions
               </label>
               <textarea
                 name="comment"
