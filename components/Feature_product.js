@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Loading from "./Loading";
+import axiosInstance from "@/helpers/axiosInstance";
 
 const Feature_product = () => {
   const [product, setProduct] = useState([]);
@@ -11,14 +12,8 @@ const Feature_product = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(
-          "http://mathmozocms.test/api/v1/posts?term_type=product"
-        );
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await res.json();
-        setProduct(data.data);
+        const response = await axiosInstance.get('/posts?term_type=product')
+        setProduct(response.data.data)
       } catch (error) {
         setError(error.message);
       } finally {
@@ -66,6 +61,7 @@ const Feature_product = () => {
                 width={300}
                 height={300}
                 alt={product.name}
+                priority={false}
               />
               <div className="text-center">
                 <h1 className="font-semibold capitalize text-base">

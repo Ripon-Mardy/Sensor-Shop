@@ -43,7 +43,7 @@ const Proud_clients = () => {
                     {
                         proudClients.map((proudsClient, proudIndex) => (
                             <div key={proudIndex} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out' >
-                                <Image src={proudsClient.featured_image} width={300} height={300} alt={proudClients.name} />
+                                <Image src={proudsClient.featured_image} width={300} height={300} alt={proudClients.name} priority={false} />
                             </div>
                         ))
                     }

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 import Loading from './Loading';
+import axiosInstance from '@/helpers/axiosInstance';
 
 
 const Brands = () => {
@@ -14,14 +15,8 @@ const Brands = () => {
     useEffect(() => {
         const brandsList = async () => {
             try {
-                const response = await fetch('http://mathmozocms.test/api/v1/posts?term_type=brands');
-                if (!response.ok) {
-                    throw new Error('Faild response')
-                }
-                const data = await response.json();
-                // console.log(data.data);
-                setBrandsList(data.data)
-
+                const response = await axiosInstance.get('/posts?term_type=brands')
+                setBrandsList(response.data.data)
             } catch (error) {
                 setError(error.message)
             } finally {
@@ -59,7 +54,7 @@ const Brands = () => {
                     {
                         brandsList.map((brand, index) => (
                             <div key={index} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
-                                <Image src={brand.featured_image} width={400} height={400} alt={brand.name} />
+                                <Image src={brand.featured_image} width={400} height={400} alt={brand.name} priority={false} />
                             </div>
                         ))
                     }

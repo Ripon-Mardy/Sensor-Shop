@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import axiosInstance from "@/helpers/axiosInstance";
 
 // image ====
 import sensor_logo from "./../public/image/logo.png";
@@ -42,14 +43,9 @@ const Navbar = () => {
     // menu api
     const fetchMenu = async () => {
       try {
-        const response = await fetch("http://mathmozocms.test/api/v1/menus");
-        if (!response.ok) {
-          throw new Error("Faild to fetch menu");
-        }
-        const data = await response.json();
-        // console.log(data.data[0].items);
-
-        setMenuItems(data.data[0].items);
+        const response = await axiosInstance.get('/menus')
+        // setMenuItems(data.data[0].items);
+        setMenuItems(response.data.data[0].items)
       } catch (error) {
         console.log("fail to fetch menu");
       } // end try
@@ -59,14 +55,9 @@ const Navbar = () => {
     // search term 
     const fetchProduct = async () => {
       try {
-        const res = await fetch(
-          "http://mathmozocms.test/api/v1/posts?term_type=product"
-        );
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await res.json();
-        setProduct(data.data);
+        const res = await axiosInstance.get('/posts?term_type=product')
+        // setProduct(data.data);
+        setProduct(res.data.data)
       } catch (error) {
         console.log("error", error.message);
       }
@@ -95,7 +86,7 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
 
-  }, [searchTerm, product]);
+  }, [searchTerm, product, menuitems]);
 
 
   const handleSearchChange = (e) => {
@@ -130,6 +121,7 @@ const Navbar = () => {
                   height={150}
                   className="md:w-52"
                   alt='sensor shop'
+                  priority={false}
                 ></Image>
               </Link>
             </div>

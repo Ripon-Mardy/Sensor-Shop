@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import axiosInstance from "@/helpers/axiosInstance";
 
 // ===== components ====
 import Banner_slide from "./Banner_slide";
@@ -38,14 +39,9 @@ const Main_hero = () => {
     // fetch category
     const fetchCategory = async () => {
       try {
-        const res = await fetch(
-          "http://mathmozocms.test/api/v1/categories?taxonomy_type=categories"
-        );
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await res.json();
-        setCategoryData(data.data);
+        const res = await axiosInstance.get('/categories?taxonomy_type=categories')
+        // setCategoryData(data.data);
+        setCategoryData(res.data.data)
       } catch (error) {
         setError("Error", error.message);
       }
@@ -55,14 +51,9 @@ const Main_hero = () => {
     // Fetch Product
     const fetchProduct = async () => {
       try {
-        const res = await fetch(
-          "http://mathmozocms.test/api/v1/posts?term_type=product"
-        );
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await res.json();
-        setProduct(data.data);
+        const res = await axiosInstance.get('/posts?term_type=product')
+        // setProduct(data.data);
+        setProduct(res.data.data)
       } catch (error) {
         console.log("error", error.message);
       }
@@ -72,14 +63,9 @@ const Main_hero = () => {
     // Fetch Main Speech
     const main_speech = async () => {
       try {
-        const response = await fetch(
-          "http://mathmozocms.test/api/v1/frontend/settings?meta_name=main_speech&meta_type=Text"
-        );
-        if (!response.ok) {
-          throw new Error("Faild to fetch techsense");
-        }
-        const data = await response.json();
-        setMainSpeech(data.data);
+        const response = await axiosInstance.get('/frontend/settings?meta_name=main_speech&meta_type=Text')
+        // setMainSpeech(data.data);
+        setMainSpeech(response.data.data)
       } catch (error) {}
     };
     main_speech();
@@ -189,7 +175,7 @@ const Main_hero = () => {
 
             {/* ==== left side bannar ====  */}
             <div className="hidden md:block">
-              <Image src={productBanner} className="rounded-md" alt="image" />
+              <Image src={productBanner} className="rounded-md" alt="image" priority={false} />
             </div>
             {/* ==== end left side banner ====  */}
 
@@ -198,13 +184,13 @@ const Main_hero = () => {
               <h1 className="text-xl font-semibold text-center mb-2">
                 Why Choose us?
               </h1>
-              <Image src={choose1} className="rounded-md" alt="choose" />
+              <Image src={choose1} className="rounded-md" alt="choose" priority={false} />
             </div>
             {/* ===== end why choose us ====  */}
 
             {/* ==== left side bannar ====  */}
             <div className="hidden md:block">
-              <Image src={productBanner} className="rounded-md" alt="choose" />
+              <Image src={productBanner} className="rounded-md" alt="choose" priority={false} />
             </div>
             {/* ==== end left side banner ====  */}
           </div>

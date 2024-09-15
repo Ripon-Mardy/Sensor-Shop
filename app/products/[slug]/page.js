@@ -93,6 +93,7 @@ const page = ({ params }) => {
                     alt={product.name}
                     className="w-full object-cover mx-auto rounded-lg"
                     layout="responsive"
+                    priority={false}
                   />
                   <span onClick={openFullScreen} className="absolute right-3 bottom-3 text-xl border border-gray-300 p-1 cursor-pointer rounded-md text-white bg-gray-600">
                     <SlSizeFullscreen />

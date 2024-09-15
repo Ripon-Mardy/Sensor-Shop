@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
-
+import axiosInstance from '@/helpers/axiosInstance';
 
 
 
@@ -10,6 +10,8 @@ const Banner_slide = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slider, setSlider] = useState([])
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   // useEffect(() => {
 
@@ -29,12 +31,15 @@ const Banner_slide = () => {
   useEffect(() => {
 
     const slider = async () => {
-      const response = await fetch('http://mathmozocms.test/api/v1/posts?term_type=sensor_slider');
-      // if(!response.ok) {
-      //   throw new Error('Faild to fetch data from sensor slider')
-      // }
-      const data = await response.json();
-      setSlider(data.data)
+      try {
+        const response = await axiosInstance.get('/posts?term_type=sensor_slider')
+        setSlider(response.data.data)
+      } catch (error) {
+        setError('faild to fetch slider')
+      } finally {
+        setLoading(false)
+      }
+
     }
     slider()
 
@@ -64,6 +69,7 @@ const Banner_slide = () => {
               height={300}
               layout='responsive'
               className="w-full h-32 md:h-full object-cover rounded-sm"
+              priority={false}
             />
           </div>
         ))}

@@ -32,7 +32,7 @@ const page = () => {
                 productList.map((product, product_index) => (
                     <Link href={'#'} key={product_index} className='flex items-center py-4 md:py-0 gap-2 border-b border-gray-400'>
                         <div className='w-2/6'>
-                        <Image src={product.featured_image} width={400} height={400}  className='w-72'/>
+                        <Image src={product.featured_image} width={400} height={400}  className='w-72' priority={false} />
                         </div>
                         <div className='w-full md:flex md:items-center md:justify-between md:w-[90%]'>
                             <div className='flex flex-col gap-2 md:w-[90%]'>

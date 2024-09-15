@@ -51,7 +51,7 @@ const page = () => {
                         {
                             clients.map((proudsClient, proudIndex) => (
                                 <div key={proudIndex} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out' >
-                                    <Image src={proudsClient.featured_image} className='w-full' width={200} height={200} alt={proudsClient.name} />
+                                    <Image src={proudsClient.featured_image} className='w-full' width={200} height={200} alt={proudsClient.name} priority={false} />
                                 </div>
                             ))
                         }

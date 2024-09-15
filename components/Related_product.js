@@ -94,6 +94,7 @@ const Related_product = () => {
                 src={product.featured_image}
                 width={300}
                 height={300}
+                priority={false}
                 className="w-56 h-40 object-cover"
                 alt={product.name}
               />

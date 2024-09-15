@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import HtmlRenderer from './HtmlRenderer'
+import axiosInstance from '@/helpers/axiosInstance'
 
 const Para_text = () => {
     const [techsense, setTechsense] = useState([]);
@@ -10,12 +11,9 @@ const Para_text = () => {
     useEffect(() => {
         const techsenseList = async () => {
             try {
-                const response = await fetch('http://mathmozocms.test/api/v1/posts?term_type=techsense');
-                if (!response.ok) {
-                    throw new Error('Faild to fetch techsense')
-                }
-                const data = await response.json();
-                setTechsense(data.data);
+                const response = await axiosInstance.get('/posts?term_type=techsense')
+                // setTechsense(data.data);
+                setTechsense(response.data.data)
             } catch (error) {
 
             }
@@ -24,12 +22,9 @@ const Para_text = () => {
 
         const para_text = async () => {
             try {
-                const response = await fetch('http://mathmozocms.test/api/v1/frontend/settings?meta_name=paragraphs&meta_type=Textarea');
-                if (!response.ok) {
-                    throw new Error('Faild to fetch techsense')
-                }
-                const data = await response.json();
-                setParaText(data.data);
+                const response = await axiosInstance.get('/frontend/settings?meta_name=paragraphs&meta_type=Textarea')
+                // setParaText(data.data);
+                setParaText(response.data.data)
             } catch (error) {
 
             }
@@ -61,7 +56,7 @@ const Para_text = () => {
                 <div className='flex gap-6 flex-wrap items-center justify-center'>
                     {techsense.map((techList, techIndex) => (
                         <div key={techIndex}>
-                            <Image src={techList.featured_image} width={300} height={300} className='rounded-md' alt={techList.name} />
+                            <Image src={techList.featured_image} width={300} height={300} className='rounded-md' alt={techList.name} priority={false} />
                         </div>
                     ))}
                 </div>

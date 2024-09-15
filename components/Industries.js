@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import axiosInstance from "@/helpers/axiosInstance";
 
 
 // Import Swiper React components
@@ -23,15 +24,9 @@ const Industries = () => {
   useEffect(() => {
     const industricsList = async () => {
       try {
-        const response = await fetch(
-          "http://mathmozocms.test/api/v1/posts?term_type=industries"
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setIndustrices(data.data);
+        const response = await axiosInstance.get('/posts?term_type=industries')
+        // setIndustrices(data.data);
+        setIndustrices(response.data.data)
       } catch (error) {
         console.error(error);
       }
@@ -87,6 +82,7 @@ const Industries = () => {
                     height={200}
                     className="object-cover rounded-md w-full"
                     alt={product.name}
+                    priority={false}
                   />
                   <h1 className="text-base font-semibold my-2 capitalize">
                     {" "}
