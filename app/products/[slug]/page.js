@@ -5,18 +5,18 @@ import Image from "next/image";
 
 import Related_product from "@/components/RelatedProduct";
 import Loading from "@/components/Loading";
-import Get_a_quote from "@/components/GetAQuote";
 import { SlSizeFullscreen } from "react-icons/sl";
 import { IoIosClose } from "react-icons/io";
 // ==== image ==== 
 import seimens from '../../../public/image/siemens.png';
 import axiosInstance from "@/helpers/axiosInstance"; // Import axiosInstance
+import GetAQuote from "@/components/GetAQuote";
 
 const Page = ({ params }) => {
   const slug = params.slug;
 
   const [product, setProduct] = useState([]); // set product data
-  console.log('product', product);
+  // console.log('product', product);
 
   const [loading, setLoading] = useState(true); // set loading 
   const [error, setError] = useState(false); // set error
@@ -178,7 +178,7 @@ const Page = ({ params }) => {
                 Get a quote
               </button>
               {/* === get a quote form ==  */}
-              <Get_a_quote
+              <GetAQuote
                 visible={isFormVisible}
                 onClose={handleCloseForm}
                 productName={product?.name}

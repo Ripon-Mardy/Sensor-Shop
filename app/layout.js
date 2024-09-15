@@ -4,6 +4,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Top_navbar from "@/components/TopNavbar";
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -21,7 +24,7 @@ export default function RootLayout({ children }) {
         {children}
         <Footer/>
         </div>
-
+        <ToastContainer position="bottom-left" />
       </body>
     </html>
   );
