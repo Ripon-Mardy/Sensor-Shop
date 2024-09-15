@@ -3,9 +3,9 @@ import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import Related_product from "@/components/Related_product";
+import Related_product from "@/components/RelatedProduct";
 import Loading from "@/components/Loading";
-import Get_a_quote from "@/components/Get_a_quote";
+import Get_a_quote from "@/components/GetAQuote";
 import { SlSizeFullscreen } from "react-icons/sl";
 import { IoIosClose } from "react-icons/io";
 // ==== image ==== 

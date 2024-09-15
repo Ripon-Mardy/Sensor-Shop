@@ -10,27 +10,22 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-// import './styles.css';
-
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules";
 
+import axiosInstance from "@/helpers/axiosInstance"; // Import your axios instance
+
 const Services = () => {
-  const [services, setSerives] = useState([]);
+  const [services, setServices] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const servicesList = async () => {
       try {
-        const response = await fetch(
-          "http://mathmozocms.test/api/v1/posts?term_type=services"
-        );
-        if (!response.ok) {
-          throw new Error("Faild to fetch service");
-        }
-        const data = await response.json();
-        setSerives(data.data);
+        const response = await axiosInstance.get("/posts?term_type=services"); // Use axiosInstance for the request
+        setServices(response.data.data); // Set the data from the response
       } catch (error) {
-        console.error("Failed to fetch service: ", error.message);
+        setError(error.message); // Handle any errors
       }
     };
 
@@ -49,7 +44,7 @@ const Services = () => {
           Our team of experts is highly trained and experienced in a variety of
           fields, including VFD repair, PCB repair, PLC programming, and more.
           Explore our services below to learn more about how we can help you
-          optimize you operations and increase efficiency.
+          optimize your operations and increase efficiency.
         </p>
       </div>
       {/* ==== end services title ====  */}
@@ -58,7 +53,6 @@ const Services = () => {
       <div>
         <Swiper
           slidesPerView={2}
-          // slidesPerView={}
           spaceBetween={10}
           breakpoints={{
             640: {
@@ -95,8 +89,7 @@ const Services = () => {
                   alt={product.name}
                 />
                 <h1 className="text-base font-semibold my-2 capitalize">
-                  {" "}
-                  {product.name}{" "}
+                  {product.name}
                 </h1>
                 <Link
                   href={`/${product.slug}`}
@@ -109,7 +102,8 @@ const Services = () => {
           ))}
         </Swiper>
       </div>
-      {/* ====end serive slide ===  */}
+      {/* ====end service slide ===  */}
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 };

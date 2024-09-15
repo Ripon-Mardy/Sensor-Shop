@@ -14,7 +14,7 @@ const Brands = () => {
     useEffect(() => {
         const brandsList = async () => {
             try {
-                const response = await fetch('http://mathmozocms.test/api/v1/posts?term_type=brands');
+                const response = await fetch('/posts?term_type=brands');
                 if (!response.ok) {
                     throw new Error('Faild response')
                 }

@@ -1,19 +1,11 @@
-'use client'
-import React, { useState, useEffect } from 'react'
+'use client';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import axiosInstance from '@/helpers/axiosInstance'; // Ensure axiosInstance is correctly imported
 
-
-
-
-const Banner_slide = () => {
-
-
+const BannerSlide = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [slider, setSlider] = useState([])
-
-  // useEffect(() => {
-
-  // }, [slider.length]);
+  const [slider, setSlider] = useState([]);
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -25,31 +17,27 @@ const Banner_slide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % slider.length);
   };
 
-  // === slider api == 
   useEffect(() => {
+    const fetchSlider = async () => {
+      try {
+        const response = await axiosInstance.get('/posts?term_type=sensor_slider');
+        setSlider(response.data.data);
+      } catch (error) {
+        console.error('Failed to fetch data from sensor slider', error);
+      }
+    };
 
-    const slider = async () => {
-      const response = await fetch('http://mathmozocms.test/api/v1/posts?term_type=sensor_slider');
-      // if(!response.ok) {
-      //   throw new Error('Faild to fetch data from sensor slider')
-      // }
-      const data = await response.json();
-      setSlider(data.data)
-    }
-    slider()
+    fetchSlider();
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slider.length);
-    }, 10000); // Change image every 3 seconds
-    return () => clearInterval(interval);
-    
-  }, [slider.length])
+    }, 10000); // Change image every 10 seconds
 
+    return () => clearInterval(interval);
+  }, [slider.length]);
 
   return (
     <div>
-
-
       <div className="relative w-full md:h-40 h-40 overflow-hidden">
         {slider.map((banner, index) => (
           <div
@@ -68,7 +56,6 @@ const Banner_slide = () => {
           </div>
         ))}
 
-
         <div className='flex items-center justify-center'>
           <button
             onClick={prevSlide}
@@ -83,12 +70,9 @@ const Banner_slide = () => {
             &gt;
           </button>
         </div>
-
-
       </div>
-
     </div>
-  )
+  );
 }
 
-export default Banner_slide
+export default BannerSlide;
