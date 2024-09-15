@@ -168,6 +168,10 @@ const Page = ({ params }) => {
                   <span className="font-semibold text-lg">BDT, 1000</span>
                   <span className="text-sm"> 2 pcs in stock </span>
                 </div>
+                <div className="">
+                  <p>TBL is not an authorized BrandNAME distributor,
+                  but we have independent supplier, so we can provide competitive pricing.</p>
+                </div>
               </div>
 
               <button
