@@ -1,26 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axiosInstance from "@/helpers/axiosInstance";
 
 // === icons ===
-import { FaUser, FaPhone, FaHome } from "react-icons/fa";
+import { FaUser, FaPhone } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
+import { toast } from 'react-toastify';
 
-const Get_a_quote = ({ visible, onClose, productName, productId }) => {
-  if (!visible) return null
 
+const GetAQuote = ({ visible, onClose, productName, productId }) => {
+  if (!visible) return null;
 
   const [formData, setFormData] = useState({
-    subject: "",
-    product_id: "",
-    product_name: "",
+    subject: "Quotation Query",
+    product_id: productId || "", // Pre-populate with the productId prop
+    product_name: productName || "", // Pre-populate with the productName prop
     name: "",
     email: "",
     phone: "",
-    // address: "",
-    // city: "",
     comment: "",
   });
+
+  // UseEffect to update product info when productName or productId changes
+  useEffect(() => {
+    setFormData((prevData) => ({
+      ...prevData,
+      product_id: productId,
+      product_name: productName,
+    }));
+  }, [productId, productName]);
 
   const handleChange = (e) => {
     setFormData({
@@ -29,10 +38,25 @@ const Get_a_quote = ({ visible, onClose, productName, productId }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    //console.log(formData);
+
     // Handle form submission, e.g., send data to an API
+    try {
+      const response = await axiosInstance.post('/contacts/create', formData); // Replace with your API endpoint
+
+      toast.success("Your query has been submitted", {
+        position: "bottom-left", // Position toast in the bottom-left corner
+      });
+      onClose();
+      //console.log('Response:', response.data);
+      // Handle success, e.g., show a success message or redirect
+    } catch (error) {
+      toast.error(error.response?.data || error.message);
+      // console.error('Error:', error.response?.data || error.message);
+      // Handle error, e.g., show an error message
+    }
 
 
   };
@@ -40,7 +64,7 @@ const Get_a_quote = ({ visible, onClose, productName, productId }) => {
   return (
     <>
       <section>
-        <div className="h-screen w-full bg-gray-800  left-0 top-0 z-40 bg-opacity-10 bg-fixed py-5 fixed overflow-auto">
+        <div className="h-screen w-full bg-gray-800 left-0 top-0 z-40 bg-opacity-10 bg-fixed py-5 fixed overflow-auto">
           <form
             className="bg-white shadow-md rounded p-4 w-[90%] md:w-1/2 mx-auto relative"
             onSubmit={handleSubmit}
@@ -53,13 +77,32 @@ const Get_a_quote = ({ visible, onClose, productName, productId }) => {
             </span>
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-center">Get a quote</h2>
-              <span className=" flex items-start justify-center text-xs font-normal"> Prduct Name : {productName} </span>
+              <span className=" flex items-start justify-center text-xs font-normal">
+                Product Name: {productName}
+              </span>
             </div>
-            <input type="hidden" value="Quotation Query" name="subject" required />
-            <input type="hidden" value={productId} name="product_id" required />
-            <input type="hidden" value={productName} name="product_name" required />
 
-            {/* First Name */}
+            {/* Hidden Fields */}
+            <input
+              type="hidden"
+              value="Quotation Query"
+              name="subject"
+              required
+            />
+            <input
+              type="hidden"
+              value={formData.product_id}
+              name="product_id"
+              required
+            />
+            <input
+              type="hidden"
+              value={formData.product_name}
+              name="product_name"
+              required
+            />
+
+            {/* Name */}
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-semibold mb-2">
                 Name
@@ -128,52 +171,6 @@ const Get_a_quote = ({ visible, onClose, productName, productId }) => {
               </div>
             </div>
 
-            {/* Address */}
-            {/* <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-semibold mb-2">
-                Address
-              </label>
-              <div className="flex">
-                <div className="relative w-full">
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-sm">
-                    <FaHome />
-                  </span>
-                  <input
-                    name="address"
-                    type="text"
-                    placeholder="Address"
-                    className="pl-10 p-2 text-sm w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    value={formData.address}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-            </div> */}
-
-            {/* City */}
-            {/* <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-semibold mb-2">
-                City
-              </label>
-              <div className="flex">
-                <div className="relative w-full">
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-sm">
-                    <FaHome />
-                  </span>
-                  <input
-                    name="city"
-                    type="text"
-                    placeholder="City"
-                    className="pl-10 p-2 text-sm w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    value={formData.city}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-            </div> */}
-
             {/* Comment */}
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -206,4 +203,4 @@ const Get_a_quote = ({ visible, onClose, productName, productId }) => {
   );
 };
 
-export default Get_a_quote;
+export default GetAQuote;
