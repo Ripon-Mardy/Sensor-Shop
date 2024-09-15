@@ -61,16 +61,16 @@ const Footer = () => {
           </div>
         </div>
         <div className="w-full h-0.5 bg-gray-600 "></div>
-        <div className="container mx-auto px-3 pt-5 flex items-center justify-center text-sm text-gray-400 pb-2 gap-5">
+        <div className="container mx-auto pt-5 flex items-center justify-center text-sm text-gray-400 pb-2">
           <p>All Rights Reserved © Sensor Shop Bangladesh.</p>
           <p className="flex">
-            Developed By
+            &nbsp;Developed By
             <Link
               className="text-green-600 font-semibold"
               href={"https://mathmozo.com"}
               target="_blank"
             >
-              Mathmozo IT
+              &nbsp; Mathmozo IT
             </Link>
           </p>
         </div>

@@ -1,15 +1,15 @@
-import Get_a_quote from "@/components/Get_a_quote";
+import GetAQuote from "@/components/GetAQuote";
 import Industries from "@/components/Industries";
-import Main_hero from "@/components/Main_hero";
-import Para_text from "@/components/Para_text";
+import MainHero from "@/components/MainHero";
+import ParaText from "@/components/ParaText";
 
 export default function Home() {
   return (
     <>
-    <Get_a_quote/>
-    <Main_hero/>
-    <Industries/>
-    <Para_text/>
+    <GetAQuote />
+    <MainHero />
+    <Industries />
+    <ParaText />
     </>
   );
 }

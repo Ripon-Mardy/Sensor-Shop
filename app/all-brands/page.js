@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import Loading from '@/components/Loading';
+import axiosInstance from '@/helpers/axiosInstance'; // Import your axios instance
 
-const page = () => {
+const Page = () => {
 
     const [brands, setBrands] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,27 +13,23 @@ const page = () => {
     useEffect(() => {
         const brandsList = async () => {
            try {
-            const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=brands');
-            if(!res.ok) {
-                throw new Error('Network response was not ok')
-            }
-            const data = await res.json();
-            setBrands(data.data)
-            
+                const res = await axiosInstance.get('/posts?term_type=brands');
+                setBrands(res.data.data); // Use axios to get data
            } catch (error) {
-            setError(error.message)
+                setError(error.message);
            } finally {
-            setLoading(false)
+                setLoading(false);
            }
         }
-        brandsList()
-    }, [])
+        brandsList();
+    }, []);
 
-    if(loading) {
-        return <Loading/>
+    if (loading) {
+        return <Loading />;
     }
 
-    // if(error) {
+    // Uncomment if you want to show an error message
+    // if (error) {
     //     return (
     //         <div className="flex items-center justify-center">
     //           <p className="text-red-500">Error: {error}</p>
@@ -46,18 +43,16 @@ const page = () => {
                 <div className='container mx-auto px-3'>
                     <h1 className='text-2xl capitalize font-medium'>All brands</h1>
                     <div className='flex items-center gap-4 flex-wrap py-5'>
-
-                    {brands.map((item, index) => (
-                        <div key={index} className='border border-gray-200 rounded-md'>
-                            <Image src={item.featured_image} className='w-full' width={120} height={120} alt='brands' />
-                        </div>
-                    ))}
-                    
+                        {brands.map((item, index) => (
+                            <div key={index} className='border border-gray-200 rounded-md'>
+                                <Image src={item.featured_image} className='w-full' width={120} height={120} alt='brands' />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
         </>
-    )
-}
+    );
+};
 
-export default page
+export default Page;

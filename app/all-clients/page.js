@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
 import Loading from '@/components/Loading';
+import axiosInstance from '@/helpers/axiosInstance'; // Import your axios instance
 
-const page = () => {
+const Page = () => {
 
     const [clients, setClients] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,24 +13,19 @@ const page = () => {
     useEffect(() => {
         const brandsList = async () => {
             try {
-                const res = await fetch('http://mathmozocms.test/api/v1/posts?term_type=brands');
-                if (!res.ok) {
-                    throw new Error('Network response was not ok')
-                }
-                const data = await res.json();
-                setClients(data.data)
-
+                const res = await axiosInstance.get('/posts?term_type=brands');
+                setClients(res.data.data);
             } catch (error) {
-                setError(error.message)
+                setError(error.message);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-        }
-        brandsList()
-    }, [])
+        };
+        brandsList();
+    }, []);
 
     if (loading) {
-        return <Loading />
+        return <Loading />;
     }
 
     if (error) {
@@ -40,28 +36,24 @@ const page = () => {
         );
     }
 
-
     return (
         <>
             <section className='py-10'>
                 <div className='container mx-auto'>
-                    <h1 className='text-2xl capitalize font-medium'>all clients</h1>
+                    <h1 className='text-2xl capitalize font-medium'>All Clients</h1>
                     <div className='grid grid-cols-3 md:grid-cols-6 md:grid md:gap-6 gap-6 mt-8'>
-
                         {
                             clients.map((proudsClient, proudIndex) => (
-                                <div key={proudIndex} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out' >
+                                <div key={proudIndex} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
                                     <Image src={proudsClient.featured_image} className='w-full' width={200} height={200} alt={proudsClient.name} />
                                 </div>
                             ))
                         }
-
                     </div>
-
                 </div>
             </section>
         </>
-    )
-}
+    );
+};
 
-export default page
+export default Page;

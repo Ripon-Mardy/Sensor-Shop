@@ -14,11 +14,9 @@ import "swiper/css/pagination";
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
 import Loading from "./Loading";
+import axiosInstance from "@/helpers/axiosInstance"; // Assuming axiosInstance is set up
 
-// ==== image ===
-// import Loading from "./Loading";
-
-const Related_product = () => {
+const RelatedProduct = () => {
   const [products, setProuducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,14 +24,8 @@ const Related_product = () => {
   useEffect(() => {
     const brandsList = async () => {
       try {
-        const res = await fetch(
-          "http://mathmozocms.test/api/v1/posts?term_type=product"
-        );
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await res.json();
-        setProuducts(data.data);
+        const res = await axiosInstance.get("/posts?term_type=product");
+        setProuducts(res.data.data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -44,7 +36,7 @@ const Related_product = () => {
   }, []);
 
   if (loading) {
-    return <div><Loading /></div>
+    return <div><Loading /></div>;
   }
 
   if (error) {
@@ -65,7 +57,7 @@ const Related_product = () => {
         freeMode={true}
         pagination={{
           clickable: true,
-        }}  
+        }}
         breakpoints={{
           640: {
             slidesPerView: 2,
@@ -84,10 +76,9 @@ const Related_product = () => {
         className="mySwiper"
       >
         {products.map((product, index) => (
-          <SwiperSlide className="border border-gray-300 rounded-md my-10">
+          <SwiperSlide key={index} className="border border-gray-300 rounded-md my-10">
             <Link
               href={`/products/${product.slug}`}
-              key={index}
               className=" p-4 w-auto h-auto inline-block"
             >
               <Image
@@ -101,14 +92,7 @@ const Related_product = () => {
                 <h1 className="font-semibold capitalize text-base">
                   {product.name}
                 </h1>
-                <p className="font-medium text-red-500 text-sm mt-1">
-                  {/* {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split(" ").slice(0, 10).join(" ")} */}
-                </p>
               </div>
-              {/* <div className="text-center my-2">
-
-              <button className="bg-navBgColor p-1.5 px-4 text-sm rounded-md inline-block text-center text-white"> Request a Quote </button>
-              </div> */}
             </Link>
           </SwiperSlide>
         ))}
@@ -117,4 +101,4 @@ const Related_product = () => {
   );
 };
 
-export default Related_product;
+export default RelatedProduct;
