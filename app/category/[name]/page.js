@@ -62,11 +62,6 @@ const Category = ({ params }) => {
     <>
       <section>
         <div className="container mx-auto px-3 md:px-0 py-10">
-          {/* === home link == */}
-          {/* <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
-            <Link href={"/"}>Home /</Link>
-            <span> Category / {slugName} </span>
-          </div> */}
 
           <div className="mt-10 flex flex-col md:flex-row gap-10">
             {/* ==== category menus === */}
