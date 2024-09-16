@@ -60,10 +60,10 @@ const Products = () => {
   return (
     <>
       <section className="py-10">
-        <div className="container mx-auto px-3 flex flex-col md:flex-row gap-10 md:gap-5 ">
+        <div className="container mx-auto px-3 flex flex-col md:flex-row justify-between gap-10 md:gap-10 ">
           {/* <h1 className="text-2xl capitalize font-medium">All Products</h1> */}
 
-          <div className="basis-[20%]">
+          <div className="basis-[30%]">
           <div className="border-2 border-navBorder rounded-md basis-[80%] md:h-screen">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
               <div className="flex flex-col h-40 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
@@ -75,7 +75,7 @@ const Products = () => {
               </div>
             </div>
           </div>
-          <div className="md:w-2/3 mx-auto flex flex-col gap-8">
+          <div className="md:w-full mx-auto flex flex-col gap-8">
             {products.map((product, index) => (
               <Link
                 href={`/products/${product.slug}`}
