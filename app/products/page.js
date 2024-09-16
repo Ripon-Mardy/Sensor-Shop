@@ -6,12 +6,13 @@ import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
 import { AxiosError } from "axios";
 
-import seimens from '../../public/image/siemens.png'
+import seimens from "../../public/image/siemens.png";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async (retries = 3) => {
@@ -31,6 +32,17 @@ const Products = () => {
     };
 
     fetchProducts();
+
+    // fetch category 
+    const fetchCategory = async () => {
+      try {
+        const response = await axiosInstance.get('/categories?taxonomy_type=categories');
+        setCategoryData(response.data.data)
+      } catch (error) {
+        setError('faild to fetch category')
+      }
+    }
+    fetchCategory()
   }, []);
 
   if (loading) {
@@ -48,9 +60,21 @@ const Products = () => {
   return (
     <>
       <section className="py-10">
-        <div className="container mx-auto px-3">
+        <div className="container mx-auto px-3 flex flex-col md:flex-row gap-10 md:gap-5 ">
           {/* <h1 className="text-2xl capitalize font-medium">All Products</h1> */}
 
+          <div className="basis-[20%]">
+          <div className="border-2 border-navBorder rounded-md basis-[80%] md:h-screen">
+              <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
+              <div className="flex flex-col h-40 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
+                {categoryData.map((categoryItem, categoryIndex) => (
+                  <div key={categoryIndex}>
+                    <Link href={`/category/${categoryItem.slug}`}>{categoryItem.name}</Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
           <div className="md:w-2/3 mx-auto flex flex-col gap-8">
             {products.map((product, index) => (
               <Link
@@ -68,14 +92,27 @@ const Products = () => {
                 />
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-10 items-center">
-                    <Image src={seimens} width={100} height={100} alt={product.name} />
+                    <Image
+                      src={seimens}
+                      width={100}
+                      height={100}
+                      alt={product.name}
+                    />
                     <h1>Brands</h1>
                   </div>
                   <h1 className="font-semibold capitalize text-lg md:text-xl">
                     {product.name}
                   </h1>
-                  <p className="text-sm md:text-base"> {product.meta_description} </p>
-                  <p className="text-xs"> Estimated lead time: {product?.extraFields?.[0].created_at} </p>
+                  <p className="text-sm md:text-base">
+                    {" "}
+                    {product.meta_description}{" "}
+                  </p>
+                  <p className="text-xs">
+                    {" "}
+                    Estimated lead time: {
+                      product?.extraFields?.[0].created_at
+                    }{" "}
+                  </p>
                   <p className="font-medium text-red-500 text-sm mt-1">
                     {/* {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split("").slice(0, 10).join(" ")} */}
                   </p>

@@ -108,6 +108,11 @@ const Navbar = () => {
     };
   }, []);
 
+  const handleNavClick = (path) => {
+    router.push(path)
+    setIsOpen(false)
+  }
+
   return (
     <div className="shadow z-10 bg-white w-full">
       <div className="container mx-auto px-3 md:px-0 md:flex md:items-center md:justify-between relative">
@@ -222,8 +227,9 @@ const Navbar = () => {
               <div className="flex flex-col gap-6 text-white mt-16">
                 {menuitems.map((menuList, menuIndex) => (
                   <Link
+                  onClick={() => handleNavClick(menuList.link)}
                     key={menuIndex}
-                    href={"#"}
+                    href={menuList.link}
                     className="uppercase text-sm font-medium border-b border-gray-400 pb-2"
                   >
                     {menuList.label}
