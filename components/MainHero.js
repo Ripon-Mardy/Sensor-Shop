@@ -130,7 +130,7 @@ const MainHero = () => {
               )}
             </form>
           </div>
-          <div>
+          <div className='hidden md:block'>
             <Image src={productBanner} className='w-full mt-8' width={100} height={100} alt='product banner' />
             <Image src={choose1} className='w-full mt-8' width={100} height={100} alt='product banner' />
             <Image src={productBanner} className='w-full mt-8' width={100} height={100} alt='product banner' />
