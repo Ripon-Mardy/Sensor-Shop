@@ -105,7 +105,14 @@ const Category = ({ params }) => {
                       <h1 className="font-semibold capitalize text-base">
                         {product.name}
                       </h1>
-                      <p className="font-medium text-red-500 text-sm mt-1">
+                      <p className="font-medium text-black-400 text-sm mt-1">
+                        {typeof product?.extraFields?.find(
+                          (field) => field.meta_name === "product_short_description"
+                        )?.meta_value === "string"
+                          ? product.extraFields
+                            .find((field) => field.meta_name === "product_short_description")
+                            .meta_value.slice(0, 10) // Just slice the string, no split or join
+                          : ""}
                         {/* You can add product short description here */}
                       </p>
                     </div>

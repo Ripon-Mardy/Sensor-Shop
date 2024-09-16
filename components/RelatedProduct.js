@@ -98,13 +98,8 @@ const RelatedProduct = () => {
                     (field) => field.meta_name === "product_short_description"
                   )?.meta_value === "string"
                     ? product.extraFields
-                      .find(
-                        (field) =>
-                          field.meta_name === "product_short_description"
-                      )
-                      .meta_value.split("")
-                      .slice(0, 10)
-                      .join(" ")
+                      .find((field) => field.meta_name === "product_short_description")
+                      .meta_value.slice(0, 10) // Just slice the string, no split or join
                     : ""}
                 </p>
               </div>
