@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import Related_product from "@/components/RelatedProduct";
+import RelatedProduct from "@/components/RelatedProduct";
 import Loading from "@/components/Loading";
 import { SlSizeFullscreen } from "react-icons/sl";
 import { IoIosClose } from "react-icons/io";
@@ -143,6 +143,7 @@ const Page = ({ params }) => {
               <p className="text-lg border-b border-gray-100 pb-1 font-medium">
                 {product.meta_description}
               </p>
+              {JSON.stringify(product)}
 
               <div className="flex flex-col gap-4 md:w-4/5">
                 <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
@@ -194,7 +195,7 @@ const Page = ({ params }) => {
           {/* ==== end  */}
 
           <div className="py-10">
-            <Related_product />
+            <RelatedProduct />
           </div>
         </div>
       </section>
