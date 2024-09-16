@@ -5,6 +5,8 @@ import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
 import Loading from "@/components/Loading";
 
+import seimens from '../../../public/image/siemens.png'
+
 const Category = ({ params }) => {
   const slugName = params.name;
 
@@ -88,28 +90,49 @@ const Category = ({ params }) => {
                   <div className="text-red-500">No related products found</div>
                 )}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 gap-10">
                 {filterProducts.map((product, index) => (
                   <Link
-                    href={`/products/${product.slug}`}
-                    key={index}
-                    className="border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out"
-                  >
-                    <Image
-                      src={product.featured_image}
-                      width={300}
-                      height={300}
-                      alt={product.name}
-                    />
-                    <div className="text-center">
-                      <h1 className="font-semibold capitalize text-base">
-                        {product.name}
-                      </h1>
-                      <p className="font-medium text-red-500 text-sm mt-1">
-                        {/* You can add product short description here */}
-                      </p>
+                  href={`/products/${product.slug}`}
+                  key={index}
+                  className=" border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex items-center justify-start p-2 gap-3 md:gap-6"
+                >
+                  <Image
+                    src={product.featured_image}
+                    width={300}
+                    height={300}
+                    alt={product.name}
+                    priority={false}
+                    className="w-2/5 md:w-1/5 h-48 object-cover"
+                  />
+                  <div className="flex flex-col gap-3">
+                    <div className="flex gap-10 items-center">
+                      <Image
+                        src={seimens}
+                        width={100}
+                        height={100}
+                        alt={product.name}
+                      />
+                      <h1>Brands</h1>
                     </div>
-                  </Link>
+                    <h1 className="font-semibold capitalize text-lg md:text-xl">
+                      {product.name}
+                    </h1>
+                    <p className="text-sm md:text-base">
+                      {" "}
+                      {product.meta_description}{" "}
+                    </p>
+                    <p className="text-xs">
+                      {" "}
+                      Estimated lead time: {
+                        product?.extraFields?.[0].created_at
+                      }{" "}
+                    </p>
+                    <p className="font-medium text-red-500 text-sm mt-1">
+                      {/* {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split("").slice(0, 10).join(" ")} */}
+                    </p>
+                  </div>
+                </Link>
                 ))}
               </div>
             </div>
