@@ -104,8 +104,7 @@ const Products = () => {
                     {product.name}
                   </h1>
                   <p className="text-sm md:text-base">
-                    {" "}
-                    {product.meta_description}{" "}
+                    {product.meta_description}
                   </p>
                   <p className="text-xs">
                     {" "}
