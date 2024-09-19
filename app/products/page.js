@@ -6,8 +6,6 @@ import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
 import { AxiosError } from "axios";
 
-import seimens from "../../public/image/siemens.png";
-
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -123,6 +121,15 @@ const Products = () => {
                       {product.name}
                     </Link>
                   </h1>
+                  <p className="text-sm md:text-base">
+                    {product.meta_description}
+                  </p>
+                  <p className="text-xs">
+                    {" "}
+                    Estimated lead time: {
+                      product?.extraFields?.[0].created_at
+                    }{" "}
+                  </p>
                   <p className="font-medium text-red-500 text-sm mt-1">
                     <Link href={`/products/${product.slug}`}>
                       {typeof product?.extraFields?.find(

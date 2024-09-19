@@ -1,72 +1,42 @@
-'use client'
-import React, {useState} from 'react'
-import Image from 'next/image';
+import React from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 
-// images
-import img2 from './../../public/image/Feature Product/f1.jpg'
-import img3 from './../../public/image/Feature Product/f2.jpg'
-import img4 from './../../public/image/Feature Product/f4.jpg'
-import img5 from '../../public/image/services/service1.jpg'
+// === images ==== 
+import industris from '../../public/image/industries/industri1.png'
+
+export  const albums = [
+  {
+    id : 1,
+    title : "Album 1", 
+    mainImage : industris,
+    images : [industris, industris, industris, industris]
+  },
+  {
+    id : 2,
+    title : "Album 2", 
+    mainImage : industris,
+    images : [industris, industris, industris, industris]
+  }
+]
+
 
 const page = () => {
-    const images = [img2,img3,img4,img5]
-
-    const [selectedImage, setSelectedImage] = useState(null);
-
-  const handleClick = (image) => {
-    setSelectedImage(image);
-  };
-
-  const closeFullscreen = () => {
-    setSelectedImage(null);
-  };
-
+ 
   return (
     <>
     <section className='py-10'>
-        <div className='container mx-auto px-3'>
-            <h1 className='text-xl text-gray-800 md:text-3xl font-semibold'>Our Gallery </h1>
-            <div>
-      {/* Gallery Section */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-10 p-4">
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className="relative cursor-pointer"
-            onClick={() => handleClick(image)}
-          >
-            <Image
-              src={image}
-              width={100}
-              height={100}
-              layout='responsive'
-              alt={`Gallery Image ${index + 1}`}
-              className="w-full h-52 object-cover rounded-lg shadow-lg"
-            />
-          </div>
-        ))}
-      </div>
+      <div className='container mx-auto px-3 grid grid-cols-2 md:grid-cols-3 gap-10'>
+        {
+          albums.map((img, index) => (
+            <Link key={index} href={`/gallery/${img.id}`} className='border border-gray-300 rounded-md overflow-hidden'>
+              <Image src={img.mainImage} className='w-full' width={200} height={200} alt={img.title} />
+              <h1 className='text-xl font-semibold text-gray-800 text-center py-1'> {img.title} </h1>
+            </Link>
+          ))
+        }
 
-      {/* Fullscreen Modal */}
-      {selectedImage && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
-          <div className="relative">
-            <Image
-              src={selectedImage}
-              alt="Fullscreen Image"
-              className="w-auto max-h-screen object-contain"
-            />
-            <button
-              onClick={closeFullscreen}
-              className="absolute top-4 right-4 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600 focus:outline-none"
-            >
-              X
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-        </div>
+      </div>
     </section>
     </>
   )
