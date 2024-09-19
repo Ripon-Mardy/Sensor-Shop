@@ -13,7 +13,7 @@ const Page = () => {
     useEffect(() => {
         const brandsList = async () => {
            try {
-                const res = await axiosInstance.get('/posts?term_type=brands');
+                const res = await axiosInstance.get('/categories?taxonomy_type=product_brands');
                 setBrands(res.data.data); // Use axios to get data
            } catch (error) {
                 setError(error.message);
@@ -45,7 +45,7 @@ const Page = () => {
                     <div className='flex items-center gap-4 flex-wrap py-5'>
                         {brands.map((item, index) => (
                             <div key={index} className='border border-gray-200 rounded-md'>
-                                <Image src={item.featured_image} className='w-full' width={120} height={120} alt='brands' />
+                                <Image src={item.image} className='w-full' width={120} height={120} alt={item?.name} />
                             </div>
                         ))}
                     </div>
