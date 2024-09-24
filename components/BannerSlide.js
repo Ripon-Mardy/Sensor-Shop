@@ -26,7 +26,6 @@ const BannerSlide = () => {
         console.error('Failed to fetch data from sensor slider', error);
       }
     };
-
     fetchSlider();
 
     const interval = setInterval(() => {

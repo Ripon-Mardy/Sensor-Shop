@@ -80,11 +80,12 @@ const Page = ({ params }) => {
 
   return (
     <>
-
-      <section className="py-10">
-        <div className="container mx-auto px-3 flex flex-col md:flex-row justify-between gap-10 md:gap-10">
-          <div className="basis-[30%]">
-            <div className="border-2 border-navBorder rounded-md">
+      <section>
+        <div className="container mx-auto px-3 py-10">
+         <div className="flex flex-col md:flex-row gap-4">
+          <div className="basis-[25%] max-w-full">
+            {/* ==== category menus === */}
+           <div className="border-2 border-navBorder rounded-md md:w-full">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
               <div className="flex flex-col h-40 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
                 {categoryData.map((categoryItem, categoryIndex) => (
@@ -95,24 +96,63 @@ const Page = ({ params }) => {
               </div>
             </div>
           </div>
-          <div className="md:w-full mx-auto flex flex-col md:flex-row gap-8">
-            <div className="basis-1/2">
-              <div className="relative">
-                <Image
-                  src={productImage}
-                  width={200}
-                  height={200}
-                  alt={product.name}
-                  className="w-full object-cover mx-auto rounded-lg"
-                  layout="responsive"
-                  priority={false}
-                />
-                <span
-                  onClick={openFullScreen}
-                  className="absolute right-3 bottom-3 text-xl border border-gray-300 p-1 cursor-pointer rounded-md text-white bg-gray-600"
-                >
-                  <SlSizeFullscreen />
-                </span>
+           {/* ===== product details ====  */}
+           <div className="basis-full">
+           <div className="flex flex-col md:flex-row gap-10">
+           <div className="basis-1/2 flex flex-col gap-5 p-5">
+              <div className=" md:h-1/2 mx-auto w-full">
+                {/* ==== product slider ====  */}
+                <div className="relative">
+                  <Image
+                    src={productImage}
+                    width={200}
+                    height={200}
+                    alt={product.name}
+                    className="w-full object-cover mx-auto rounded-lg"
+                    layout="responsive"
+                    priority={false}
+                  />
+                  <span
+                    onClick={openFullScreen}
+                    className="absolute right-3 bottom-3 text-xl border border-gray-300 p-1 cursor-pointer rounded-md text-white bg-gray-600"
+                  >
+                    <SlSizeFullscreen />
+                  </span>
+                </div>
+                {/* ==== full screen image ====  */}
+                {isFullScreen && (
+                  <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+                    <div className="relative">
+                      <img
+                        src={productImage}
+                        alt="Full Screen"
+                        className="w-full h-full object-cover"
+                      />
+                      <button
+                        className="absolute top-4 right-4 bg-gray-800 text-white p-2 rounded-full"
+                        onClick={closeFullScreen}
+                      >
+                        <IoIosClose />
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {/* ==== end full screen images ====  */}
+                <div className="flex items-center justify-center gap-4 mt-5">
+                  {Array.isArray(product.extra_fields[0]?.meta_value) &&
+                    product.extra_fields[0]?.meta_value.map((img, index) => (
+                      <div key={index} className="border border-gray-200">
+                        <Image
+                          onClick={() => setProductImage(img)}
+                          src={img}
+                          width={100}
+                          height={100}
+                          className="cursor-pointer rounded-md w-28 h-28 object-cover"
+                        />
+                      </div>
+                    ))}
+                </div>
+                {/* === end product slider ===  */}
               </div>
               {/* ==== full screen image ====  */}
               {isFullScreen && (
@@ -150,7 +190,8 @@ const Page = ({ params }) => {
               </div>
               {/* === end product slider ===  */}
             </div>
-            <div className="basis-1/2">
+            {/* ===right ==  */}
+            <div className=" md:w-1/2 flex flex-col gap-6 p-5">
               <div className="flex gap-8 items-center justify-start">
                 <Image src={seimens} width={100} height={100} alt="seimens" />
                 <h1 className="text-2xl md:text-2xl text-header_text font-bold border-b border-gray-100 pb-1">
@@ -162,30 +203,30 @@ const Page = ({ params }) => {
               </p>
               {/* {JSON.stringify(product)} */}
 
-              <div className="flex flex-col gap-4 md:w-4/5">
-                <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
-                  <h1 className="w-32 text-base text-header_text font-medium">Brand</h1>
-                  <span className="font-medium">SIEMENS</span>
+              <div className="flex flex-col justify-start gap-5 flex-wrap">
+
+                <div className="flex">
+                  <h5 className="w-40"> Brand </h5>
+                  <p className="w-full">SIEMENS</p>
                 </div>
-                <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
-                  <h1 className="w-32 text-base text-header_text font-medium">Origin</h1>
-                  <span className="font-medium text-base">Germany</span>
+                <div className="flex">
+                  <h5 className="w-40"> Origin </h5>
+                  <p className="w-full">Germany</p>
                 </div>
-                <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
-                  <h1 className="w-32 text-base text-header_text font-medium">Condition</h1>
-                  <span className="font-medium">Brand New</span>
+                <div className="flex">
+                  <h5 className="w-40"> Condition </h5>
+                  <p className="w-full">Brand New</p>
                 </div>
-                <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
-                  <h1 className="w-32 text-base text-header_text font-medium">Warranty</h1>
-                  <span className="font-medium">
-                    10 months from the daily delivery date.
-                  </span>
+                <div className="flex">
+                  <h5 className="w-40"> Warranty </h5>
+                  <p className="w-full">10 months from the daily delivery date. 10 months from the daily delivery date. 10 months from the daily delivery date.</p>
                 </div>
-                <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
-                  <h1 className="w-32 text-base text-header_text font-medium">Price</h1>
-                  <span className="font-semibold text-lg">BDT, 1000</span>
-                  <span className="text-sm"> 2 pcs in stock </span>
+
+                <div className="flex">
+                  <h5 className="w-40"> Price </h5>
+                  <p className="w-full"> <span className="text-xl font-bold">BDT, 1000</span> <span className="text-sm font-medium ml-3"> 2 pcs in stock </span> </p>
                 </div>
+
                 <div className="">
                   <p>TBL is not an authorized BrandNAME distributor,
                     but we have independent supplier, so we can provide competitive pricing.</p>
@@ -208,6 +249,7 @@ const Page = ({ params }) => {
               />
               {/* ==== end get a quote form ===  */}
             </div>
+           </div>
           </div>
         </div>
         <div className="container mx-auto px-3">
