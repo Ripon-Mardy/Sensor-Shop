@@ -6,3 +6,37 @@
     width: 10px;
 }
 
+.contact-buttons {
+    display: flex;
+    gap: 10px;
+    /* Space between buttons */
+}
+
+.contact-button {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.whatsapp {
+    background-color: #25D366;
+    /* WhatsApp Green */
+}
+
+.wechat {
+    background-color: #7BB32E;
+    /* WeChat Green */
+}
+
+.call {
+    background-color: #34b7f1;
+    /* Call Blue */
+}
+
+.contact-button:hover {
+    opacity: 0.8;
+    /* Slight hover effect */
+}
