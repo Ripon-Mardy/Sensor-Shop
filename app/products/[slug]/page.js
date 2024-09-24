@@ -100,7 +100,7 @@ const Page = ({ params }) => {
            <div className="basis-full">
            <div className="flex flex-col md:flex-row gap-10">
            <div className="basis-1/2 flex flex-col gap-5 p-5">
-              <div className=" md:h-1/2 mx-auto">
+              <div className=" md:h-1/2 mx-auto w-full">
                 {/* ==== product slider ====  */}
                 <div className="relative">
                   <Image
