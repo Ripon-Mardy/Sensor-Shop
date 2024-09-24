@@ -6,8 +6,6 @@ import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
 import { AxiosError } from "axios";
 
-import seimens from "../../public/image/siemens.png";
-
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -64,7 +62,7 @@ const Products = () => {
           {/* <h1 className="text-2xl capitalize font-medium">All Products</h1> */}
 
           <div className="basis-[30%]">
-          <div className="border-2 border-navBorder rounded-md basis-[80%] md:h-screen">
+            <div className="border-2 border-navBorder rounded-md basis-[80%] md:h-screen">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
               <div className="flex flex-col h-40 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
                 {categoryData.map((categoryItem, categoryIndex) => (
@@ -76,32 +74,52 @@ const Products = () => {
             </div>
           </div>
           <div className="md:w-full mx-auto flex flex-col gap-8">
+            {/* shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out */}
             {products.map((product, index) => (
-              <Link
-                href={`/products/${product.slug}`}
-                key={index}
-                className=" border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex items-center justify-start p-2 gap-3 md:gap-6"
-              >
-                <Image
-                  src={product.featured_image}
-                  width={300}
-                  height={300}
-                  alt={product.name}
-                  priority={false}
-                  className="w-2/5 md:w-1/5 h-48 object-cover"
-                />
+              <div key={index} className="flex gap-4">
+                <Link
+                  href={`/products/${product.slug}`}
+                  className="border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex items-center justify-start p-2 gap-3 md:gap-6"
+                >
+                  <Image
+                    src={product.featured_image}
+                    width={300}
+                    height={300}
+                    alt={product.name}
+                    priority={false}
+                    className="h-48 object-cover"
+                  />
+                </Link>
+
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-10 items-center">
-                    <Image
-                      src={seimens}
-                      width={100}
-                      height={100}
-                      alt={product.name}
-                    />
-                    <h1>Brands</h1>
+                    {(() => {
+                      const filteredCategories = product?.categories.filter(category => category.taxonomy_type === "product_brands");
+                      return (
+                        <div>
+                          {filteredCategories.map(category => (
+                            <div key={category?.id} className="flex items-center gap-2">
+                              <Link href={`/category/${category?.slug}`}>
+                                <Image
+                                  src={category?.media_url} // Use the correct image URL
+                                  width={100}
+                                  height={100}
+                                  alt={category?.name}
+                                />
+                              </Link>
+                              <Link href={`/category/${category?.slug}`}>
+                                <h1 className="text-lg">{category?.name}</h1>
+                              </Link>
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    })()}
                   </div>
                   <h1 className="font-semibold capitalize text-lg md:text-xl">
-                    {product.name}
+                    <Link href={`/products/${product.slug}`}>
+                      {product.name}
+                    </Link>
                   </h1>
                   <p className="text-sm md:text-base">
                     {product.meta_description}
@@ -113,11 +131,18 @@ const Products = () => {
                     }{" "}
                   </p>
                   <p className="font-medium text-red-500 text-sm mt-1">
-                    {/* {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split("").slice(0, 10).join(" ")} */}
+                    <Link href={`/products/${product.slug}`}>
+                      {typeof product?.extraFields?.find(
+                        (field) => field.meta_name === "product_short_description"
+                      )?.meta_value === "string"
+                        ? product.extraFields.find((field) => field.meta_name === "product_short_description").meta_value.slice(0, 10)
+                        : ""}
+                    </Link>
                   </p>
                 </div>
-              </Link>
+              </div>
             ))}
+
           </div>
         </div>
       </section>

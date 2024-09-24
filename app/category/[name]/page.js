@@ -5,8 +5,6 @@ import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
 import Loading from "@/components/Loading";
 
-import seimens from '../../../public/image/siemens.png'
-
 const Category = ({ params }) => {
   const slugName = params.name;
 
@@ -68,11 +66,11 @@ const Category = ({ params }) => {
           <div className="mt-10 flex flex-col md:flex-row gap-10">
             {/* ==== category menus === */}
             <div className="md:basis-[20%]">
-              <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium rounded-tl-md rounded-tr-md">
+              <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">
                 Categories
               </h1>
 
-              <div className="flex flex-col gap-3 items-start p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto border border-gray-300 h-52 md:h-screen rounded-md">
+              <div className="flex flex-col gap-3 items-start p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto border border-gray-300 h-52 md:h-screen">
                 {categorys.map((category) => (
                   <button
                     key={category.id}
@@ -92,48 +90,68 @@ const Category = ({ params }) => {
               </div>
               <div className="grid grid-cols-1 gap-10">
                 {filterProducts.map((product, index) => (
-                  <Link
-                  href={`/products/${product.slug}`}
-                  key={index}
-                  className=" border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex items-center justify-start p-2 gap-3 md:gap-6"
-                >
-                  <Image
-                    src={product.featured_image}
-                    width={300}
-                    height={300}
-                    alt={product.name}
-                    priority={false}
-                    className="w-2/5 md:w-1/5 h-48 object-cover"
-                  />
-                  <div className="flex flex-col gap-3">
-                    <div className="flex gap-10 items-center">
+                  <div key={index} className="flex gap-4">
+                    {/* {JSON.stringify(product)} */}
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex items-center justify-start p-2 gap-3 md:gap-6"
+                    >
                       <Image
-                        src={seimens}
-                        width={100}
-                        height={100}
+                        src={product.featured_image}
+                        width={300}
+                        height={300}
                         alt={product.name}
+                        priority={false}
+                        className="h-48 object-cover"
                       />
-                      <h1>Brands</h1>
+                    </Link>
+
+                    <div className="flex flex-col gap-3">
+                      <div className="flex gap-10 items-center">
+
+                        {(() => {
+                          const filteredCategories = product?.categories.filter(category => category.taxonomy_type === "product_brands");
+                          return (
+                            <div>
+                              {filteredCategories.map(category => (
+                                <div key={category?.id} className="flex items-center gap-2">
+                                  <Link href={`/category/${category?.slug}`}>
+                                    <Image
+                                      src={category?.media_url} // Use the correct image URL
+                                      width={100}
+                                      height={100}
+                                      alt={category?.name}
+                                    />
+                                  </Link>
+                                  <Link href={`/category/${category?.slug}`}>
+                                    <h1 className="text-lg">{category?.name}</h1>
+                                  </Link>
+                                </div>
+                              ))}
+                            </div>
+                          );
+                        })()}
+
+                      </div>
+                      <h1 className="font-semibold capitalize text-lg md:text-xl">
+                        <Link href={`/products/${product.slug}`}>
+                          {product.name}
+                        </Link>
+                      </h1>
+                      <p className="">
+                        <Link
+                          href={`/products/${product.slug}`}>
+                          {typeof product?.extraFields?.find(
+                            (field) => field.meta_name === "product_short_description"
+                          )?.meta_value === "string"
+                            ? product.extraFields.find((field) => field.meta_name === "product_short_description").meta_value.slice(0, 10)
+                            : ""}
+                        </Link>
+                      </p>
                     </div>
-                    <h1 className="font-semibold capitalize text-lg md:text-xl">
-                      {product.name}
-                    </h1>
-                    <p className="text-sm md:text-base">
-                      {" "}
-                      {product.meta_description}{" "}
-                    </p>
-                    <p className="text-xs">
-                      {" "}
-                      Estimated lead time: {
-                        product?.extraFields?.[0].created_at
-                      }{" "}
-                    </p>
-                    <p className="font-medium text-red-500 text-sm mt-1">
-                      {/* {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split("").slice(0, 10).join(" ")} */}
-                    </p>
                   </div>
-                </Link>
                 ))}
+
               </div>
             </div>
           </div>

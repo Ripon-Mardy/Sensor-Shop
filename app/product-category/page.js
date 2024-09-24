@@ -25,13 +25,21 @@ const Page = () => {
                 productList.map((product, product_index) => (
                     <Link href={'#'} key={product_index} className='flex items-start py-4 md:py-0 gap-2 border-b border-gray-400'>
                         <div className='w-2/6'>
-                            <Image src={product.featured_image} width={400} height={400} className='w-72' alt={product.name}/>
+                            <Image src={product.featured_image} width={400} height={400} className='w-72' alt={product.name} />
                         </div>
                         <div className='w-full md:flex md:items-start md:justify-between md:w-[90%]'>
                             <div className='flex flex-col gap-2 md:w-[90%]'>
-                                <h1 className='text-xl font-bold'> {product.name} </h1>
+                                <h1 className='text-xl font-bold'>
+                                    {product.name}
+                                </h1>
                                 <p className='text-sm'>
-                                    {product?.extraFields?.find(field => field.meta_name === "product_short_description")?.meta_value?.split("").slice(0, 10).join(" ")}
+                                    {typeof product?.extraFields?.find(
+                                        (field) => field.meta_name === "product_short_description"
+                                    )?.meta_value === "string"
+                                        ? product.extraFields
+                                            .find((field) => field.meta_name === "product_short_description")
+                                            .meta_value.slice(0, 10) // Just slice the string, no split or join
+                                        : ""}
                                 </p>
                             </div>
                             <button className='bg-navBgColor text-white p-1.5 md:p-2 rounded-md text-sm font-semibold mt-3 hover:bg-hoverNavBgColor duration-200 ease-in-out w-40'> Request a Quote </button>

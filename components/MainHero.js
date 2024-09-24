@@ -93,7 +93,7 @@ const MainHero = () => {
         {/* ==== categories ==== */}
         <div className="xl:w-1/4">
           <div className="flex flex-col gap-16">
-            <div className="border-2 border-navBorder rounded-md hidden md:block">
+            <div className="border-2 border-navBorder hidden md:block">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
               <div className="flex flex-col h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
                 {categoryData.map((categoryItem, categoryIndex) => (
@@ -105,7 +105,7 @@ const MainHero = () => {
             </div>
 
             {/* === mobile search bar === */}
-            <form onSubmit={handleSearchSubmit} className="md:hidden w-full flex items-center justify-between border border-navBorder rounded-md relative">
+            <form onSubmit={handleSearchSubmit} className="md:hidden w-full flex items-center justify-between border border-navBorder relative">
               <input
                 type="text"
                 className="w-full py-1.5 outline-none text-base pl-2"
@@ -118,7 +118,7 @@ const MainHero = () => {
                 <IoSearch className="text-base text-white" />
               </button>
               {isFocused && filterProducts.length > 0 && (
-                <ul className="absolute left-0 top-full bg-white border rounded w-full z-30">
+                <ul className="absolute left-0 top-full bg-white border w-full z-30">
                   {filterProducts.map(product => (
                     <li key={product.id} className="p-2 cursor-pointer hover:bg-gray-200">
                       <Link href={`/products/${product.slug}`} onClick={() => setSearchTerm('')}>
