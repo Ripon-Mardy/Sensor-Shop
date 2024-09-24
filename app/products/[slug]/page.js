@@ -83,9 +83,9 @@ const Page = ({ params }) => {
       <section>
         <div className="container mx-auto px-3 py-10">
          <div className="flex flex-col md:flex-row gap-4">
-          <div className="basis-1/6">
+          <div className="basis-[25%] max-w-full">
             {/* ==== category menus === */}
-           <div className="border-2 border-navBorder rounded-md">
+           <div className="border-2 border-navBorder rounded-md md:w-full">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
               <div className="flex flex-col h-52 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
                 {categoryData.map((categoryItem, categoryIndex) => (
@@ -97,9 +97,10 @@ const Page = ({ params }) => {
             </div>
           </div>
            {/* ===== product details ====  */}
-           <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20">
-            <div className="md:basis-1/2 flex flex-col gap-5 p-5">
-              <div className="md:w-3/4 md:h-1/2 mx-auto">
+           <div className="basis-full">
+           <div className="flex flex-col md:flex-row gap-10">
+           <div className="basis-1/2 flex flex-col gap-5 p-5">
+              <div className=" md:h-1/2 mx-auto">
                 {/* ==== product slider ====  */}
                 <div className="relative">
                   <Image
@@ -155,7 +156,7 @@ const Page = ({ params }) => {
               </div>
             </div>
             {/* ===right ==  */}
-            <div className="md:basis-1/2 flex flex-col gap-4 md:gap-8">
+            <div className=" md:w-1/2 flex flex-col gap-6 p-5">
               <div className="flex gap-8 items-center justify-start">
                 <Image src={seimens} width={100} height={100} alt="seimens" />
                 <h1 className="text-2xl md:text-2xl text-header_text font-bold border-b border-gray-100 pb-1">
@@ -165,32 +166,32 @@ const Page = ({ params }) => {
               <p className="text-lg border-b border-gray-100 pb-1 font-medium">
                 {product.meta_description}
               </p>
-              {JSON.stringify(product)}
+              {/* {JSON.stringify(product)} */}
 
-              <div className="flex flex-col gap-4 md:w-4/5">
-                <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
-                  <h1 className="w-32 text-base text-header_text font-medium">Brand</h1>
-                  <span className="font-medium">SIEMENS</span>
+              <div className="flex flex-col justify-start gap-5 flex-wrap">
+
+                <div className="flex">
+                  <h5 className="w-40"> Brand </h5>
+                  <p className="w-full">SIEMENS</p>
                 </div>
-                <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
-                  <h1 className="w-32 text-base text-header_text font-medium">Origin</h1>
-                  <span className="font-medium text-base">Germany</span>
+                <div className="flex">
+                  <h5 className="w-40"> Origin </h5>
+                  <p className="w-full">Germany</p>
                 </div>
-                <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
-                  <h1 className="w-32 text-base text-header_text font-medium">Condition</h1>
-                  <span className="font-medium">Brand New</span>
+                <div className="flex">
+                  <h5 className="w-40"> Condition </h5>
+                  <p className="w-full">Brand New</p>
                 </div>
-                <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
-                  <h1 className="w-32 text-base text-header_text font-medium">Warranty</h1>
-                  <span className="font-medium">
-                    10 months from the daily delivery date.
-                  </span>
+                <div className="flex">
+                  <h5 className="w-40"> Warranty </h5>
+                  <p className="w-full">10 months from the daily delivery date. 10 months from the daily delivery date. 10 months from the daily delivery date.</p>
                 </div>
-                <div className="flex items-center justify-start gap-4 border-b border-gray-100 pb-1">
-                  <h1 className="w-32 text-base text-header_text font-medium">Price</h1>
-                  <span className="font-semibold text-lg">BDT, 1000</span>
-                  <span className="text-sm"> 2 pcs in stock </span>
+
+                <div className="flex">
+                  <h5 className="w-40"> Price </h5>
+                  <p className="w-full"> <span className="text-xl font-bold">BDT, 1000</span> <span className="text-sm font-medium ml-3"> 2 pcs in stock </span> </p>
                 </div>
+
                 <div className="">
                   <p>TBL is not an authorized BrandNAME distributor,
                   but we have independent supplier, so we can provide competitive pricing.</p>
@@ -213,6 +214,7 @@ const Page = ({ params }) => {
               />
               {/* ==== end get a quote form ===  */}
             </div>
+           </div>
           </div>
           {/* ==== end  */}
          </div>

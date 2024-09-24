@@ -89,11 +89,11 @@ const MainHero = () => {
 
   return (
     <div className="container mx-auto px-3 md:px-0 py-10">
-      <div className="md:flex md:justify-between md:gap-10">
+      <div className="md:flex md:justify-between gap-5">
         {/* ==== categories ==== */}
         <div className="xl:w-1/4">
           <div className="flex flex-col gap-16">
-            <div className="border-2 border-navBorder hidden md:block">
+            <div className="border-2 border-navBorder hidden md:block rounded-md">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
               <div className="flex flex-col h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
                 {categoryData.map((categoryItem, categoryIndex) => (
