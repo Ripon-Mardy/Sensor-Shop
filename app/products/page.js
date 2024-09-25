@@ -121,7 +121,7 @@ const Products = () => {
                       {product.name}
                     </Link>
                   </h1>
-                  <p className="text-sm md:text-base">
+                  {/* <p className="text-sm md:text-base">
                     {product.meta_description}
                   </p>
                   <p className="text-xs">
@@ -129,7 +129,7 @@ const Products = () => {
                     Estimated lead time: {
                       product?.extraFields?.[0].created_at
                     }{" "}
-                  </p>
+                  </p> */}
                   <p className="font-medium text-red-500 text-sm mt-1">
                     <Link href={`/products/${product.slug}`}>
                       {typeof product?.extraFields?.find(

@@ -11,11 +11,22 @@ const Footer = () => {
             <p className="text-gray-400 text-sm">House#3, Block#A, Road#5</p>
             <p className="text-gray-400 text-sm">
               Section-6, Mirpur, Dhaka-1216 Beside of Aalok Hospital Mirpur 10
-            </p>
-            <p className="text-gray-400 text-sm">
-              Mobile: 01711-261553 (Whats'App)
-            </p>
+            </p>            
             <p className="text-gray-400 text-sm">info@sensor-shopbd.com </p>
+            <div class="contact-buttons">
+              
+              <a href="https://wa.me/1711261553" class="contact-button whatsapp" target="_blank">
+                WhatsApp
+              </a>
+              
+              <a href="weixin://dl/chat?chatid=YOUR_WECHAT_ID" class="contact-button wechat">
+                WeChat
+              </a>
+
+              <a href="tel:+1711261553" class="contact-button call">
+                Call
+              </a>
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">

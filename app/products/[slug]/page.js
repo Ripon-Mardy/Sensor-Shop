@@ -44,7 +44,7 @@ const Page = ({ params }) => {
         const response = await axiosInstance.get('/categories?taxonomy_type=categories');
         setCategoryData(response.data.data)
       } catch (error) {
-        
+
       }
     }
     fetchCategory()
@@ -87,7 +87,7 @@ const Page = ({ params }) => {
             {/* ==== category menus === */}
            <div className="border-2 border-navBorder rounded-md md:w-full">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
-              <div className="flex flex-col h-52 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
+              <div className="flex flex-col h-40 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
                 {categoryData.map((categoryItem, categoryIndex) => (
                   <div key={categoryIndex}>
                     <Link href={`/category/${categoryItem.slug}`}>{categoryItem.name}</Link>
@@ -154,6 +154,41 @@ const Page = ({ params }) => {
                 </div>
                 {/* === end product slider ===  */}
               </div>
+              {/* ==== full screen image ====  */}
+              {isFullScreen && (
+                <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+                  <div className="relative">
+                    <img
+                      src={productImage}
+                      alt="Full Screen"
+                      className="w-full h-full object-cover"
+                    />
+                    <button
+                      className="absolute top-4 right-4 bg-gray-800 text-white p-2 rounded-full"
+                      onClick={closeFullScreen}
+                    >
+                      <IoIosClose />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* ==== end full screen images ====  */}
+              <div className="flex items-center justify-center gap-4 mt-5">
+                {Array.isArray(product.extra_fields[0]?.meta_value) &&
+                  product.extra_fields[0]?.meta_value.map((img, index) => (
+                    <div key={index} className="border border-gray-200">
+                      <Image
+                        onClick={() => setProductImage(img)}
+                        src={img}
+                        width={100}
+                        height={100}
+                        className="cursor-pointer rounded-md w-28 h-28 object-cover"
+                      />
+                    </div>
+                  ))}
+              </div>
+              {/* === end product slider ===  */}
             </div>
             {/* ===right ==  */}
             <div className=" md:w-1/2 flex flex-col gap-6 p-5">
@@ -194,7 +229,7 @@ const Page = ({ params }) => {
 
                 <div className="">
                   <p>TBL is not an authorized BrandNAME distributor,
-                  but we have independent supplier, so we can provide competitive pricing.</p>
+                    but we have independent supplier, so we can provide competitive pricing.</p>
                 </div>
               </div>
 
@@ -216,9 +251,8 @@ const Page = ({ params }) => {
             </div>
            </div>
           </div>
-          {/* ==== end  */}
-         </div>
-
+        </div>
+        <div className="container mx-auto px-3">
           <div className="py-10">
             <RelatedProduct />
           </div>

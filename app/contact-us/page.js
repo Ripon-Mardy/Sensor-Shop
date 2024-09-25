@@ -59,7 +59,9 @@ const Page = () => {
         <div className="container mx-auto px-3 py-10">
           <div className="flex flex-col md:flex-row justify-center md:gap-20 gap-10">
             <div className="basis-1/2 rounded-md w-full">
-              <h3 className="text-lg font-semibold pb-5">Get in touch</h3>
+              <h1 className="text-3xl text-header_text font-semibold pb-5">
+                Get in touch
+              </h1>
               <form
                 onSubmit={handleSubmitForm}
                 action="#"
