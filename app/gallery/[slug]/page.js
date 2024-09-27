@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Loading from "@/components/Loading";
 import axiosInstance from "@/helpers/axiosInstance";
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -11,13 +11,13 @@ const page = ({ params }) => {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    // Fetch category 
+    // Fetch category
     const fetchPhotos = async () => {
       try {
         const response = await axiosInstance.get('/posts?category_slug=album-1');
         setPhotos(response.data.data);
       } catch (error) {
-        setError('Failed to fetch photo');
+        setError('Failed to fetch photos');
       } finally {
         setLoading(false); // Set loading to false after the fetch attempt
       }
@@ -67,7 +67,7 @@ const page = ({ params }) => {
         <div className="container mx-auto px-3">
           <div>
             {/* Image Gallery */}
-            <div className="grid mwd:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-4 gap-8">
               {photos.map((image, index) => (
                 <img
                   key={index}
@@ -75,7 +75,7 @@ const page = ({ params }) => {
                   alt={image?.name}
                   className="cursor-pointer rounded-lg shadow-lg w-full h-60 object-cover"
                   onClick={() => openFullScreen(index)} // Pass the index
-                />              
+                />
               ))}
             </div>
 
@@ -115,4 +115,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;

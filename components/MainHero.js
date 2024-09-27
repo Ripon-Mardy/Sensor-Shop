@@ -152,7 +152,7 @@ const MainHero = () => {
           </div>
 
           {/* ==== Brands ==== */}
-          <div className="md:py-7 py-14">
+          <div className="md:py-0 py-14">
             <Brands />
           </div>
 

@@ -13,12 +13,13 @@
 }
 
 .contact-button {
-    padding: 10px 20px;
-    color: white;
+    padding: 5px 15px;
+    color: #ffffff;
     text-decoration: none;
     border-radius: 5px;
-    font-weight: bold;
+    font-weight: normal;
     transition: background-color 0.3s;
+    font-size: 15px;
 }
 
 .whatsapp {
