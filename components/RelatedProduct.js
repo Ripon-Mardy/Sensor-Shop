@@ -53,7 +53,7 @@ const RelatedProduct = () => {
 
       <Swiper
         slidesPerView={2}
-        spaceBetween={30}
+        spaceBetween={20}
         freeMode={true}
         pagination={{
           clickable: true,
@@ -65,11 +65,11 @@ const RelatedProduct = () => {
           },
           768: {
             slidesPerView: 4,
-            spaceBetween: 40,
+            spaceBetween: 20,
           },
           1024: {
             slidesPerView: 5,
-            spaceBetween: 40,
+            spaceBetween: 20,
           },
         }}
         modules={[FreeMode, Pagination]}
@@ -78,26 +78,25 @@ const RelatedProduct = () => {
         {products.map((product, index) => (
           <SwiperSlide key={index} className="border border-gray-300 rounded-md my-10">
             <Link
-              href={`/products/${product.slug}`}
-              className=" p-4 w-auto h-auto inline-block"
-            >
+              href={`/products/${product?.slug}`}
+              className="p-2 w-auto h-auto inline-block">
               <Image
-                src={product.featured_image}
+                src={product?.featured_image}
                 width={300}
                 height={300}
                 priority={false}
                 className="w-56 h-40 object-cover"
-                alt={product.name}
+                alt={product?.name}
               />
               <div className="text-center">
-                <h1 className="font-semibold capitalize text-base">
-                  {product.name}
+                <h1 className="xfont-semibold xcapitalize xtext-base">
+                  {product?.name}
                 </h1>
                 <p className="">
                   {typeof product?.extraFields?.find(
                     (field) => field.meta_name === "product_short_description"
                   )?.meta_value === "string"
-                    ? product.extraFields
+                    ? product?.extraFields
                       .find((field) => field.meta_name === "product_short_description")
                       .meta_value.slice(0, 10) // Just slice the string, no split or join
                     : ""}
