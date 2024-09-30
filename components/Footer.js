@@ -31,8 +31,8 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-footerColor">
-        <div className="container mx-auto px-3 py-10 grid gap-10 md:grid-cols-2 xl:grid-cols-4">
-          <div className="flex flex-col gap-2">
+        <div className="container mx-auto px-3 py-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="flex flex-col">
             <h1 className=" text-gray-200">Support</h1>
             <p className="text-gray-400 text-sm">
               House # 3, Block # A, Road # 5
@@ -46,7 +46,7 @@ const Footer = () => {
             <p className="text-gray-400 text-sm">
               +8801711261553
             </p>
-            <div className="contact-buttons">
+            <div className="contact-buttons pt-4">
               <a href="https://wa.me/1711261553" className="contact-button whatsapp" target="_blank">
                 WhatsApp
               </a>
@@ -61,7 +61,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
             <h1 className=" text-gray-200">
               German Address
             </h1>
@@ -71,7 +71,7 @@ const Footer = () => {
             <p className="text-gray-400 text-sm">rezaul@sensor-shopbd.com</p>
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
             <h1 className=" text-gray-200">
               Payment Method
             </h1>
@@ -92,14 +92,13 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
             <h1 className=" text-gray-200">
               Knowledge Base
             </h1>
-            <div className="flex flex-col gap-3 text-sm text-gray-400">
-              <Link href={"/about-us"}>About us</Link>
-              <Link href={"/contact-us"}>Contact us</Link>
-              <Link href={"#"}>Sensor-Shopbd.com</Link>
+            <div className="flex flex-col text-sm text-gray-400">
+              <Link href={"/page/about-us"}>About us</Link>
+              <Link href={"/contact-us"}>Contact us</Link>            
             </div>
             <div className='md:flex md:gap-6 md:items-center hidden'>
               <Link target='_blank' href={facebookLink} className='text-base text-white p-1'><FaFacebook /></Link>
@@ -110,18 +109,20 @@ const Footer = () => {
           </div>
         </div>
         <div className="w-full h-0.5 bg-gray-600 "></div>
-        <div className="container mx-auto pt-2 flex items-center justify-center text-sm text-gray-400 pb-2">
-          <p>All Rights Reserved © Sensor Shop Bangladesh.</p>
-          <p className="flex">
+        <div className="container mx-auto pt-2 flex flex-col md:flex-row items-center justify-center text-sm text-gray-400 pb-2">
+          <p className="mb-2 md:mb-0">All Rights Reserved © Sensor Shop Bangladesh.</p>
+          <p className="flex items-center">
             &nbsp; Developed By
             <Link
-              className="text-green-600"
+              className="text-green-600 ml-1" // Added margin for spacing
               href={"https://mathmozo.com"}
-              target="_blank">
-              &nbsp; Mathmozo IT
+              target="_blank"
+            >
+              Mathmozo IT
             </Link>
           </p>
         </div>
+
       </footer>
     </>
   );

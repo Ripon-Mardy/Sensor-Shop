@@ -98,8 +98,8 @@ const Page = ({ params }) => {
 
   return (
     <>
-      <section>
-        <div className="container mx-auto px-3 md:py-10 py-5">
+      <section className="py-5">
+        <div className="container mx-auto px-3 md:py-10">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="md:basis-[25%] max-w-full">
               {/* Categories Section */}

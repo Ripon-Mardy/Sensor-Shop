@@ -39,12 +39,12 @@ const Page = () => {
     return (
         <>
             <section className='py-10'>
-                <div className='container mx-auto'>
-                    <h1 className='text-2xl capitalize font-medium'>All Clients</h1>
-                    <div className='grid grid-cols-3 md:grid-cols-6 md:grid md:gap-6 gap-6 mt-8'>
+                <div className='container mx-auto px-3'>
+                    <h1 className='text-2xl font-bold mb-5'>All Brands</h1>
+                    <div className='grid grid-cols-4 md:grid-cols-8 md:grid md:gap-6 gap-6 mt-4 items-center'>
                         {
                             clients.map((proudsClient, proudIndex) => (
-                                <div key={proudIndex} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
+                                <div key={proudIndex} className='border border-gray-200'>
                                     <Image src={proudsClient.featured_image} className='w-full' width={200} height={200} alt={proudsClient.name} />
                                 </div>
                             ))

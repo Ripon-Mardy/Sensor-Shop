@@ -8,6 +8,7 @@ import Brands from './Brands';
 import FeatureProduct from './FeatureProduct';
 import ProudClients from './ProudClients';
 import Services from './Services';
+import CategorySection from './CategorySection';
 import HtmlRenderer from './HtmlRenderer';
 import { IoSearch } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
@@ -22,6 +23,7 @@ const MainHero = () => {
   const [filterProducts, setFilterProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Manage category section visibility
   const inputRef = useRef(null);
   const router = useRouter();
 
@@ -105,27 +107,17 @@ const MainHero = () => {
     };
   }, []);
 
+  const toggleCategories = () => {
+    setIsOpen(!isOpen); // Toggle the category visibility
+  };
+
   return (
     <div className="container mx-auto px-3 md:px-0 pt-3">
       <div className="md:flex md:justify-between gap-5">
         {/* ==== categories ==== */}
         <div className="xl:w-1/4">
-          <div className="flex flex-col gap-16">
-            <div className="border-2 border-navBorder hidden md:block rounded-md">
-              <h2 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">
-                Categories
-              </h2>
-              <div className="flex flex-col h-[500px] gap-1 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
-                {categoryData.map((categoryItem, categoryIndex) => (
-                  <div key={categoryIndex}>
-                    <Link href={`/category/${categoryItem.slug}`}>
-                      {categoryItem.name}
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+          <div className="flex flex-col gap-3">
+            <CategorySection categories={categoryData} isOpen={isOpen} toggleCategories={toggleCategories} height="500px" />
             <form onSubmit={handleSearchSubmit} className="md:hidden w-full flex items-center justify-between border border-navBorder relative">
               <input
                 type="text"
@@ -152,9 +144,28 @@ const MainHero = () => {
             </form>
           </div>
           <div className='hidden md:block'>
-            <Image src={leftBannerOne} className='w-full mt-8' width={100} height={100} alt='Left Banner One' />
-            <Image src={leftBannerTwo} className='w-full mt-8' width={100} height={100} alt='Left Banner Two' />
+            {leftBannerOne && (
+              <Image
+                src={leftBannerOne}
+                className='w-full mt-8'
+                width={1000}  // Set a reasonable width for your image
+                height={500}  // Set a reasonable height for your image
+                alt='Left Banner One'
+                style={{ objectFit: 'cover' }} // Optional, to control the image scaling
+              />
+            )}
+            {leftBannerTwo && (
+              <Image
+                src={leftBannerTwo}
+                className='w-full mt-8'
+                width={1000}  // Set a reasonable width for your image
+                height={500}  // Set a reasonable height for your image
+                alt='Left Banner Two'
+                style={{ objectFit: 'cover' }} // Optional
+              />
+            )}
           </div>
+
         </div>
         <div>
         </div>
