@@ -51,7 +51,7 @@ const FeatureProduct = () => {
 
       {/* ====== feature products ===  */}
       <div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 xl:grid-cols-5 gap-6 mt-8">
           {product.map((product, index) => (
             <Link
               href={`/products/${product.slug}`}

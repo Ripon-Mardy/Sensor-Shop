@@ -115,7 +115,7 @@ const Navbar = () => {
 
   return (
     <div className="shadow z-10 bg-white w-full">
-      <div className="container mx-auto px-3 md:px-0 md:flex md:items-center md:justify-between relative">
+      <div className="2xl:container mx-auto px-3 md:px-5 xl:flex xl:items-center xl:justify-between relative">
         {/* logo */}
         <div className="flexitems-center justify-between w-fit">
           <div className="flex items-center justify-between py-1 md:py-0">
@@ -125,7 +125,7 @@ const Navbar = () => {
                   src={sensor_logo}
                   width={150}
                   height={150}
-                  className="md:w-52"
+                  className="md:w-40"
                   alt="sensor shop"
                 />
               </Link>
@@ -145,7 +145,7 @@ const Navbar = () => {
         {/* end logo */}
 
         {/* dynamic menu */}
-        <div className="xl:flex items-center justify-center gap-10 border border-gray-300 rounded-sm py-1 px-4 hidden z-30">
+        <div className="xl:flex items-center justify-center gap-7 2xl:gap-7 border border-gray-300 rounded-sm py-1 px-2 hidden z-30">
           {menuitems.map((item, index) => (
             <div key={index}>
               <Link

@@ -20,7 +20,7 @@ const Page = () => {
     }, []);
 
     return (
-        <div className='container mx-auto py-10 md:py-10 px-3 md:px-0 md:w-3/4'>
+        <div className='container mx-auto py-8 md:py-10 px-3 md:px-0 md:w-3/4'>
             {
                 productList.map((product, product_index) => (
                     <Link href={'#'} key={product_index} className='flex items-start py-4 md:py-0 gap-2 border-b border-gray-400'>

@@ -34,7 +34,7 @@ const ProudClients = () => {
 
             {/* ==== proud clients image === */}
             <div>
-                <div className='grid grid-cols-3 md:grid-cols-6 md:grid md:gap-6 gap-6 mt-8'>
+                <div className='grid grid-cols-3 md:grid-cols-6 xl:grid-cols-8 items-center justify-center md:grid md:gap-6 gap-6 mt-8'>
                     {proudClients.map((proudClient, proudIndex) => (
                         <div key={proudIndex} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
                             <Image src={proudClient.featured_image} width={300} height={300} alt={proudClient.name} />

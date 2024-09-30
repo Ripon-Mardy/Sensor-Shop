@@ -32,18 +32,18 @@ const ParaText = () => {
     }, []);
 
     return (
-        <div className='container mx-auto px-3 md:px-0 py-10'>
+        <div className='container mx-auto px-3 md:px-0 py-8'>
             {/* ==== text === */}
             <div className='flex flex-col gap-16'>
                 <HtmlRenderer html={paratext?.meta_value} />
             </div>
             {/* ==== end text===  */}
 
-            <div className='flex items-center justify-center flex-col gap-10 py-16'>
+            <div className='flex items-center justify-center flex-col gap-10 py-8'>
                 {/* ==== title ===  */}
                 <div>
-                    <h1 className='text-2xl font-bold'>Techsense Bangladesh Ltd</h1>
-                    <p className='text-center font-semibold'>Our concern</p>
+                    <h1 className='text-xl md:text-2xl font-bold'>Techsense Bangladesh Ltd</h1>
+                    <p className='text-center font-semibold text-para_color text-sm'>Our concern</p>
                 </div>
 
                 <div className='flex gap-6 flex-wrap items-center justify-center'>

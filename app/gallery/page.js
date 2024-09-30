@@ -25,7 +25,7 @@ const page = () => {
  
   return (
     <>
-    <section className='py-10'>
+    <section className='py-8'>
       <div className='container mx-auto px-3 grid grid-cols-2 md:grid-cols-3 gap-10'>
         {
           albums.map((img, index) => (

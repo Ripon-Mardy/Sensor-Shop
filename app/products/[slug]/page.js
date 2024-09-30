@@ -81,13 +81,13 @@ const Page = ({ params }) => {
   return (
     <>
       <section>
-        <div className="container mx-auto px-3 py-10">
-         <div className="flex flex-col md:flex-row gap-4">
+        <div className="container mx-auto px-3 py-8">
+         <div className="flex flex-col md:flex-row gap-2 xl:gap-3">
           <div className="basis-[25%] max-w-full">
             {/* ==== category menus === */}
            <div className="border-2 border-navBorder rounded-md md:w-full">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
-              <div className="flex flex-col h-52 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
+              <div className="flex flex-col h-52 md:h-96 gap-1.5 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
                 {categoryData.map((categoryItem, categoryIndex) => (
                   <div key={categoryIndex}>
                     <Link href={`/category/${categoryItem.slug}`}>{categoryItem.name}</Link>
@@ -219,7 +219,7 @@ const Page = ({ params }) => {
           {/* ==== end  */}
          </div>
 
-          <div className="py-10">
+          <div className="py-8">
             <RelatedProduct />
           </div>
         </div>

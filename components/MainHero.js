@@ -88,14 +88,14 @@ const MainHero = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-3 md:px-0 py-10">
-      <div className="md:flex md:justify-between gap-5">
+    <div className="container mx-auto px-3 py-8">
+      <div className="md:flex md:justify-between gap-2 xl:gap-3">
         {/* ==== categories ==== */}
-        <div className="xl:w-1/4">
+        <div className="w-full md:w-1/2 xl:w-1/4">
           <div className="flex flex-col gap-16">
             <div className="border-2 border-navBorder hidden md:block rounded-md">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
-              <div className="flex flex-col h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
+              <div className="flex flex-col h-96 gap-1.5 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
                 {categoryData.map((categoryItem, categoryIndex) => (
                   <div key={categoryIndex}>
                     <Link href={`/category/${categoryItem.slug}`}>{categoryItem.name}</Link>
@@ -140,34 +140,34 @@ const MainHero = () => {
         </div>
         {/* ==== right side bar ==== */}
         <div className="xl:w-full overflow-hidden">
-          <div className="mt-6 md:mt-0 md:h-fit">
+          <div className=" mt-4 md:mt-0 md:h-fit">
             <BannerSlide />
           </div>
 
           {/* ====== Banner bottom text ====== */}
-          <div className="md:py-10 py-5">
-            <h1 className="text-2xl md:text-3xl text-center font-semibold">
+          <div className=" py-8">
+            <h1 className="text-xl md:text-2xl text-center font-semibold">
               <HtmlRenderer html={main_speech?.meta_value} />
             </h1>
           </div>
 
           {/* ==== Brands ==== */}
-          <div className="md:py-7 py-14">
+          <div className="py-8">
             <Brands />
           </div>
 
           {/* ==== Feature product ==== */}
-          <div className="py-14">
+          <div className="py-8">
             <FeatureProduct />
           </div>
 
           {/* ==== Proud clients ==== */}
-          <div className="md:py-12 py-14">
+          <div className="py-8">
             <ProudClients />
           </div>
 
           {/* ==== Services ==== */}
-          <div className="py-14">
+          <div className="py-8">
             <Services />
           </div>
         </div>

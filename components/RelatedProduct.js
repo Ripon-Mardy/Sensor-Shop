@@ -76,10 +76,10 @@ const RelatedProduct = () => {
         className="mySwiper"
       >
         {products.map((product, index) => (
-          <SwiperSlide key={index} className="border border-gray-300 rounded-md my-10">
+          <SwiperSlide key={index} className="border border-gray-300 rounded-md my-10 w-full">
             <Link
               href={`/products/${product.slug}`}
-              className=" p-4 w-auto h-auto inline-block"
+              className=" p-4 w-full h-auto inline-block"
             >
               <Image
                 src={product.featured_image}
@@ -89,7 +89,7 @@ const RelatedProduct = () => {
                 className="w-56 h-40 object-cover"
                 alt={product.name}
               />
-              <div className="text-center">
+              <div className="text-center w-full">
                 <h1 className="font-semibold capitalize text-base">
                   {product.name}
                 </h1>

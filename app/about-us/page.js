@@ -5,7 +5,7 @@ const page = () => {
   return (
     <>
       <section className="md:w-4/5 mx-auto">
-        <div className="container mx-auto py-10 px-3">
+        <div className="container mx-auto py-8 px-3">
           {/* <div className="border border-gray-300 rounded-md w-fit p-2 text-sm">
             <Link href={"/"}>Home /</Link>
             <span> About us</span>

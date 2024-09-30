@@ -37,7 +37,7 @@ const BannerSlide = () => {
 
   return (
     <div>
-      <div className="relative w-full md:h-40 h-40 overflow-hidden">
+      <div className="relative w-full h-20 md:h-40 overflow-hidden">
         {slider.map((banner, index) => (
           <div
             key={index}
@@ -47,11 +47,10 @@ const BannerSlide = () => {
             <Image
               src={banner.featured_image}
               alt={`Banner ${index + 1}`}
-              width={300}
-              height={300}
+              width={100}
+              height={100}
               layout='responsive'
-              className="w-full h-32 md:h-full object-cover rounded-sm"
-              priority={false}
+              className="w-full h-full"
             />
           </div>
         ))}
@@ -59,13 +58,13 @@ const BannerSlide = () => {
         <div className='flex items-center justify-center'>
           <button
             onClick={prevSlide}
-            className="absolute md:top-1/2 top-[40%] left-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2"
+            className="absolute top-1/2 left-0 transform  -translate-y-full bg-black bg-opacity-50 text-white p-2 text-sm h-fit"
           >
             &lt;
           </button>
           <button
             onClick={nextSlide}
-            className="absolute md:top-1/2 top-[40%] right-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2"
+            className="absolute top-1/2  right-0 transform -translate-y-full bg-black bg-opacity-50 text-white p-2 text-sm h-fit flex items-center justify-center"
           >
             &gt;
           </button>

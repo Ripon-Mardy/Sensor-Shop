@@ -32,7 +32,7 @@ const Industries = () => {
   }, []); // Add dependency array to avoid multiple calls
 
   return (
-    <div className="py-6">
+    <div className="py-8">
       <div className="container mx-auto px-3 md:px-0">
         {/* ==== industriys title ===  */}
         <div>

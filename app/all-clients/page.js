@@ -38,7 +38,7 @@ const Page = () => {
 
     return (
         <>
-            <section className='py-10'>
+            <section className='py-8'>
                 <div className='container mx-auto'>
                     <h1 className='text-2xl capitalize font-medium'>All Clients</h1>
                     <div className='grid grid-cols-3 md:grid-cols-6 md:grid md:gap-6 gap-6 mt-8'>

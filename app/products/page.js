@@ -57,7 +57,7 @@ const Products = () => {
 
   return (
     <>
-      <section className="py-10">
+      <section className="py-8">
         <div className="container mx-auto px-3 flex flex-col md:flex-row justify-between gap-10 md:gap-10 ">
           {/* <h1 className="text-2xl capitalize font-medium">All Products</h1> */}
 

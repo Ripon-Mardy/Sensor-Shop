@@ -61,9 +61,9 @@ const Category = ({ params }) => {
   return (
     <>
       <section>
-        <div className="container mx-auto px-3 md:px-0 py-10">
+        <div className="container mx-auto px-3 md:px-0 py-8">
 
-          <div className="mt-10 flex flex-col md:flex-row gap-10">
+          <div className="mt-10 flex flex-col md:flex-row gap-2 xl:gap-3">
             {/* ==== category menus === */}
             <div className="md:basis-[20%]">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">

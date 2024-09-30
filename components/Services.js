@@ -37,10 +37,10 @@ const Services = () => {
       {/* ==== services title ===  */}
       <div className="text-center md:text-left">
         <div className="flex items-center justify-between gap-4">
-          <h1 className="text-2xl font-semibold">Our Services</h1>
+          <h1 className="text-xl md:text-2xl font-semibold">Our Services</h1>
           {/* <Link href={'/all-services'} className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out'>View all services</Link> */}
         </div>
-        <p className="font-medium mt-3 text-sm md:text-base">
+        <p className="font-medium mt-3 text-sm text-para_color">
           Our team of experts is highly trained and experienced in a variety of
           fields, including VFD repair, PCB repair, PLC programming, and more.
           Explore our services below to learn more about how we can help you
@@ -88,7 +88,7 @@ const Services = () => {
                   className="object-cover rounded-md w-full h-full"
                   alt={product.name}
                 />
-                <h1 className="text-base font-semibold my-2 capitalize">
+                <h1 className="text-sm font-semibold my-2 capitalize">
                   {product.name}
                 </h1>
                 <Link

@@ -7,7 +7,7 @@ const Footer = () => {
       <footer className="bg-footerColor">
         <div className="container mx-auto px-3 py-10 grid gap-10 md:grid-cols-2 xl:grid-cols-4">
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl text-gray-200 font-semibold">Support</h1>
+            <h1 className="text-xl text-gray-200 font-semibold">Support</h1>
             <p className="text-gray-400 text-sm">House#3, Block#A, Road#5</p>
             <p className="text-gray-400 text-sm">
               Section-6, Mirpur, Dhaka-1216 Beside of Aalok Hospital Mirpur 10
@@ -19,7 +19,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl text-gray-200 font-semibold">
+            <h1 className="text-xl text-gray-200 font-semibold">
               German Address
             </h1>
             <p className="text-gray-400 text-sm">Md Rezaul Karim Siddique</p>
@@ -29,7 +29,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl text-gray-200 font-semibold">
+            <h1 className="text-xl text-gray-200 font-semibold">
               Payment Method
             </h1>
             <p className="text-gray-400 text-sm">
@@ -50,7 +50,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl text-gray-200 font-semibold">
+            <h1 className="text-xl text-gray-200 font-semibold">
               Knowledge Base
             </h1>
             <div className="flex flex-col gap-3 text-sm text-gray-400">
@@ -61,7 +61,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="w-full h-0.5 bg-gray-600 "></div>
-        <div className="container mx-auto pt-5 flex items-center justify-center text-sm text-gray-400 pb-2">
+        <div className="container mx-auto pt-5 flex flex-wrap items-center justify-center text-sm text-gray-400 pb-2">
           <p>All Rights Reserved © Sensor Shop Bangladesh.</p>
           <p className="flex">
             &nbsp;Developed By

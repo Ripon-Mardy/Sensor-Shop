@@ -27,13 +27,13 @@ const Page = ({ params }) => {
   return (
     <>
       <section>
-        <div className="container mx-auto px-3 py-10">
+        <div className="container mx-auto px-3 py-8">
           {/* ==== services ===  */}
           <div className="mt-10">
             <div>
               <Image
                 src={services.featured_image}
-                className="w-2/3 mx-auto md:w-1/4 rounded-md"
+                className="w-2/3 mx-auto md:w-1/3 rounded-md"
                 width={200}
                 height={200}
                 alt={services.name}
