@@ -13,8 +13,9 @@ const FeatureProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axiosInstance.get("/posts?term_type=product"); // Use axiosInstance
-        setProduct(res.data.data); // Set the products from the response
+        const res = await axiosInstance.get("/posts?term_type=product&per_page=8");
+        const featuredProducts = res.data.data.filter(product => product.is_featured === "Yes"); // Filter for featured products
+        setProduct(featuredProducts); // Set the filtered products
       } catch (error) {
         setError(error.message);
       } finally {
@@ -28,35 +29,31 @@ const FeatureProduct = () => {
     return <Loading />;
   }
 
-  // Uncomment if you want to display an error message
-  // if (error) {
-  //     return <h1>Error: {error}</h1>
-  // }
+  if (error) {
+    return <div>Error: {error}</div>; // Handle error state
+  }
 
   return (
     <div>
       {/* ====== feature product title ====  */}
-      <div className="md:flex md:items-center md:justify-between">
-        <h1 className="text-2xl md:text-2xl font-semibold text-center">
+      <div className="md:flex md:items-center md:justify-between">        
+        <h2 className="text-xl md:text-xl font-semibold">
           Featured products
-        </h1>
+        </h2>
         <Link
           href={"/products"}
-          className=" font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out"
+          className="font-medium text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out"
         >
-          view all Featured products
+          View all featured products
         </Link>
       </div>
-      {/* ====== feature product title end =====  */}
-
-      {/* ====== feature products ===  */}
       <div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
           {product.map((product, index) => (
             <Link
               href={`/products/${product.slug}`}
               key={index}
-              className=" border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out"
+              className="border border-gray-100 p-2 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out"
             >
               <Image
                 src={product.featured_image}
@@ -66,10 +63,11 @@ const FeatureProduct = () => {
                 priority={false}
               />
               <div className="text-center">
-                <h1 className="font-semibold capitalize text-base">
+                <h2 className="font-medium text-base">
                   {product.name}
-                </h1>
-                <p className="">
+                </h2>
+                {/* Uncomment and modify as needed for short description */}
+                {/* <p className="text-para_color text-sm">
                   {typeof product?.extraFields?.find(
                     (field) => field.meta_name === "product_short_description"
                   )?.meta_value === "string"
@@ -77,14 +75,14 @@ const FeatureProduct = () => {
                       .find((field) => field.meta_name === "product_short_description")
                       .meta_value.slice(0, 10) // Just slice the string, no split or join
                     : ""}
-                </p>
+                </p> */}
               </div>
             </Link>
           ))}
         </div>
         <Link
           href={"/products"}
-          className=" font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out md:hidden mt-6 inline-block"
+          className="font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out md:hidden mt-6 inline-block"
         >
           View all Featured products
         </Link>

@@ -122,22 +122,22 @@ const Navbar = () => {
   return (
     <div className="shadow z-10 bg-white w-full">
       <div className="container mx-auto px-3 md:px-0 md:flex md:items-center md:justify-between relative">
-        <div className="flexitems-center justify-between w-fit">
-          <div className="flex items-center justify-between py-1 md:py-0">
+        <div className="flex items-center justify-between w-fit">
+          <div className="flex items-center justify-between py-2 md:py-2">
             <div>
               <Link href={"/"}>
                 <Image
                   src={sensor_logo}
                   width={150}
                   height={150}
-                  className="md:w-52"
+                  className="md:w-36 w-28"
                   alt="sensor shop"
                 />
               </Link>
             </div>
             <div
               onClick={handleBarOpen}
-              className="xl:hidden border border-navBorder p-1 absolute right-5 top-4 px-2 text-center rounded-sm"
+              className="xl:hidden border border-navBorder p-1 absolute right-5 top-3 px-2 text-center rounded-sm"
             >
               <span className="text-lg">
                 <FaBarsStaggered />

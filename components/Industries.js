@@ -32,15 +32,11 @@ const Industries = () => {
   }, []); // Add dependency array to avoid multiple calls
 
   return (
-    <div className="py-6">
-      <div className="container mx-auto px-3 md:px-0">
-        {/* ==== industriys title ===  */}
+    <div className="md:py-0 py-0 pt-2 text-center md:text-left">
+      <div className="container mx-auto px-3 md:px-0">        
         <div>
-          <h1 className="text-2xl font-semibold">Industries we are into :</h1>
+          <h2 className="text-xl font-semibold text-center">Industries we are into</h2>
         </div>
-        {/* ===== end industriys title ===  */}
-
-        {/* ====== industries slide ===  */}
         <div>
           <Swiper
             slidesPerView={2}
@@ -70,7 +66,7 @@ const Industries = () => {
             className="mySwiper"
           >
             {industrics.map((product, index) => (
-              <SwiperSlide key={index} className="py-10">
+              <SwiperSlide key={index} className="py-2">
                 <div className="border border-gray-300 p-2 rounded-sm shadow w-full">
                   <Image
                     src={product.featured_image}
