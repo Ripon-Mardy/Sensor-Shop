@@ -54,7 +54,7 @@ const Page = ({ params }) => {
         const res = await axiosInstance.get(`/post?slug=${slug}`); // Use axiosInstance
         setProduct(res.data.data);
         setProductImage(res.data.data.featured_image);
-      } catch (error) {
+      } catch (error) { 
         setError("Error", error.message);
       } finally {
         setLoading(false);
