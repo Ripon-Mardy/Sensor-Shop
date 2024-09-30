@@ -20,7 +20,7 @@ const BannerSlide = () => {
   useEffect(() => {
     const fetchSlider = async () => {
       try {
-        const response = await axiosInstance.get('/posts?term_type=sensor_slider');
+        const response = await axiosInstance.get('/posts?term_type=sensor_slider&per_page=5');
         setSlider(response.data.data);
       } catch (error) {
         console.error('Failed to fetch data from sensor slider', error);
