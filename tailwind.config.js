@@ -15,7 +15,6 @@ module.exports = {
           xl: "1300px",
         },
       },
-
       backgroundColor : {
         "navBgColor" : "#227093",
         "hoverNavBgColor" : "#4b7bec",
@@ -29,7 +28,11 @@ module.exports = {
         "textNavColor" : "#227093",
         "header_text" : "#454545",
         "para_color" : "#454545"
-      }
+      },
+      fontSize: {
+        base: ['14px', { lineHeight: '1.5' }], // Set base font size
+        lg: ['18px', { lineHeight: '1.5', fontWeight: '700' }],
+      },
 
     },
   },

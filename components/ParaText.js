@@ -32,28 +32,24 @@ const ParaText = () => {
     }, []);
 
     return (
-        <div className='container mx-auto px-3 md:px-0 py-10'>
-            {/* ==== text === */}
-            <div className='flex flex-col gap-16'>
+        <div className='container mx-auto px-3 md:px-0 text-center md:text-left pt-2 pb-10'>            
+            <div className='flex flex-col gap-6'>
                 <HtmlRenderer html={paratext?.meta_value} />
-            </div>
-            {/* ==== end text===  */}
-
-            <div className='flex items-center justify-center flex-col gap-10 py-16'>
-                {/* ==== title ===  */}
+            </div>            
+            <div className='flex items-center justify-center flex-col gap-5 py-2'>                
                 <div>
-                    <h1 className='text-2xl font-bold'>Techsense Bangladesh Ltd</h1>
+                    <h2 className='text-2xl font-bold'>Techsense Bangladesh Ltd</h2>
                     <p className='text-center font-semibold'>Our concern</p>
                 </div>
 
-                <div className='flex gap-6 flex-wrap items-center justify-center'>
+                <div className='flex  gap-3 items-center justify-center'>
                     {techsense.map((techList, techIndex) => (
                         <div key={techIndex}>
                             <Image 
-                                src={techList.featured_image} 
+                                src={techList?.featured_image} 
                                 width={300} 
                                 height={300} 
-                                className='rounded-md' 
+                                className='rounded-md w-full' 
                                 alt={techList.name} 
                             />
                         </div>

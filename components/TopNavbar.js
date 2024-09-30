@@ -40,6 +40,11 @@ const TopNavbar = () => {
           )}
         </div>
         <div className='md:flex md:gap-6 md:items-center md:justify-center hidden'>
+          <div className='flex gap-1 items-center justify-center'>
+            <span className='text-white'>Hotline: </span>
+            <Link href="tel:+8801711261553" className='text-base text-white'>+8801711261553</Link>
+          </div>
+           
           <Link target='_blank' href={facebookLink} className='text-base text-white p-1'><FaFacebook /></Link>
           <Link target='_blank' href={instagramLink} className='text-base text-white p-1'><FaInstagram /></Link>
           <Link target='_blank' href={linkedinLink} className='text-base text-white p-1'><FaLinkedin /></Link>

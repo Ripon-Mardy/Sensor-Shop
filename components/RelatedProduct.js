@@ -49,7 +49,7 @@ const RelatedProduct = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-header_text">Related Products</h1>
+      <h2 className="text-xl font-bold text-header_text text-center">Related Products</h2>
 
       <Swiper
         slidesPerView={2}
@@ -76,7 +76,7 @@ const RelatedProduct = () => {
         className="mySwiper"
       >
         {products.map((product, index) => (
-          <SwiperSlide key={index} className="border border-gray-300 rounded-md my-10">
+          <SwiperSlide key={index} className="border border-gray-300 rounded-md my-2">
             <Link
               href={`/products/${product?.slug}`}
               className="p-2 w-auto h-auto inline-block">
@@ -89,10 +89,10 @@ const RelatedProduct = () => {
                 alt={product?.name}
               />
               <div className="text-center">
-                <h1 className="xfont-semibold xcapitalize xtext-base">
+                <h2 className="xfont-semibold xcapitalize text-base">
                   {product?.name}
-                </h1>
-                <p className="">
+                </h2>
+                {/* <p className="">
                   {typeof product?.extraFields?.find(
                     (field) => field.meta_name === "product_short_description"
                   )?.meta_value === "string"
@@ -100,7 +100,7 @@ const RelatedProduct = () => {
                       .find((field) => field.meta_name === "product_short_description")
                       .meta_value.slice(0, 10) // Just slice the string, no split or join
                     : ""}
-                </p>
+                </p> */}
               </div>
 
             </Link>
