@@ -4,161 +4,162 @@ import Link from "next/link";
 import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
 import Loading from "@/components/Loading";
+import GetAQuote from "@/components/GetAQuote";
+import CategorySection from "@/components/CategorySection";
 
 const Category = ({ params }) => {
-  const slugName = params.name;
+    const slugName = params.name;
 
-  const [categorys, setCategorys] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [selectCategory, setSelectCategory] = useState(null);
-  const [filterProducts, setFilterProducts] = useState([]);
+    const [categorys, setCategorys] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [selectCategory, setSelectCategory] = useState(null);
+    const [filterProducts, setFilterProducts] = useState([]);
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch categories
-        const categoriesRes = await axiosInstance.get("/categories?taxonomy_type=categories");
-        setCategorys(categoriesRes.data.data);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const categoriesRes = await axiosInstance.get("/categories?taxonomy_type=categories");
+                setCategorys(categoriesRes.data.data);
 
-        // Fetch products
-        const productsRes = await axiosInstance.get("/posts?term_type=product");
-        const fetchedProducts = productsRes.data.data;
-        setProducts(fetchedProducts);
+                const productsRes = await axiosInstance.get("/posts?term_type=product");
+                const fetchedProducts = productsRes.data.data;
+                setProducts(fetchedProducts);
 
-        // Filter products based on slugName
-        const matchedProducts = fetchedProducts.filter((product) =>
-          product.categories.some((category) => category.slug === slugName)
+                const matchedProducts = fetchedProducts.filter((product) =>
+                    product.categories.some((category) => category.slug === slugName)
+                );
+                setFilterProducts(matchedProducts);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [slugName]);
+
+    const handleCategoryClick = (slug) => {
+        setSelectCategory(slug);
+        const matchedProducts = products.filter((product) =>
+            product.categories.some((category) => category.slug === slug)
         );
         setFilterProducts(matchedProducts);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
     };
 
-    fetchData();
-  }, [slugName]); // Add `slugName` as a dependency to trigger re-fetching if it changes
+    const openPopUp = () => {
+        setIsFormVisible(!isFormVisible);
+    };
 
-  const handleCategoryClick = (slug) => {
-    setSelectCategory(slug);
-    const matchedProducts = products.filter((product) =>
-      product.categories.some((category) => category.slug === slug)
-    );
-    setFilterProducts(matchedProducts);
-  };
+    const handleCloseForm = () => {
+        setIsFormVisible(false);
+    };
 
-  if (loading) {
-    return <Loading />;
-  }
+    const toggleCategories = () => {
+        setIsOpen(!isOpen);
+    };
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+    if (loading) {
+        return <Loading />;
+    }
 
-  return (
-    <>
-      <section>
-        <div className="container mx-auto px-3 md:px-0 py-8">
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
-          <div className="mt-10 flex flex-col md:flex-row gap-2 xl:gap-3">
-            {/* ==== category menus === */}
-            <div className="md:basis-[20%]">
-              <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">
-                Categories
-              </h1>
+    return (
+        <>
+            <section className="py-10">
+                <div className="container mx-auto px-3 flex flex-col md:flex-row justify-between gap-5 md:gap-10">
 
-              <div className="flex flex-col gap-3 items-start p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto border border-gray-300 h-52 md:h-screen">
-                {categorys.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => handleCategoryClick(category.slug)}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-            {/* ==== category list === */}
-            <div className="md:basis-[80%]">
-              <div>
-                {selectCategory && filterProducts.length === 0 && (
-                  <div className="text-red-500">No related products found</div>
-                )}
-              </div>
-              <div className="grid grid-cols-1 gap-10">
-                {filterProducts.map((product, index) => (
-                  <div key={index} className="flex gap-4">
-                    {/* {JSON.stringify(product)} */}
-                    <Link
-                      href={`/products/${product.slug}`}
-                      className="border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex items-center justify-start p-2 gap-3 md:gap-6"
-                    >
-                      <Image
-                        src={product.featured_image}
-                        width={300}
-                        height={300}
-                        alt={product.name}
-                        priority={false}
-                        className="h-48 object-cover"
-                      />
-                    </Link>
+                    {/* Categories Section */}
+                    <CategorySection categories={categorys} isOpen={isOpen} toggleCategories={toggleCategories} />
 
-                    <div className="flex flex-col gap-3">
-                      <div className="flex gap-10 items-center">
+                    {/* Products Section */}
+                    <div className="md:basis-[80%]">
+                        {selectCategory && filterProducts.length === 0 && (
+                            <div className="text-red-500">No related products found</div>
+                        )}
+                        <div className="md:w-full mx-auto flex flex-col gap-8">
+                            {filterProducts.map((product, index) => (
+                                <div key={index} className="flex gap-4">
+                                    {/* Image Container */}
+                                    <div className="w-1/2 md:w-[20%]">
+                                        <Link
+                                            href={`/products/${product.slug}`}
+                                            className="border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex items-center justify-start p-2 gap-3 md:gap-6"
+                                        >
+                                            <Image
+                                                src={product.featured_image}
+                                                width={300}
+                                                height={300}
+                                                alt={product.name}
+                                                priority={false}
+                                                className="w-full object-cover"
+                                            />
+                                        </Link>
+                                    </div>
 
-                        {(() => {
-                          const filteredCategories = product?.categories.filter(category => category.taxonomy_type === "product_brands");
-                          return (
-                            <div>
-                              {filteredCategories.map(category => (
-                                <div key={category?.id} className="flex items-center gap-2">
-                                  <Link href={`/category/${category?.slug}`}>
-                                    <Image
-                                      src={category?.media_url} // Use the correct image URL
-                                      width={100}
-                                      height={100}
-                                      alt={category?.name}
-                                    />
-                                  </Link>
-                                  <Link href={`/category/${category?.slug}`}>
-                                    <h1 className="text-lg">{category?.name}</h1>
-                                  </Link>
+                                    {/* Product Details */}
+                                    <div className="w-1/2 md:w-[80%] flex flex-col gap-3">
+                                        <div className="flex gap-10 items-center">
+                                            {product.categories.filter(category => category.taxonomy_type === "product_brands").map(category => (
+                                                <div key={category?.id} className="flex items-center gap-2">
+                                                    <Link href={`/category/${category?.slug}`}>
+                                                        <Image
+                                                            src={category?.media_url}
+                                                            width={100}
+                                                            height={100}
+                                                            alt={category?.name}
+                                                            className="object-cover"
+                                                        />
+                                                    </Link>
+                                                    <Link href={`/category/${category?.slug}`}>
+                                                        <h2 className="text-lg">{category?.name}</h2>
+                                                    </Link>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <h2 className="font-medium text-base">
+                                            <Link href={`/products/${product.slug}`}>
+                                                {product?.name}
+                                            </Link>
+                                        </h2>
+
+                                        <p className="text-para_color text-sm md:block hidden">
+                                            {typeof product?.extraFields?.find(
+                                                (field) => field.meta_name === "product_short_description"
+                                            )?.meta_value === "string"
+                                                ? product.extraFields.find((field) => field.meta_name === "product_short_description").meta_value.slice(0, 150)
+                                                : ""}
+                                        </p>
+                                        <p>
+                                            <button
+                                                onClick={openPopUp}
+                                                className="capitalize text-sm bg-navBgColor text-white p-2 px-4 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out w-fit text-center font-semibold"
+                                            >
+                                                Get a quote
+                                            </button>
+                                            <GetAQuote
+                                                visible={isFormVisible}
+                                                onClose={handleCloseForm}
+                                                productName={product?.name}
+                                                productId={product?.id}
+                                            />
+                                        </p>
+                                    </div>
                                 </div>
-                              ))}
-                            </div>
-                          );
-                        })()}
-
-                      </div>
-                      <h1 className="font-semibold capitalize text-lg md:text-xl">
-                        <Link href={`/products/${product.slug}`}>
-                          {product.name}
-                        </Link>
-                      </h1>
-                      <p className="">
-                        <Link
-                          href={`/products/${product.slug}`}>
-                          {typeof product?.extraFields?.find(
-                            (field) => field.meta_name === "product_short_description"
-                          )?.meta_value === "string"
-                            ? product.extraFields.find((field) => field.meta_name === "product_short_description").meta_value.slice(0, 10)
-                            : ""}
-                        </Link>
-                      </p>
+                            ))}
+                        </div>
                     </div>
-                  </div>
-                ))}
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
+                </div>
+            </section>
+        </>
+    );
 };
 
 export default Category;

@@ -13,7 +13,7 @@ const Page = () => {
     useEffect(() => {
         const brandsList = async () => {
             try {
-                const res = await axiosInstance.get('/posts?term_type=brands');
+                const res = await axiosInstance.get('/posts?term_type=clients');
                 setClients(res.data.data);
             } catch (error) {
                 setError(error.message);

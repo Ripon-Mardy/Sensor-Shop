@@ -4,13 +4,28 @@ import Loading from "@/components/Loading";
 import Link from "next/link";
 import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
-import { AxiosError } from "axios";
+import GetAQuote from "@/components/GetAQuote";
+import CategorySection from "@/components/CategorySection";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [categoryData, setCategoryData] = useState([]);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openPopUp = () => {
+    setIsFormVisible(!isFormVisible);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormVisible(false);
+  };
+
+  const toggleCategories = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const fetchProducts = async (retries = 3) => {
@@ -19,7 +34,6 @@ const Products = () => {
         setProducts(res.data.data);
       } catch (error) {
         if (error.response?.status === 429 && retries > 0) {
-          // Retry after a delay if rate limited
           setTimeout(() => fetchProducts(retries - 1), 1000);
         } else {
           setError(error.message);
@@ -31,16 +45,16 @@ const Products = () => {
 
     fetchProducts();
 
-    // fetch category 
+    // Fetch categories
     const fetchCategory = async () => {
       try {
         const response = await axiosInstance.get('/categories?taxonomy_type=categories');
-        setCategoryData(response.data.data)
+        setCategoryData(response.data.data);
       } catch (error) {
-        setError('faild to fetch category')
+        setError('Failed to fetch categories');
       }
-    }
-    fetchCategory()
+    };
+    fetchCategory();
   }, []);
 
   if (loading) {
@@ -57,92 +71,87 @@ const Products = () => {
 
   return (
     <>
-      <section className="py-8">
-        <div className="container mx-auto px-3 flex flex-col md:flex-row justify-between gap-10 md:gap-10 ">
-          {/* <h1 className="text-2xl capitalize font-medium">All Products</h1> */}
+      <section className="py-10">
+        <div className="container mx-auto px-3 flex flex-col md:flex-row justify-between gap-5 md:gap-10">
 
-          <div className="basis-[30%]">
-            <div className="border-2 border-navBorder rounded-md basis-[80%] md:h-screen">
-              <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
-              <div className="flex flex-col h-40 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
-                {categoryData.map((categoryItem, categoryIndex) => (
-                  <div key={categoryIndex}>
-                    <Link href={`/category/${categoryItem.slug}`}>{categoryItem.name}</Link>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="md:w-full mx-auto flex flex-col gap-8">
-            {/* shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out */}
+          {/* Categories Section */}
+          <CategorySection categories={categoryData} isOpen={isOpen} toggleCategories={toggleCategories} />
+
+          {/* Products Section */}
+          <div className="md:basis-[80%] md:w-full mx-auto flex flex-col gap-8">
             {products.map((product, index) => (
               <div key={index} className="flex gap-4">
-                <Link
-                  href={`/products/${product.slug}`}
-                  className="border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex items-center justify-start p-2 gap-3 md:gap-6"
-                >
-                  <Image
-                    src={product.featured_image}
-                    width={300}
-                    height={300}
-                    alt={product.name}
-                    priority={false}
-                    className="h-48 object-cover"
-                  />
-                </Link>
+                {/* Image Container */}
+                <div className="w-1/2 md:w-[20%]">
+                  <Link
+                    href={`/products/${product.slug}`}
+                    className="border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex items-center justify-start p-2 gap-3 md:gap-6"
+                  >
+                    <Image
+                      src={product.featured_image}
+                      width={300}
+                      height={300}
+                      alt={product.name}
+                      priority={false}
+                      className="w-full object-cover"
+                    />
+                  </Link>
+                </div>
 
-                <div className="flex flex-col gap-3">
+                {/* Product Details */}
+                <div className="w-1/2 md:w-[80%] flex flex-col gap-3">
                   <div className="flex gap-10 items-center">
-                    {(() => {
-                      const filteredCategories = product?.categories.filter(category => category.taxonomy_type === "product_brands");
-                      return (
-                        <div>
-                          {filteredCategories.map(category => (
-                            <div key={category?.id} className="flex items-center gap-2">
-                              <Link href={`/category/${category?.slug}`}>
-                                <Image
-                                  src={category?.media_url} // Use the correct image URL
-                                  width={100}
-                                  height={100}
-                                  alt={category?.name}
-                                />
-                              </Link>
-                              <Link href={`/category/${category?.slug}`}>
-                                <h1 className="text-lg">{category?.name}</h1>
-                              </Link>
-                            </div>
-                          ))}
-                        </div>
-                      );
-                    })()}
+                    {product?.categories.filter(category => category.taxonomy_type === "product_brands").map(category => (
+                      <div key={category?.id} className="flex items-center gap-2">
+                        <Link
+                         href={`/products/${category?.slug}`}
+                         >
+                          <Image
+                            src={category?.media_url}
+                            width={100}
+                            height={100}
+                            alt={category?.name}
+                            className="object-cover"
+                          />
+                        </Link>
+                        <Link href={`/products/${category?.slug}`}>
+                          <h2 className="text-lg">{category?.name}</h2>
+                        </Link>
+                      </div>
+                    ))}
                   </div>
-                  <h1 className="font-semibold capitalize text-lg md:text-xl">
+                  <h2 className="font-medium text-base">
                     <Link href={`/products/${product.slug}`}>
-                      {product.name}
+                      {product?.name}
                     </Link>
-                  </h1>
-                  <p className="text-sm md:text-base">
-                    {product.meta_description}
+                  </h2>
+
+                  <p className="text-para_color text-sm md:block hidden">
+                    {typeof product?.extraFields?.find(
+                      (field) => field.meta_name === "product_short_description"
+                    )?.meta_value === "string"
+                      ? product.extraFields
+                        .find((field) => field.meta_name === "product_short_description")
+                        .meta_value.slice(0, 150)
+                      : ""}
                   </p>
-                  <p className="text-xs">
-                    {" "}
-                    Estimated lead time: {
-                      product?.extraFields?.[0].created_at
-                    }{" "}
-                  </p>
-                  <p className="font-medium text-red-500 text-sm mt-1">
-                    <Link href={`/products/${product.slug}`}>
-                      {typeof product?.extraFields?.find(
-                        (field) => field.meta_name === "product_short_description"
-                      )?.meta_value === "string"
-                        ? product.extraFields.find((field) => field.meta_name === "product_short_description").meta_value.slice(0, 10)
-                        : ""}
-                    </Link>
+                  <p>
+                    <button
+                      onClick={openPopUp}
+                      className="capitalize text-sm bg-navBgColor text-white p-2 px-4 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out w-fit text-center font-semibold"
+                    >
+                      Get a quote
+                    </button>
+                    <GetAQuote
+                      visible={isFormVisible}
+                      onClose={handleCloseForm}
+                      productName={product?.name}
+                      productId={product?.id}
+                    />
                   </p>
                 </div>
               </div>
             ))}
-
           </div>
         </div>
       </section>

@@ -2,97 +2,71 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-
-// import required modules
 import { Autoplay, Pagination } from "swiper/modules";
-
-import axiosInstance from "@/helpers/axiosInstance"; // Import your axios instance
+import axiosInstance from "@/helpers/axiosInstance";
 
 const Services = () => {
   const [services, setServices] = useState([]);
+  const [servicesText, setServicesText] = useState('');
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const servicesList = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axiosInstance.get("/posts?term_type=services"); // Use axiosInstance for the request
-        setServices(response.data.data); // Set the data from the response
+        const [servicesResponse, servicesTextResponse] = await Promise.all([
+          axiosInstance.get("/posts?term_type=services"),
+          axiosInstance.get('/frontend/settings?meta_name=our_services_text&meta_type=Textarea')
+        ]);
+
+        setServices(servicesResponse.data.data);
+        setServicesText(servicesTextResponse.data.data.meta_value);
       } catch (error) {
-        setError(error.message); // Handle any errors
+        setError(error.message);
       }
     };
 
-    servicesList();
+    fetchData();
   }, []);
 
   return (
     <div>
-      {/* ==== services title ===  */}
       <div className="text-center md:text-left">
-        <div className="flex items-center justify-between gap-4">
-          <h1 className="text-xl md:text-2xl font-semibold">Our Services</h1>
-          {/* <Link href={'/all-services'} className=' font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out'>View all services</Link> */}
-        </div>
-        <p className="font-medium mt-3 text-sm text-para_color">
-          Our team of experts is highly trained and experienced in a variety of
-          fields, including VFD repair, PCB repair, PLC programming, and more.
-          Explore our services below to learn more about how we can help you
-          optimize your operations and increase efficiency.
+        <h2 className="text-xl md:text-xl font-semibold">Our Services</h2>
+        <p className="font-medium mt-3 text-sm md:text-base">
+          {servicesText}
         </p>
       </div>
-      {/* ==== end services title ====  */}
 
-      {/* ==== service slide ===  */}
       <div>
         <Swiper
           slidesPerView={2}
           spaceBetween={10}
           breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 4,
-            },
-            768: {
-              slidesPerView: 4,
-              spaceBetween: 40,
-            },
-            1024: {
-              slidesPerView: 5,
-              spaceBetween: 20,
-            },
+            640: { slidesPerView: 2, spaceBetween: 4 },
+            768: { slidesPerView: 4, spaceBetween: 40 },
+            1024: { slidesPerView: 5, spaceBetween: 20 },
           }}
-          pagination={{
-            clickable: true,
-          }}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
           modules={[Pagination, Autoplay]}
           className="mySwiper"
         >
-          {services.map((product, index) => (
-            <SwiperSlide key={index} className="py-10">
+          {services.map((service, index) => (
+            <SwiperSlide key={index} className="py-2">
               <div className="border border-gray-300 p-2 rounded-sm shadow">
                 <Image
-                  src={product.featured_image}
+                  src={service.featured_image}
                   width={200}
                   height={200}
                   className="object-cover rounded-md w-full h-full"
-                  alt={product.name}
+                  alt={service.name}
                 />
-                <h1 className="text-sm font-semibold my-2 capitalize">
-                  {product.name}
-                </h1>
+                <h1 className="text-base font-semibold my-2 capitalize">{service.name}</h1>
                 <Link
-                  href={`/${product.slug}`}
+                  href={`/${service.slug}`}
                   className="bg-buttonBgColor text-white text-center p-1.5 text-sm capitalize"
                 >
                   Read more
@@ -102,7 +76,7 @@ const Services = () => {
           ))}
         </Swiper>
       </div>
-      {/* ====end service slide ===  */}
+
       {error && <p className="text-red-500">{error}</p>}
     </div>
   );

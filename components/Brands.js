@@ -1,5 +1,5 @@
-'use client'
-import React, { useEffect, useState } from 'react'
+'use client';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Loading from './Loading';
@@ -7,16 +7,29 @@ import axiosInstance from '@/helpers/axiosInstance';
 
 const Brands = () => {
     const [brandsList, setBrandsList] = useState([]);
+    const [trustedBrandsText, setTrustedBrandsText] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchBrandsList = async () => {
+        const fetchBrandsList = async (retryCount = 0) => {
             try {
-                const response = await axiosInstance.get('/categories?taxonomy_type=product_brands');
-                setBrandsList(response.data.data);
+                const [brandsResponse, trustedBrandsRes] = await Promise.all([
+                    axiosInstance.get('/categories?taxonomy_type=product_brands&limit=24'),
+                    axiosInstance.get('/frontend/settings?meta_name=our_trusted_brands_text&meta_type=Textarea')
+                ]);
+
+                // Filter the brands to include only those that are featured
+                const featuredBrands = brandsResponse.data.data.filter(brand => brand.is_featured === 'Yes');
+                setBrandsList(featuredBrands);
+                setTrustedBrandsText(trustedBrandsRes.data.data.meta_value);
             } catch (error) {
-                setError(error.message);
+                if (error.response?.status === 429 && retryCount < 3) {
+                    // Wait and retry if rate limit exceeded
+                    setTimeout(() => fetchBrandsList(retryCount + 1), 1000 * (retryCount + 1)); // Exponential backoff
+                } else {
+                    setError(error.message);
+                }
             } finally {
                 setLoading(false);
             }
@@ -29,35 +42,38 @@ const Brands = () => {
         return <Loading />;
     }
 
-    return (
-        <div className='md:py-0'>
+    if (error) {
+        return <div className="text-red-500">Error: {error}</div>;
+    }
 
-            {/* ====banner title ===  */}
+    return (
+        <div className='md:py-2'>
             <div className='md:flex md:items-center md:justify-between'>
                 <div className='text-center md:text-start'>
-                    <h1 className='text-xl md:text-2xl font-semibold'>Our Trusted Brands </h1>
-                    <p className='mt-2 text-sm text-para_color font-medium'>Explore our range of trusted brands and discover high-quality solutions for your automation needs.</p>
+                    <h2 className="text-xl md:text-xl font-semibold">Our Trusted Brands</h2>
+                    <p className='mt-2 text-sm md:text-base font-medium'>
+                        {trustedBrandsText}                        
+                    </p>
                 </div>
-
-                <Link href={'/all-brands'} className='font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out mt-4'>View all Brands</Link>
-
+                <Link href={'/all-brands'} className='font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out mt-4'>
+                    View all Brands
+                </Link>
             </div>
-            {/* === end Banner title ====  */}
-
-
-            {/* ====== brands =====  */}
             <div>
-                <div className='grid grid-cols-3 md:grid-cols-6 xl:grid-cols-8 gap-4 mt-8  items-center justify-center'>
-
+                <div className='grid grid-cols-4 md:grid-cols-8 gap-3 mt-4'>
                     {
                         brandsList.map((brand, index) => (
-                            <div key={index} className='border border-gray-100 p-1'>
-                                <Image src={brand?.image} width={400} height={400} alt={brand?.name} priority={false} />
-                            </div>
+                            <div key={index} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
+                                <Link href={`/category/${brand?.slug}`}>
+                                    <Image src={brand?.image} width={400} height={400} alt={brand?.name} priority={false} />
+                                </Link>
+                            </div>                            
                         ))
                     }
                 </div>
-                <Link href={'/all-brands'} className='font-medium capitalize text-base bg-navBgColor text-white p-1.5 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out md:hidden mt-6 inline-block'>View all Brands</Link>
+                <Link href={'/all-brands'} className='font-medium capitalize text-base bg-navBgColor text-white p-1.5 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out md:hidden mt-6 inline-block'>
+                    View all Brands
+                </Link>
             </div>
         </div>
     );

@@ -51,7 +51,7 @@ const Navbar = () => {
 
   const debouncedFetchMenu = useCallback(debounce(async () => {
     if (isMenuFetched) return;
-    
+
     try {
       const response = await axiosInstance.get("/menus");
       setMenuItems(response.data.data[0].items);
@@ -62,20 +62,33 @@ const Navbar = () => {
   }, 300), [isMenuFetched]);
 
   useEffect(() => {
-    debouncedFetchMenu();
-    
-    return () => {
-      debouncedFetchMenu.cancel();
-    };
-  }, [debouncedFetchMenu]);
+    const fetchMenuAndSearch = async () => {
+      // Fetch menu if not already fetched
+      if (!isMenuFetched) {
+        try {
+          const response = await axiosInstance.get("/menus");
+          setMenuItems(response.data.data[0].items);
+          setIsMenuFetched(true);
+        } catch (error) {
+          console.log("Failed to fetch menu:", error.message);
+        }
+      }
 
-  useEffect(() => {
-    if (searchTerm) {
-      debouncedSearch(searchTerm);
-    } else {
-      setFilterProducts([]);
-    }
-  }, [searchTerm, debouncedSearch]);
+      // Fetch products if search term is present
+      if (searchTerm) {
+        await debouncedSearch(searchTerm);
+      } else {
+        setFilterProducts([]);
+      }
+    };
+
+    fetchMenuAndSearch();
+
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [searchTerm, debouncedSearch, isMenuFetched]);
+
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -101,13 +114,6 @@ const Navbar = () => {
     }
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   const handleNavClick = (path) => {
     router.push(path)
     setIsOpen(false)
@@ -115,37 +121,31 @@ const Navbar = () => {
 
   return (
     <div className="shadow z-10 bg-white w-full">
-      <div className="2xl:container mx-auto px-3 md:px-5 xl:flex xl:items-center xl:justify-between relative">
-        {/* logo */}
-        <div className="flexitems-center justify-between w-fit">
-          <div className="flex items-center justify-between py-1 md:py-0">
+      <div className="container mx-auto px-3 md:px-0 md:flex md:items-center md:justify-between relative">
+        <div className="flex items-center justify-between w-fit">
+          <div className="flex items-center justify-between py-2 md:py-2">
             <div>
               <Link href={"/"}>
                 <Image
                   src={sensor_logo}
                   width={150}
                   height={150}
-                  className="md:w-40"
+                  className="md:w-36 w-28"
                   alt="sensor shop"
                 />
               </Link>
             </div>
-            {/* mobile bar */}
             <div
               onClick={handleBarOpen}
-              className="xl:hidden border border-navBorder p-1 absolute right-5 top-4 px-2 text-center rounded-sm"
+              className="xl:hidden border border-navBorder p-1 absolute right-5 top-3 px-2 text-center rounded-sm"
             >
               <span className="text-lg">
                 <FaBarsStaggered />
               </span>
             </div>
-            {/* end mobile bar */}
           </div>
         </div>
-        {/* end logo */}
-
-        {/* dynamic menu */}
-        <div className="xl:flex items-center justify-center gap-7 2xl:gap-7 border border-gray-300 rounded-sm py-1 px-2 hidden z-30">
+        <div className="xl:flex items-center justify-center gap-10 border border-gray-300 rounded-sm py-1 px-4 hidden z-30">
           {menuitems.map((item, index) => (
             <div key={index}>
               <Link
@@ -157,12 +157,9 @@ const Navbar = () => {
             </div>
           ))}
         </div>
-        {/* end dynamic menu */}
-
-        {/* search bar */}
         <form
           onSubmit={handleSearchSubmit}
-          className="xl:flex md:items-center md:justify-between border border-navBorder rounded-sm hidden md:w-[30%] relative"
+          className="xl:flex md:items-center md:justify-between border border-navBorder rounded-sm hidden md:w-[25%] relative"
         >
           <input
             type="text"
@@ -190,6 +187,7 @@ const Navbar = () => {
                   <Link
                     href={`/products/${product.slug}`}
                     onClick={() => {
+                      console.log(`Navigating to /products/${product.slug}`); // Debugging log
                       setSearchTerm("");
                       setFilterProducts([]);
                       setIsFocused(false);
@@ -202,10 +200,8 @@ const Navbar = () => {
             </ul>
           )}
         </form>
-        {/* end search bar */}
       </div>
 
-      {/* mobile menu */}
       <AnimatePresence>
         {isOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-75 z-50">
@@ -216,7 +212,6 @@ const Navbar = () => {
               exit={{ x: "-100%" }}
               className="absolute left-0 top-0 h-screen bg-navBgColor w-[70%] p-4"
             >
-              {/* close menu */}
               <div
                 onClick={handleBarOpen}
                 className="absolute right-4 top-3 text-white text-xl border border-white p-1 cursor-pointer w-fit"
@@ -227,17 +222,14 @@ const Navbar = () => {
               <div className="flex flex-col gap-6 text-white mt-16">
                 {menuitems.map((menuList, menuIndex) => (
                   <Link
-                  onClick={() => handleNavClick(menuList.link)}
+                    onClick={() => handleNavClick(menuList.link)}
                     key={menuIndex}
                     href={menuList.link}
-                    className="uppercase text-sm font-medium border-b border-gray-400 pb-2"
-                  >
+                    className="uppercase text-sm font-medium border-b border-gray-400 pb-2">
                     {menuList.label}
                   </Link>
                 ))}
               </div>
-
-              {/* social */}
               <div className="flex items-center justify-center gap-8 mt-16 flex-wrap">
                 <Link href={"#"} className="text-xl bg-white p-1 rounded-sm">
                   <FaFacebook />
@@ -252,12 +244,10 @@ const Navbar = () => {
                   <FaYoutube />
                 </Link>
               </div>
-              {/* end social */}
             </motion.div>
           </div>
         )}
       </AnimatePresence>
-      {/* end mobile menu */}
     </div>
   );
 };

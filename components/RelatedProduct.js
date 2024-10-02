@@ -49,11 +49,11 @@ const RelatedProduct = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-header_text">Related Products</h1>
+      <h2 className="text-xl font-bold text-header_text text-center">Related Products</h2>
 
       <Swiper
         slidesPerView={2}
-        spaceBetween={30}
+        spaceBetween={20}
         freeMode={true}
         pagination={{
           clickable: true,
@@ -65,43 +65,42 @@ const RelatedProduct = () => {
           },
           768: {
             slidesPerView: 4,
-            spaceBetween: 40,
+            spaceBetween: 20,
           },
           1024: {
             slidesPerView: 5,
-            spaceBetween: 40,
+            spaceBetween: 20,
           },
         }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"
       >
         {products.map((product, index) => (
-          <SwiperSlide key={index} className="border border-gray-300 rounded-md my-10 w-full">
+          <SwiperSlide key={index} className="border border-gray-300 rounded-md my-2">
             <Link
-              href={`/products/${product.slug}`}
-              className=" p-4 w-full h-auto inline-block"
-            >
+              href={`/products/${product?.slug}`}
+              className="p-2 w-auto h-auto inline-block">
               <Image
-                src={product.featured_image}
+                src={product?.featured_image}
                 width={300}
                 height={300}
                 priority={false}
                 className="w-56 h-40 object-cover"
-                alt={product.name}
+                alt={product?.name}
               />
-              <div className="text-center w-full">
-                <h1 className="font-semibold capitalize text-base">
-                  {product.name}
-                </h1>
-                <p className="">
+              <div className="text-center">
+                <h2 className="xfont-semibold xcapitalize text-base">
+                  {product?.name}
+                </h2>
+                {/* <p className="">
                   {typeof product?.extraFields?.find(
                     (field) => field.meta_name === "product_short_description"
                   )?.meta_value === "string"
-                    ? product.extraFields
+                    ? product?.extraFields
                       .find((field) => field.meta_name === "product_short_description")
                       .meta_value.slice(0, 10) // Just slice the string, no split or join
                     : ""}
-                </p>
+                </p> */}
               </div>
 
             </Link>

@@ -1,25 +1,68 @@
-import React from "react";
-import Link from "next/link";
+'use client';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { MdOutlineContentPasteSearch } from "react-icons/md";
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+import axiosInstance from '@/helpers/axiosInstance';
+import { getMetaValueByMetaName } from '@/helpers/metaHelpers';
 
 const Footer = () => {
+  const [settings, setSettings] = useState(null);
+
+  useEffect(() => {
+    // Fetch settings from the API
+    axiosInstance.get('/frontend/settings')
+      .then(response => {
+        setSettings(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching settings:', error);
+      });
+  }, []);
+
+  // Use helper method to get specific meta values with fallback
+  const facebookLink = getMetaValueByMetaName(settings, 'facebook_url') || '#';
+  const instagramLink = getMetaValueByMetaName(settings, 'instagram_url') || '#';
+  const linkedinLink = getMetaValueByMetaName(settings, 'linkedin_url') || '#';
+  const youtubeLink = getMetaValueByMetaName(settings, 'youtube_url') || '#';
+  const careersEnabled = getMetaValueByMetaName(settings, 'careers_enabled') || null;
+
+
   return (
     <>
       <footer className="bg-footerColor">
         <div className="container mx-auto px-3 py-10 grid gap-10 md:grid-cols-2 xl:grid-cols-4">
           <div className="flex flex-col gap-2">
-            <h1 className="text-xl text-gray-200 font-semibold">Support</h1>
-            <p className="text-gray-400 text-sm">House#3, Block#A, Road#5</p>
+            <h1 className=" text-gray-200">Support</h1>
+            <p className="text-gray-400 text-sm">
+              House # 3, Block # A, Road # 5
+            </p>
             <p className="text-gray-400 text-sm">
               Section-6, Mirpur, Dhaka-1216 Beside of Aalok Hospital Mirpur 10
             </p>
             <p className="text-gray-400 text-sm">
-              Mobile: 01711-261553 (Whats'App)
+              info@sensor-shopbd.com
             </p>
-            <p className="text-gray-400 text-sm">info@sensor-shopbd.com </p>
+            <p className="text-gray-400 text-sm">
+              +8801711261553
+            </p>
+            <div className="contact-buttons">
+              <a href="https://wa.me/1711261553" className="contact-button whatsapp" target="_blank">
+                WhatsApp
+              </a>
+
+              <a href="weixin://dl/chat?chatid=YOUR_WECHAT_ID" className="contact-button wechat">
+                WeChat
+              </a>
+
+              <a href="tel:+1711261553" className="contact-button call">
+                Call
+              </a>
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">
-            <h1 className="text-xl text-gray-200 font-semibold">
+            <h1 className=" text-gray-200">
               German Address
             </h1>
             <p className="text-gray-400 text-sm">Md Rezaul Karim Siddique</p>
@@ -29,7 +72,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <h1 className="text-xl text-gray-200 font-semibold">
+            <h1 className=" text-gray-200">
               Payment Method
             </h1>
             <p className="text-gray-400 text-sm">
@@ -45,12 +88,12 @@ const Footer = () => {
               Bank Name: BRAC Bank Limited{" "}
             </p>
             <p className="text-gray-400 text-sm">
-              Branch of Bank: Banani 11, Dhaka, Bangladesh{" "}
+              Branch of Bank: Banani 11, Dhaka, Bangladesh {" "}
             </p>
           </div>
 
           <div className="flex flex-col gap-2">
-            <h1 className="text-xl text-gray-200 font-semibold">
+            <h1 className=" text-gray-200">
               Knowledge Base
             </h1>
             <div className="flex flex-col gap-3 text-sm text-gray-400">
@@ -58,18 +101,23 @@ const Footer = () => {
               <Link href={"/contact-us"}>Contact us</Link>
               <Link href={"#"}>Sensor-Shopbd.com</Link>
             </div>
+            <div className='md:flex md:gap-6 md:items-center hidden'>
+              <Link target='_blank' href={facebookLink} className='text-base text-white p-1'><FaFacebook /></Link>
+              <Link target='_blank' href={instagramLink} className='text-base text-white p-1'><FaInstagram /></Link>
+              <Link target='_blank' href={linkedinLink} className='text-base text-white p-1'><FaLinkedin /></Link>
+              <Link target='_blank' href={youtubeLink} className='text-base text-white p-1'><FaYoutube /></Link>
+            </div>
           </div>
         </div>
         <div className="w-full h-0.5 bg-gray-600 "></div>
-        <div className="container mx-auto pt-5 flex flex-wrap items-center justify-center text-sm text-gray-400 pb-2">
+        <div className="container mx-auto pt-2 flex items-center justify-center flex-wrap text-sm text-gray-400 pb-2">
           <p>All Rights Reserved © Sensor Shop Bangladesh.</p>
           <p className="flex">
-            &nbsp;Developed By
+            &nbsp; Developed By
             <Link
-              className="text-green-600 font-semibold"
+              className="text-green-600"
               href={"https://mathmozo.com"}
-              target="_blank"
-            >
+              target="_blank">
               &nbsp; Mathmozo IT
             </Link>
           </p>

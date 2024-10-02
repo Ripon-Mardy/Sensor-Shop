@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import CategorySection from "@/components/CategorySection";
 
 import RelatedProduct from "@/components/RelatedProduct";
 import Loading from "@/components/Loading";
@@ -16,7 +17,6 @@ const Page = ({ params }) => {
   const slug = params.slug;
 
   const [product, setProduct] = useState([]); // set product data
-  // console.log('product', product);
 
   const [loading, setLoading] = useState(true); // set loading 
   const [error, setError] = useState(false); // set error
@@ -26,10 +26,14 @@ const Page = ({ params }) => {
   const [isFullScreen, setIsFullScreen] = useState(false); // Fullscreen state
   const [isFormVisible, setIsFormVisible] = useState(false); // form visible
   const [categoryData, setCategoryData] = useState([]);
-
+  const [isOpen, setIsOpen] = useState(false);
 
   const openPopUp = () => {
     setIsFormVisible(!isFormVisible);
+  };
+
+  const toggleCategories = () => {
+    setIsOpen(!isOpen);
   };
 
   const handleCloseForm = () => {
@@ -54,7 +58,7 @@ const Page = ({ params }) => {
         const res = await axiosInstance.get(`/post?slug=${slug}`); // Use axiosInstance
         setProduct(res.data.data);
         setProductImage(res.data.data.featured_image);
-      } catch (error) { 
+      } catch (error) {
         setError("Error", error.message);
       } finally {
         setLoading(false);
@@ -82,19 +86,20 @@ const Page = ({ params }) => {
     <>
       <section>
         <div className="container mx-auto px-3 py-8">
-         <div className="flex flex-col md:flex-row gap-2 xl:gap-3">
+         <div className="flex flex-col md:flex-row gap-4">
           <div className="basis-[25%] max-w-full">
             {/* ==== category menus === */}
-           <div className="border-2 border-navBorder rounded-md md:w-full">
+           {/* <div className="border-2 border-navBorder rounded-md md:w-full">
               <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
-              <div className="flex flex-col h-52 md:h-96 gap-1.5 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
+              <div className="flex flex-col h-52 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
                 {categoryData.map((categoryItem, categoryIndex) => (
                   <div key={categoryIndex}>
                     <Link href={`/category/${categoryItem.slug}`}>{categoryItem.name}</Link>
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
+             <CategorySection categories={categoryData} isOpen={isOpen} toggleCategories={toggleCategories} />
           </div>
            {/* ===== product details ====  */}
            <div className="basis-full">
@@ -219,7 +224,7 @@ const Page = ({ params }) => {
           {/* ==== end  */}
          </div>
 
-          <div className="py-8">
+          <div className="py-10">
             <RelatedProduct />
           </div>
         </div>

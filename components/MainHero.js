@@ -10,14 +10,15 @@ import ProudClients from './ProudClients';
 import Services from './Services';
 import HtmlRenderer from './HtmlRenderer';
 import { IoSearch } from 'react-icons/io5';
-import productBanner from './../public/image/3830.jpg';
-import choose1 from './../public/image/why choose us/images.jpg';
 import { useRouter } from 'next/navigation';
+import { BASE_URL } from '@/helpers/baseUrl';
 
 const MainHero = () => {
   const [categoryData, setCategoryData] = useState([]);
   const [product, setProduct] = useState([]);
   const [main_speech, setMainSpeech] = useState();
+  const [leftBannerOne, setLeftBannerOne] = useState('');
+  const [leftBannerTwo, setLeftBannerTwo] = useState('');
   const [filterProducts, setFilterProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -25,36 +26,53 @@ const MainHero = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // Fetch all necessary data
     const fetchData = async () => {
       try {
-        const [categoriesRes, productsRes, speechRes] = await Promise.all([
+        const [
+          categoriesRes,
+          productsRes,
+          speechRes,
+          leftBannerOneRes,
+          leftBannerTwoRes,
+        ] = await Promise.all([
           axiosInstance.get('/categories?taxonomy_type=categories'),
           axiosInstance.get('/posts?term_type=product'),
           axiosInstance.get('/frontend/settings?meta_name=main_speech&meta_type=Text'),
+          axiosInstance.get('/frontend/settings?meta_name=homepage_left_banner_one&meta_type=Media'),
+          axiosInstance.get('/frontend/settings?meta_name=homepage_left_banner_two&meta_type=Media'),
         ]);
 
         setCategoryData(categoriesRes.data.data);
         setProduct(productsRes.data.data);
         setMainSpeech(speechRes.data.data);
+
+        const leftBannerOneId = leftBannerOneRes.data.data.meta_value; // Assuming this is the ID
+        const leftBannerTwoId = leftBannerTwoRes.data.data.meta_value; // Assuming this is the ID
+
+        const [banner1Res, banner2Res] = await Promise.all([
+          axiosInstance.get(`/media/${leftBannerOneId}`),
+          axiosInstance.get(`/media/${leftBannerTwoId}`),
+        ]);
+
+        setLeftBannerOne(`${BASE_URL}${banner1Res.data.data.file_directory}${banner1Res.data.data.filename}`);
+        setLeftBannerTwo(`${BASE_URL}${banner2Res.data.data.file_directory}${banner2Res.data.data.filename}`);
+
+        // Filtering products
+        if (searchTerm) {
+          const productFilter = productsRes.data.data.filter(product =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          setFilterProducts(productFilter);
+        } else {
+          setFilterProducts([]);
+        }
       } catch (error) {
         console.error('Failed to fetch data:', error);
       }
     };
 
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (searchTerm) {
-      const productFilter = product.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilterProducts(productFilter);
-    } else {
-      setFilterProducts([]);
-    }
-  }, [searchTerm, product]);
+  }, [searchTerm]); // Add searchTerm as a dependency
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -88,23 +106,26 @@ const MainHero = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-3 py-8">
-      <div className="md:flex md:justify-between gap-2 xl:gap-3">
+    <div className="container mx-auto px-3 md:px-0 pt-3">
+      <div className="md:flex md:justify-between gap-5">
         {/* ==== categories ==== */}
         <div className="w-full md:w-1/2 xl:w-1/4">
           <div className="flex flex-col gap-16">
             <div className="border-2 border-navBorder hidden md:block rounded-md">
-              <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
-              <div className="flex flex-col h-96 gap-1.5 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
+              <h2 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">
+                Categories
+              </h2>
+              <div className="flex flex-col h-[500px] gap-1 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
                 {categoryData.map((categoryItem, categoryIndex) => (
                   <div key={categoryIndex}>
-                    <Link href={`/category/${categoryItem.slug}`}>{categoryItem.name}</Link>
+                    <Link href={`/category/${categoryItem.slug}`}>
+                      {categoryItem.name}
+                    </Link>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* === mobile search bar === */}
             <form onSubmit={handleSearchSubmit} className="md:hidden w-full flex items-center justify-between border border-navBorder relative">
               <input
                 type="text"
@@ -131,43 +152,36 @@ const MainHero = () => {
             </form>
           </div>
           <div className='hidden md:block'>
-            <Image src={productBanner} className='w-full mt-8' width={100} height={100} alt='product banner' />
-            <Image src={choose1} className='w-full mt-8' width={100} height={100} alt='product banner' />
-            <Image src={productBanner} className='w-full mt-8' width={100} height={100} alt='product banner' />
+            <Image src={leftBannerOne} className='w-full mt-8' width={100} height={100} alt='Left Banner One' />
+            <Image src={leftBannerTwo} className='w-full mt-8' width={100} height={100} alt='Left Banner Two' />
           </div>
         </div>
         <div>
         </div>
-        {/* ==== right side bar ==== */}
         <div className="xl:w-full overflow-hidden">
-          <div className=" mt-4 md:mt-0 md:h-fit">
+          <div className="mt-3 md:mt-0 md:h-fit">
             <BannerSlide />
           </div>
 
-          {/* ====== Banner bottom text ====== */}
-          <div className=" py-8">
-            <h1 className="text-xl md:text-2xl text-center font-semibold">
+          <div className="md:py-10 py-5">
+            <h2 className="text-xl md:text-3xl text-center font-semibold">
               <HtmlRenderer html={main_speech?.meta_value} />
-            </h1>
+            </h2>
           </div>
 
-          {/* ==== Brands ==== */}
-          <div className="py-8">
+          <div className="md:py-2 py-0 pt-2 text-center md:text-left">
             <Brands />
           </div>
 
-          {/* ==== Feature product ==== */}
-          <div className="py-8">
+          <div className="md:py-2 py-0 pt-2 text-center md:text-left">
             <FeatureProduct />
           </div>
 
-          {/* ==== Proud clients ==== */}
-          <div className="py-8">
+          <div className="md:py-2 py-0 pt-2 text-center md:text-left">
             <ProudClients />
           </div>
 
-          {/* ==== Services ==== */}
-          <div className="py-8">
+          <div className="md:py-2 py-0 pt-2 text-center md:text-left">
             <Services />
           </div>
         </div>
