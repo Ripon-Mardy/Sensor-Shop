@@ -67,7 +67,7 @@ const Page = ({ params }) => {
         <div className="container mx-auto px-3">
           <div>
             {/* Image Gallery */}
-            <div className="grid md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
               {photos.map((image, index) => (
                 <img
                   key={index}

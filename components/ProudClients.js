@@ -34,7 +34,7 @@ const ProudClients = () => {
                 </Link>
             </div>            
             <div>
-                <div className='grid grid-cols-4 md:grid-cols-8 md:grid md:gap-6 gap-6 mt-4'>                    
+                <div className='grid grid-cols-4 md:grid-cols-8 gap-3 mt-4'>                    
                     {proudClients.length > 0 ? (
                         proudClients.map((proudClient, proudIndex) => (
                             <div key={proudIndex} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>

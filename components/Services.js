@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import axiosInstance from "@/helpers/axiosInstance";
 
 const Services = () => {
@@ -33,11 +33,9 @@ const Services = () => {
 
   return (
     <div>
-      <div className="text-center md:text-left">
-        <h2 className="text-xl md:text-xl font-semibold">Our Services</h2>
-        <p className="font-medium mt-3 text-sm md:text-base">
-          {servicesText}
-        </p>
+      <div className="text-center">
+        <h2 className="text-xl font-semibold">Our Services</h2>
+        <p className="font-medium mt-3 text-sm md:text-base">{servicesText}</p>
       </div>
 
       <div>
@@ -50,34 +48,43 @@ const Services = () => {
             1024: { slidesPerView: 5, spaceBetween: 20 },
           }}
           pagination={{ clickable: true }}
-          autoplay={{ delay: 2500, disableOnInteraction: false }}
-          modules={[Pagination, Autoplay]}
+          modules={[Pagination]}
           className="mySwiper"
         >
           {services.map((service, index) => (
             <SwiperSlide key={index} className="py-2">
               <div className="border border-gray-300 p-2 rounded-sm shadow">
-                <Image
-                  src={service.featured_image}
-                  width={200}
-                  height={200}
-                  className="object-cover rounded-md w-full h-full"
-                  alt={service.name}
-                />
-                <h1 className="text-base font-semibold my-2 capitalize">{service.name}</h1>
-                <Link
-                  href={`/${service.slug}`}
-                  className="bg-buttonBgColor text-white text-center p-1.5 text-sm capitalize"
-                >
-                  Read more
+                <Link href={`/${service.slug}`}>
+                  <Image
+                    src={service.featured_image}
+                    width={200}
+                    height={200}
+                    className="object-cover rounded-md w-full h-full"
+                    alt={service.name}
+                  />
                 </Link>
+
+                <h1 className="text-base text-center mt-2">
+                  <Link href={`/${service.slug}`} className="p-1.5 text-sm capitalize">
+                    {service.name}
+                  </Link>
+                </h1>
+
+                <div className="flex justify-center mt-2">
+                  <Link
+                    href={`/${service.slug}`}
+                    className="bg-navBgColor text-white text-center p-1.5 text-sm capitalize"
+                  >
+                    Read more
+                  </Link>
+                </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
 
-      {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-500 text-center mt-4">{error}</p>}
+      </div>
     </div>
   );
 };

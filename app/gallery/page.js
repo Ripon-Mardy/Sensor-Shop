@@ -19,7 +19,7 @@ const Page = () => {
       } catch (error) {
         setError('Failed to fetch category');
       } finally {
-        setLoading(false); // Set loading to false after the fetch attempt
+        setLoading(false);
       }
     };
     fetchCategory();
@@ -38,33 +38,29 @@ const Page = () => {
   }
 
   return (
-    <>
-      <section className='py-10'>
-        <div className='container mx-auto px-3 grid grid-cols-2 md:grid-cols-3 gap-10'>
-          {categoryData.map((categoryItem, categoryIndex) => (            
-            <div key={categoryIndex} className='border border-gray-300 rounded-md overflow-hidden'>
-                <div>
-                  <Link href={`/gallery/${categoryItem?.slug}`}>
-                    <Image 
-                      src={categoryItem?.image} 
-                      className='w-full h-60 object-cover' 
-                      width={200} 
-                      height={200} 
-                      alt={categoryItem?.name} 
-                    />
-                  </Link>
-                </div>
-                <h1 className='text-xl font-semibold text-gray-800 text-center py-1'>
-                  <Link href={`/gallery/${categoryItem?.slug}`}>
-                    {categoryItem?.name}
-                  </Link>
+    <section>
+      <div className="container mx-auto px-3 py-10">
+        <h2 className="text-2xl font-bold mb-5">Gallery</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
+          {categoryData.map((categoryItem, categoryIndex) => (
+            <div key={categoryIndex} className="border border-gray-300 rounded-md overflow-hidden shadow-lg">
+              <Link href={`/gallery/${categoryItem?.slug}`}>
+                <Image 
+                  src={categoryItem?.image} 
+                  className="w-full h-60 object-cover" 
+                  width={200} 
+                  height={200} 
+                  alt={categoryItem?.name} 
+                />
+                <h1 className="text-xl font-semibold text-gray-800 text-center py-2">
+                  {categoryItem?.name}
                 </h1>
-              
+              </Link>
             </div>
           ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

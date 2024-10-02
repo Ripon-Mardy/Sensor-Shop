@@ -84,49 +84,17 @@ const Page = ({ params }) => {
 
   return (
     <>
-      <section>
-        <div className="container mx-auto px-3 py-8">
-         <div className="flex flex-col md:flex-row gap-4">
-          <div className="basis-[25%] max-w-full">
-            {/* ==== category menus === */}
-           {/* <div className="border-2 border-navBorder rounded-md md:w-full">
-              <h1 className="bg-navBgColor text-white py-2 pl-3 text-xl capitalize font-medium">Categories</h1>
-              <div className="flex flex-col h-52 md:h-96 gap-3 p-3 text-textNavColor font-semibold text-sm capitalize overflow-y-auto">
-                {categoryData.map((categoryItem, categoryIndex) => (
-                  <div key={categoryIndex}>
-                    <Link href={`/category/${categoryItem.slug}`}>{categoryItem.name}</Link>
-                  </div>
-                ))}
-              </div>
-            </div> */}
-             <CategorySection categories={categoryData} isOpen={isOpen} toggleCategories={toggleCategories} />
-          </div>
-           {/* ===== product details ====  */}
-           <div className="basis-full">
-           <div className="flex flex-col md:flex-row gap-10">
-           <div className="basis-1/2 flex flex-col gap-5 p-5">
-              <div className=" md:h-1/2 mx-auto w-full">
-                {/* ==== product slider ====  */}
-                <div className="relative">
-                  <Image
-                    src={productImage}
-                    width={200}
-                    height={200}
-                    alt={product.name}
-                    className="w-full object-cover mx-auto rounded-lg"
-                    layout="responsive"
-                    priority={false}
-                  />
-                  <span
-                    onClick={openFullScreen}
-                    className="absolute right-3 bottom-3 text-xl border border-gray-300 p-1 cursor-pointer rounded-md text-white bg-gray-600"
-                  >
-                    <SlSizeFullscreen />
-                  </span>
-                </div>
-                {/* ==== full screen image ====  */}
-                {isFullScreen && (
-                  <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+      <section className="py-5">
+        <div className="container mx-auto px-3 md:py-10">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="md:basis-[25%] max-w-full">
+              {/* Categories Section */}
+              <CategorySection categories={categoryData} isOpen={isOpen} toggleCategories={toggleCategories} />
+            </div>
+            <div className="basis-full">
+              <div className="flex flex-col md:flex-row gap-10">
+                <div className="basis-1/2 flex flex-col md:gap-5 md:pl-5 pb-5 pr-0">
+                  <div className="md:h-1/2 mx-auto w-full">
                     <div className="relative">
                       <img
                         src={productImage}
@@ -141,7 +109,8 @@ const Page = ({ params }) => {
                       </button>
                     </div>
                   </div>
-                )}
+                {/* )} */}
+                
                 {/* ==== end full screen images ====  */}
                 <div className="flex items-center justify-center gap-4 mt-5">
                   {Array.isArray(product.extra_fields[0]?.meta_value) &&
@@ -227,7 +196,7 @@ const Page = ({ params }) => {
           <div className="py-10">
             <RelatedProduct />
           </div>
-        </div>
+        {/* </div> */}
       </section>
     </>
   );
