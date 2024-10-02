@@ -71,7 +71,7 @@ const Products = () => {
 
   return (
     <>
-      <section className="py-10">
+      <section className="py-5">
         <div className="container mx-auto px-3 flex flex-col md:flex-row justify-between gap-5 md:gap-10">
 
           {/* Categories Section */}
