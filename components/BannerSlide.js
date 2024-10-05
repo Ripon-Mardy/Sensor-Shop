@@ -7,6 +7,7 @@ const BannerSlide = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slider, setSlider] = useState([]);
   const [mobileSlider, setMobileSlider] = useState([]);
+  const [isMobile, setIsMobile] = useState(false); // State to determine mobile view
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -40,15 +41,27 @@ const BannerSlide = () => {
     fetchSlider();
     fetchMobileSlider();
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Set the initial value on component mount
+    handleResize();
+
+    // Add resize event listener
+    window.addEventListener('resize', handleResize);
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % (slider.length > 0 ? slider.length : 1));
     }, 10000); // Change image every 10 seconds
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', handleResize); // Cleanup event listener
+    };
   }, [slider.length, mobileSlider.length]);
 
   // Determine which banners to display based on screen size
-  const isMobile = window.innerWidth < 768; // Adjust the breakpoint as needed
   const currentBanners = isMobile && mobileSlider.length > 0 ? mobileSlider : slider;
 
   return (
