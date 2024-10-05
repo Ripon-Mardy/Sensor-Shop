@@ -7,7 +7,7 @@ const BannerSlide = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slider, setSlider] = useState([]);
   const [mobileSlider, setMobileSlider] = useState([]);
-  const [isMobile, setIsMobile] = useState(false); // State to determine mobile view
+  const [isMobile, setIsMobile] = useState(false);
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -41,15 +41,14 @@ const BannerSlide = () => {
     fetchSlider();
     fetchMobileSlider();
 
+    // Set the current screen size (mobile or not) once the component has mounted
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    // Set the initial value on component mount
-    handleResize();
-
-    // Add resize event listener
+    // Detect screen size change and adjust
     window.addEventListener('resize', handleResize);
+    handleResize(); // Check initially
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % (slider.length > 0 ? slider.length : 1));
@@ -57,14 +56,13 @@ const BannerSlide = () => {
 
     return () => {
       clearInterval(interval);
-      window.removeEventListener('resize', handleResize); // Cleanup event listener
+      window.removeEventListener('resize', handleResize);
     };
   }, [slider.length, mobileSlider.length]);
 
-  // Determine which banners to display based on screen size
   const currentBanners = isMobile && mobileSlider.length > 0 ? mobileSlider : slider;
 
-  return (
+  return (  
     <div>
       {/* Desktop Slider */}
       <div className="relative w-full md:h-40 h-40 overflow-hidden hidden md:block">
@@ -76,11 +74,9 @@ const BannerSlide = () => {
             <Image
               src={banner.featured_image}
               alt={`Banner ${index + 1}`}
-              width={300}
-              height={300}
-              layout='responsive'
-              className="w-full h-32 md:h-full object-cover rounded-sm"
-              priority={false}
+              width={100}
+              height={100}
+              className="w-full h-full object-cover"
             />
           </div>
         ))}
@@ -88,13 +84,13 @@ const BannerSlide = () => {
         <div className='flex items-center justify-center'>
           <button
             onClick={prevSlide}
-            className="absolute md:top-1/2 top-[40%] left-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2"
+            className="absolute top-1/2 left-0 transform  -translate-y-full bg-black bg-opacity-50 text-white p-2 text-sm h-fit"
           >
             &lt;
           </button>
           <button
             onClick={nextSlide}
-            className="absolute md:top-1/2 top-[40%] right-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2"
+            className="absolute top-1/2  right-0 transform -translate-y-full bg-black bg-opacity-50 text-white p-2 text-sm h-fit flex items-center justify-center"
           >
             &gt;
           </button>
@@ -113,9 +109,7 @@ const BannerSlide = () => {
               alt={`Banner ${index + 1}`}
               width={300}
               height={300}
-              layout='responsive'
               className="w-full h-32 md:h-full object-cover rounded-sm"
-              priority={false}
             />
           </div>
         ))}

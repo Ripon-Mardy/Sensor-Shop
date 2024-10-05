@@ -39,7 +39,7 @@ const Page = () => {
 
     return (
         <>
-            <section className='py-10'>
+            <section className='py-8'>
                 <div className='container mx-auto px-3'>
                     <h1 className='text-2xl font-bold mb-5'>All Brands</h1>
                     <div className='grid grid-cols-4 md:grid-cols-8 md:grid md:gap-6 gap-6 mt-4'>

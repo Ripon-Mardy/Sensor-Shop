@@ -31,8 +31,8 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-footerColor">
-        <div className="container mx-auto px-3 py-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <div className="flex flex-col">
+        <div className="container mx-auto px-3 py-10 grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="flex flex-col gap-2">
             <h1 className=" text-gray-200">Support</h1>
             <p className="text-gray-400 text-sm">
               House # 3, Block # A, Road # 5
@@ -61,7 +61,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2">
             <h1 className=" text-gray-200">
               German Address
             </h1>
@@ -71,7 +71,7 @@ const Footer = () => {
             <p className="text-gray-400 text-sm">rezaul@sensor-shopbd.com</p>
           </div>
 
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <h1 className=" text-gray-200">
               Payment Method
             </h1>
@@ -90,17 +90,17 @@ const Footer = () => {
             <p className="text-gray-400 text-sm">
               Branch of Bank: Banani 11, Dhaka, Bangladesh {" "}
             </p>
-          </div>
+          </div> */}
 
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2">
             <h1 className=" text-gray-200">
               Knowledge Base
             </h1>
-            <div className="flex flex-col text-sm text-gray-400">
+            <div className="flex flex-col text-sm text-gray-400 gap-2">
               <Link href={"/page/about-us"}>About us</Link>
               <Link href={"/contact-us"}>Contact us</Link>            
             </div>
-            <div className='md:flex md:gap-6 md:items-center hidden'>
+            <div className='flex gap-6 items-center'>
               <Link target='_blank' href={facebookLink} className='text-base text-white p-1'><FaFacebook /></Link>
               <Link target='_blank' href={instagramLink} className='text-base text-white p-1'><FaInstagram /></Link>
               <Link target='_blank' href={linkedinLink} className='text-base text-white p-1'><FaLinkedin /></Link>

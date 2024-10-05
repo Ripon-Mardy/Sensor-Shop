@@ -78,7 +78,7 @@ const Products = () => {
           <CategorySection categories={categoryData} isOpen={isOpen} toggleCategories={toggleCategories} />
 
           {/* Products Section */}
-          <div className="md:basis-[80%] md:w-full mx-auto flex flex-col gap-8">          
+          <div className="md:basis-[80%] md:w-full mx-auto flex flex-col gap-8">
             {products.map((product, index) => (
               <div key={index} className="flex gap-4">
                 {/* Image Container */}
@@ -103,7 +103,9 @@ const Products = () => {
                   <div className="flex gap-10 items-center">
                     {product?.categories.filter(category => category.taxonomy_type === "product_brands").map(category => (
                       <div key={category?.id} className="flex items-center gap-2">
-                        <Link href={`/category/${category?.slug}`}>
+                        <Link
+                         href={`/products/${category?.slug}`}
+                         >
                           <Image
                             src={category?.media_url}
                             width={100}
@@ -112,7 +114,7 @@ const Products = () => {
                             className="object-cover"
                           />
                         </Link>
-                        <Link href={`/category/${category?.slug}`}>
+                        <Link href={`/products/${category?.slug}`}>
                           <h2 className="text-lg">{category?.name}</h2>
                         </Link>
                       </div>
