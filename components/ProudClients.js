@@ -32,13 +32,13 @@ const ProudClients = () => {
                 <Link href={'/all-clients'} className='font-medium text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out'>
                     View all clients
                 </Link>
-            </div>            
+            </div>
             <div>
                 <div className='grid grid-cols-4 md:grid-cols-8 gap-3 mt-4'>                    
                     {proudClients.length > 0 ? (
                         proudClients.map((proudClient, proudIndex) => (
-                            <div key={proudIndex} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
-                                <Image src={proudClient.featured_image} width={300} height={300} alt={proudClient.name} />
+                            <div key={proudIndex} className='border border-gray-100 hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex justify-center items-center'>
+                                <Image src={proudClient.featured_image} width={240} height={100} alt={proudClient.name} />
                             </div>
                         ))
                     ) : (

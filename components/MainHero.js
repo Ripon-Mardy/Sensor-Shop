@@ -37,7 +37,7 @@ const MainHero = () => {
           leftBannerOneRes,
           leftBannerTwoRes,
         ] = await Promise.all([
-          axiosInstance.get('/categories?taxonomy_type=categories'),
+          axiosInstance.get('/categories?taxonomy_type=categories&limit=40'),
           axiosInstance.get('/posts?term_type=product'),
           axiosInstance.get('/frontend/settings?meta_name=main_speech&meta_type=Text'),
           axiosInstance.get('/frontend/settings?meta_name=homepage_left_banner_one&meta_type=Media'),
@@ -165,9 +165,6 @@ const MainHero = () => {
               />
             )}
           </div>
-
-        </div>
-        <div>
         </div>
         <div className="xl:w-full overflow-hidden">
           <div className="mt-3 md:mt-0 md:h-fit">
@@ -179,19 +176,15 @@ const MainHero = () => {
               <HtmlRenderer html={main_speech?.meta_value} />
             </h2>
           </div>
-
           <div className="md:py-2 py-0 pt-2 text-center md:text-left">
             <Brands />
           </div>
-
           <div className="md:py-2 py-0 pt-2 text-center md:text-left">
             <FeatureProduct />
           </div>
-
           <div className="md:py-2 py-0 pt-2 text-center md:text-left">
             <ProudClients />
           </div>
-
           <div className="md:py-2 py-0 pt-2 text-center md:text-left">
             <Services />
           </div>

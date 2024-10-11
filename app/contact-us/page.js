@@ -55,8 +55,8 @@ const Page = () => {
       <section>
         <div className="container mx-auto px-3 py-10">
           <h2 className="text-2xl font-bold mb-5">Get in Touch</h2>
-          <div className="flex flex-col md:flex-row justify-center md:gap-20 gap-10">
-            <div className="basis-1/2 rounded-md w-full shadow-lg p-5 bg-white">
+          <div className="flex flex-col md:flex-row justify-center md:gap-10 gap-10">
+            <div className="basis-1/3 w-full shadow-md p-5 bg-white">
               <form onSubmit={handleSubmitForm} className="flex flex-col gap-5">
                 {/* Hidden Fields */}
                 <input type="hidden" value="Contact Query" name="subject" required />
@@ -108,26 +108,24 @@ const Page = () => {
               </form>
             </div>
 
-            <div className="basis-1/2 rounded-md shadow-lg bg-white p-5">
-              <iframe
-                className="w-full rounded-md mb-4"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5009.004988651476!2d90.36677776376587!3d23.80947532883005!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7b85270d125%3A0xd5b318c235754351!2sTechsense%20Bangladesh%20Ltd.!5e1!3m2!1sen!2sbd!4v1725086295448!5m2!1sen!2sbd"
-                width="500"
-                height="300"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-              <div className="flex flex-col md:flex-row gap-5 md:gap-8 mt-8">
-                <div className="flex flex-col gap-1 text-sm">
+            <div className="basis-2/3 shadow-md bg-white p-5">
+                <div className="flex flex-col gap-1 text-sm mb-2">
                   <h1 className="text-lg text-gray-800 font-semibold">OUR LOCATION</h1>
-                  <p>House#3, Block#A, Road#5</p>
-                  <p>Section-6, Mirpur, Dhaka-1216</p>
-                  <p>Beside of Aalok Hospital Mirpur 10</p>
-                  <p>Call: 01711-261553</p>
-                  <p>Email: info@sensor-shopbd.com</p>
+                  <p>House # 3, Block # A, Road # 5, Section-6, Beside of Aalok Hospital, Mirpur 10, Dhaka-1216</p>
+                  <p>Call: 01711-261553, Email: info@sensor-shopbd.com</p>
                 </div>
                 <div className="flex flex-col gap-1 text-sm">
+                  <iframe
+                    className="w-full mb-4"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5009.004988651476!2d90.36677776376587!3d23.80947532883005!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7b85270d125%3A0xd5b318c235754351!2sTechsense%20Bangladesh%20Ltd.!5e1!3m2!1sen!2sbd!4v1725086295448!5m2!1sen!2sbd"
+                    width="500"
+                    height="280"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                </div>
+                {/* <div className="flex flex-col gap-1 text-sm">
                   <h1 className="text-lg text-gray-800 font-semibold">PAYMENT METHOD</h1>
                   <p>BKash: 01711-261553 (personal)</p>
                   <p>Bank Account No: 1555204780015001</p>
@@ -135,12 +133,11 @@ const Page = () => {
                   <p>Bank Name: BRAC Bank Limited</p>
                   <p>Branch of Bank: Banani 11, Dhaka</p>
                   <p>Bangladesh</p>
-                </div>
-              </div>
+                </div> */}
             </div>
           </div>
         </div>
-      </section>
+      </section >
     </>
   );
 };
