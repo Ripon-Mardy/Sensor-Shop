@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
 
-const Page = () => {
+const Gallery = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [categoryData, setCategoryData] = useState([]);
@@ -41,7 +41,7 @@ const Page = () => {
     <section>
       <div className="container mx-auto px-3 py-10">
         <h2 className="text-2xl font-bold mb-5">Gallery</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {categoryData.map((categoryItem, categoryIndex) => (
             <div key={categoryIndex} className="border border-gray-300 rounded-md overflow-hidden shadow-lg">
               <Link href={`/gallery/${categoryItem?.slug}`}>
@@ -64,4 +64,4 @@ const Page = () => {
   );
 }
 
-export default Page;
+export default Gallery;

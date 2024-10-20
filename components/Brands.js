@@ -55,24 +55,24 @@ const Brands = () => {
                         {trustedBrandsText}                        
                     </p>
                 </div>
-                <Link href={'/all-brands'} className='font-medium capitalize text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out mt-4'>
-                    View all Brands
+                <Link href={'/all-brands'} className='font-medium text-sm bg-navBgColor text-white p-1.5 rounded-sm hidden md:block hover:bg-hoverNavBgColor duration-200 ease-in-out mt-4'>
+                    View all brands
                 </Link>
             </div>
             <div>
                 <div className='grid grid-cols-4 md:grid-cols-8 gap-3 mt-4'>
                     {
                         brandsList.map((brand, index) => (
-                            <div key={index} className='border border-gray-100 shadow hover:shadow-md hover:border-gray-200 duration-200 ease-in-out'>
+                            <div key={index} className='border border-gray-100 hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex justify-center items-center'>
                                 <Link href={`/category/${brand?.slug}`}>
-                                    <Image src={brand?.image} width={400} height={400} alt={brand?.name} priority={false} />
+                                    <Image src={brand?.image} width={240} height={100} alt={brand?.name} priority={false} />
                                 </Link>
                             </div>                            
                         ))
                     }
                 </div>
-                <Link href={'/all-brands'} className='font-medium capitalize text-base bg-navBgColor text-white p-1.5 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out md:hidden mt-6 inline-block'>
-                    View all Brands
+                <Link href={'/all-brands'} className='font-medium text-base bg-navBgColor text-white p-1.5 rounded-sm hover:bg-hoverNavBgColor duration-200 ease-in-out md:hidden mt-6 inline-block'>
+                    View all brands
                 </Link>
             </div>
         </div>

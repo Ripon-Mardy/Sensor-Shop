@@ -107,9 +107,9 @@ const BannerSlide = () => {
             <Image
               src={banner.featured_image}
               alt={`Banner ${index + 1}`}
-              width={300}
-              height={300}
-              className="w-full h-32 md:h-full object-cover rounded-sm"
+              width={400}
+              height={215}
+              className="w-full md:h-full object-cover rounded-sm"
             />
           </div>
         ))}
