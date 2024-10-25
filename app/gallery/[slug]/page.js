@@ -1,11 +1,18 @@
-"use client";
+"use client"; // Ensure this component runs on the client side
 import React, { useState, useEffect, useCallback } from "react";
 import Loading from "@/components/Loading";
 import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
 import { FaTimes, FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Icons for navigation
+import { usePathname, useSearchParams } from "next/navigation";
 
 const GallerySingle = () => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const albumId = pathname.split('/').pop();
+  // console.log(searchParams);
+
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [categoryData, setCategoryData] = useState([]);
@@ -14,20 +21,25 @@ const GallerySingle = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
   useEffect(() => {
-    // Fetch category
+    // Ensure the slug is defined before making API call
+    if (!albumId) return; // Wait for the slug to be available
+
+    // Fetch category using the category_slug
     const fetchCategory = async () => {
+      setLoading(true); // Start loading
       try {
-        const response = await axiosInstance.get('/categories?taxonomy_type=albums');
+        const response = await axiosInstance.get(`/posts?term_type=gallery&category_slug=${albumId}`);
         setCategoryData(response.data.data);
-        setAlbumName(response.data.data[0]?.name);
+        setAlbumName(response.data.data[0]?.categories[0]?.name); // Set album name
       } catch (error) {
         setError('Failed to fetch category');
       } finally {
-        setLoading(false);
+        setLoading(false); // Stop loading
       }
     };
-    fetchCategory();
-  }, []);
+
+    fetchCategory(); // Call the fetch function
+  }, [albumId]); // Run effect when slug changes
 
   const openPopup = (index) => {
     setSelectedImageIndex(index);
@@ -84,7 +96,8 @@ const GallerySingle = () => {
     <section>
       <div className="container mx-auto px-3 py-10">
         <h2 className="text-2xl font-bold mb-5">{albumName}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 md:gap-10 gap-5">
+          {/* {JSON.stringify(categoryData)} */}
           {categoryData.map((categoryItem, categoryIndex) => (
             <div
               key={categoryIndex}
@@ -92,8 +105,8 @@ const GallerySingle = () => {
               onClick={() => openPopup(categoryIndex)} // Trigger popup on click
             >
               <Image
-                src={categoryItem?.image}
-                className="w-full h-60 object-cover"
+                src={categoryItem?.featured_image}
+                className="w-full h-48 object-cover"
                 width={200}
                 height={200}
                 alt={categoryItem?.name}
@@ -111,9 +124,12 @@ const GallerySingle = () => {
           onClick={handleOutsideClick} // Close on click outside
         >
           <div className="relative">
+            {/* Debugging: Log the selected image URL */}
+            {/* {console.log("Selected Image URL:", categoryData[selectedImageIndex]?.featured_image)} */}
+
             {/* Image */}
             <Image
-              src={categoryData[selectedImageIndex]?.image}
+              src={categoryData[selectedImageIndex]?.featured_image} // Updated to use featured_image
               width={1000}
               height={1000}
               className="object-contain"

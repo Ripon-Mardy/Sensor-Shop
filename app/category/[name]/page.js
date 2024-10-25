@@ -25,7 +25,7 @@ const Category = ({ params }) => {
                 const categoriesRes = await axiosInstance.get("/categories?taxonomy_type=categories&limit=40");
                 setCategories(categoriesRes.data.data);
 
-                const productsRes = await axiosInstance.get("/posts?term_type=product");
+                const productsRes = await axiosInstance.get("/posts?term_type=product&per_page=100");
                 const fetchedProducts = productsRes.data.data;
                 setProducts(fetchedProducts);
 

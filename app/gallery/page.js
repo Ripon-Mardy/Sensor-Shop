@@ -14,7 +14,7 @@ const Gallery = () => {
     // Fetch category 
     const fetchCategory = async () => {
       try {
-        const response = await axiosInstance.get('/categories?taxonomy_type=albums');
+        const response = await axiosInstance.get('/categories?taxonomy_type=albums&order_by=id&order_direction=desc&limit=40');
         setCategoryData(response.data.data);
       } catch (error) {
         setError('Failed to fetch category');
@@ -41,15 +41,15 @@ const Gallery = () => {
     <section>
       <div className="container mx-auto px-3 py-10">
         <h2 className="text-2xl font-bold mb-5">Gallery</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 md:gap-10 gap-5">
           {categoryData.map((categoryItem, categoryIndex) => (
             <div key={categoryIndex} className="border border-gray-300 rounded-md overflow-hidden shadow-lg">
               <Link href={`/gallery/${categoryItem?.slug}`}>
                 <Image 
                   src={categoryItem?.image} 
-                  className="w-full h-60 object-cover" 
-                  width={200} 
-                  height={200} 
+                  className="w-full h-48 object-cover" 
+                  width={500} 
+                  height={500} 
                   alt={categoryItem?.name} 
                 />
                 <h1 className="text-xl font-semibold text-gray-800 text-center py-2">

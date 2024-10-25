@@ -171,12 +171,12 @@ const MainHero = () => {
             <BannerSlide />
           </div>
 
-          <div className="md:py-10 py-5">
-            <h2 className="text-xl md:text-3xl text-center font-semibold">
+          <div className="md:py-5 py-5">
+            <h2 className="text-xl md:text-2xl sm:xl lg:3xl text-center font-semibold">
               <HtmlRenderer html={main_speech?.meta_value} />
             </h2>
           </div>
-          <div className="md:py-2 py-0 pt-2 text-center md:text-left">
+          <div className="md:pt-0 md:pb-2 py-0 pt-2 text-center md:text-left">
             <Brands />
           </div>
           <div className="md:py-2 py-0 pt-2 text-center md:text-left">
