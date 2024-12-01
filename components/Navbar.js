@@ -145,7 +145,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className="xl:flex items-center justify-center gap-10 border border-gray-300 rounded-sm py-1 px-4 hidden z-30">
+        <div className="xl:flex items-center justify-center lg:gap-5 2xl:gap-10 border border-gray-300 rounded-sm py-1 px-4 hidden z-30">
           {menuitems.map((item, index) => (
             <div key={index}>
               <Link
@@ -159,7 +159,7 @@ const Navbar = () => {
         </div>
         <form
           onSubmit={handleSearchSubmit}
-          className="xl:flex md:items-center md:justify-between border border-navBorder rounded-sm hidden md:w-[25%] relative"
+          className="xl:flex md:items-center md:justify-between border border-navBorder rounded-sm hidden md:w-[18%] 2xl:w-[25%] relative"
         >
           <input
             type="text"

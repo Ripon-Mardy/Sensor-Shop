@@ -44,18 +44,18 @@ const OurTeam = () => {
         </div>
 
         {/* Team Members */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 py-5 mb-10 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 xl:grid-cols-4 py-5 mb-10 gap-5">
           {teamMembers.map((member) => (
             <figure key={member.id} className="shadow-md rounded-md overflow-hidden">
               <Image 
                 src={member.featured_image || '/placeholder.jpg'} 
                 width={200} 
                 height={200} 
-                className="w-full h-80 md:h-80 object-cover" 
+                className="w-full h-48 md:h-60 xl:h-60 lg:h-60 object-cover" 
                 alt={member.name} 
               />
               <figcaption className="p-2">
-                <h3 className="text-xl font-semibold">{member.name}</h3>
+                <h3 className="text-lg text-sm font-semibold">{member.name}</h3>
                 <p className="text-para_color font-semibold text-sm">
                   {member.extraFields.find(field => field.meta_name === "position")?.meta_value || "No Position Available"}
                 </p>

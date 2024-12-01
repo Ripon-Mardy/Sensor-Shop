@@ -41,3 +41,11 @@
     opacity: 0.8;
     /* Slight hover effect */
 }
+
+.sm\:one-line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Limit to 1 line */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

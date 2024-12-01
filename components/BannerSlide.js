@@ -74,8 +74,8 @@ const BannerSlide = () => {
             <Image
               src={banner.featured_image}
               alt={`Banner ${index + 1}`}
-              width={100}
-              height={100}
+              width={1024}
+              height={180}
               className="w-full h-full object-cover"
             />
           </div>

@@ -19,6 +19,8 @@ const Brands = () => {
                     axiosInstance.get('/frontend/settings?meta_name=our_trusted_brands_text&meta_type=Textarea')
                 ]);
 
+                console.log(brandsResponse);
+                
                 // Filter the brands to include only those that are featured
                 const featuredBrands = brandsResponse.data.data.filter(brand => brand.is_featured === 'Yes');
                 setBrandsList(featuredBrands);
@@ -47,7 +49,7 @@ const Brands = () => {
     }
 
     return (
-        <div className='md:py-2'>
+        <div className='md:pt-0 md:pb-2'>
             <div className='md:flex md:items-center md:justify-between'>
                 <div className='text-center md:text-start'>
                     <h2 className="text-xl md:text-xl font-semibold">Our Trusted Brands</h2>
@@ -60,7 +62,7 @@ const Brands = () => {
                 </Link>
             </div>
             <div>
-                <div className='grid grid-cols-4 md:grid-cols-8 gap-3 mt-4'>
+                <div className='grid grid-cols-4 md:grid-cols-8 gap-3 mt-4'>                    
                     {
                         brandsList.map((brand, index) => (
                             <div key={index} className='border border-gray-100 hover:shadow-md hover:border-gray-200 duration-200 ease-in-out flex justify-center items-center'>

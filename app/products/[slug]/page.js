@@ -223,6 +223,13 @@ const ProductSingle = ({ params }) => {
                   {product?.name}
                 </h1>
 
+                {product?.extra_fields.find(field => field.meta_name === "product_model")?.meta_value && (
+                  <div className="flex">
+                    <h5 className="w-40 text-gray-500">Model</h5>
+                    <p className="w-full">{product?.extra_fields.find(field => field.meta_name === "product_model")?.meta_value}</p>
+                  </div>
+                )}
+
                 <p className="text-base border-b border-gray-100 pb-1 font-medium">
                   {typeof product?.extra_fields?.find(
                     (field) => field.meta_name === "product_short_description"
