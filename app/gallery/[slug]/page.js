@@ -1,53 +1,84 @@
-"use client";
-import React, { useState, useEffect } from "react";
+"use client"; // Ensure this component runs on the client side
+import React, { useState, useEffect, useCallback } from "react";
 import Loading from "@/components/Loading";
+import Image from "next/image";
 import axiosInstance from "@/helpers/axiosInstance";
+import { FaTimes, FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Icons for navigation
+import { usePathname, useSearchParams } from "next/navigation";
 
-const Page = ({ params }) => {
-  const [isFullScreen, setIsFullScreen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(null);
+const GallerySingle = () => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const albumId = pathname.split('/').pop();
+  // console.log(searchParams);
+
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [photos, setPhotos] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const [albumName, setAlbumName] = useState("");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
   useEffect(() => {
-    // Fetch category
-    const fetchPhotos = async () => {
+    // Ensure the slug is defined before making API call
+    if (!albumId) return; // Wait for the slug to be available
+
+    // Fetch category using the category_slug
+    const fetchCategory = async () => {
+      setLoading(true); // Start loading
       try {
-        const response = await axiosInstance.get('/posts?category_slug=album-1');
-        setPhotos(response.data.data);
+        const response = await axiosInstance.get(`/posts?term_type=gallery&category_slug=${albumId}`);
+        setCategoryData(response.data.data);
+        setAlbumName(response.data.data[0]?.categories[0]?.name); // Set album name
       } catch (error) {
-        setError('Failed to fetch photos');
+        setError('Failed to fetch category');
       } finally {
-        setLoading(false); // Set loading to false after the fetch attempt
+        setLoading(false); // Stop loading
       }
     };
-    fetchPhotos();
+
+    fetchCategory(); // Call the fetch function
+  }, [albumId]); // Run effect when slug changes
+
+  const openPopup = (index) => {
+    setSelectedImageIndex(index);
+    setIsPopupVisible(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (e.target.id === "popup-overlay") {
+      closePopup();
+    }
+  };
+
+  const handleKeyPress = useCallback((e) => {
+    if (e.key === "Escape") {
+      closePopup();
+    }
   }, []);
 
-  // Open full-screen mode with the selected image
-  const openFullScreen = (index) => {
-    setCurrentImageIndex(index);
-    setIsFullScreen(true);
+  const navigatePrev = () => {
+    setSelectedImageIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : categoryData.length - 1));
   };
 
-  // Close full-screen mode
-  const closeFullScreen = () => {
-    setIsFullScreen(false);
-    setCurrentImageIndex(null);
+  const navigateNext = () => {
+    setSelectedImageIndex((prevIndex) => (prevIndex < categoryData.length - 1 ? prevIndex + 1 : 0));
   };
 
-  // Navigate to the next image
-  const nextImage = (event) => {
-    event.stopPropagation(); // Prevent closing the popup
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % photos.length);
-  };
+  useEffect(() => {
+    if (isPopupVisible) {
+      window.addEventListener("keydown", handleKeyPress);
+    } else {
+      window.removeEventListener("keydown", handleKeyPress);
+    }
 
-  // Navigate to the previous image
-  const prevImage = (event) => {
-    event.stopPropagation(); // Prevent closing the popup
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + photos.length) % photos.length);
-  };
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [isPopupVisible, handleKeyPress]);
 
   if (loading) {
     return <Loading />;
@@ -62,57 +93,77 @@ const Page = ({ params }) => {
   }
 
   return (
-    <>
-      <section className="py-10">
-        <div className="container mx-auto px-3">
-          <div>
-            {/* Image Gallery */}
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
-              {photos.map((image, index) => (
-                <img
-                  key={index}
-                  src={image?.featured_image}
-                  alt={image?.name}
-                  className="cursor-pointer rounded-lg shadow-lg w-full h-60 object-cover"
-                  onClick={() => openFullScreen(index)} // Pass the index
-                />
-              ))}
+    <section>
+      <div className="container mx-auto px-3 py-10">
+        <h2 className="text-2xl font-bold mb-5">{albumName}</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 md:gap-10 gap-5">
+          {/* {JSON.stringify(categoryData)} */}
+          {categoryData.map((categoryItem, categoryIndex) => (
+            <div
+              key={categoryIndex}
+              className="border border-gray-300 rounded-md overflow-hidden shadow-lg cursor-pointer"
+              onClick={() => openPopup(categoryIndex)} // Trigger popup on click
+            >
+              <Image
+                src={categoryItem?.featured_image}
+                className="w-full h-48 object-cover"
+                width={200}
+                height={200}
+                alt={categoryItem?.name}
+              />
             </div>
+          ))}
+        </div>
+      </div>
 
-            {/* Full-Screen Mode */}
-            {isFullScreen && currentImageIndex !== null && (
-              <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50" onClick={closeFullScreen}>
-                <div className="absolute inset-0 bg-black opacity-80"></div>
-                <img
-                  src={photos[currentImageIndex]?.featured_image} // Use the current image
-                  alt={photos[currentImageIndex]?.name}
-                  className="max-w-4xl max-h-4xl relative z-10"
-                />
-                <button
-                  className="absolute top-5 right-5 text-white text-5xl font-bold z-20"
-                  onClick={closeFullScreen}
-                >
-                  &times;
-                </button>
-                <button
-                  className="absolute left-5 text-white text-3xl"
-                  onClick={prevImage}
-                >
-                  &#10094; {/* Left arrow */}
-                </button>
-                <button
-                  className="absolute right-5 text-white text-3xl"
-                  onClick={nextImage}
-                >
-                  &#10095; {/* Right arrow */}
-                </button>
-              </div>
-            )}
+      {/* Popup Modal */}
+      {isPopupVisible && (
+        <div
+          id="popup-overlay"
+          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
+          onClick={handleOutsideClick} // Close on click outside
+        >
+          <div className="relative">
+            {/* Debugging: Log the selected image URL */}
+            {/* {console.log("Selected Image URL:", categoryData[selectedImageIndex]?.featured_image)} */}
+
+            {/* Image */}
+            <Image
+              src={categoryData[selectedImageIndex]?.featured_image} // Updated to use featured_image
+              width={1000}
+              height={1000}
+              className="object-contain"
+              alt="Selected Album Image"
+            />
+
+            {/* Close Button */}
+            <button
+              className="absolute top-4 right-4 text-gray-700 bg-white p-2 rounded-full shadow-lg"
+              onClick={closePopup} // Close popup on button click
+            >
+              <FaTimes size={24} />
+            </button>
+
+            {/* Previous Button */}
+            <button
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-700 bg-white p-2 rounded-full shadow-lg"
+              onClick={navigatePrev} // Navigate to previous image
+            >
+              <FaChevronLeft size={24} />
+            </button>
+
+            {/* Next Button */}
+            <button
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-700 bg-white p-2 rounded-full shadow-lg"
+              onClick={navigateNext} // Navigate to next image
+            >
+              <FaChevronRight size={24} />
+            </button>
           </div>
         </div>
-      </section>
-    </>
+      )}
+    </section>
   );
 };
 
-export default Page;
+export default GallerySingle;

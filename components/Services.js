@@ -54,7 +54,7 @@ const Services = () => {
           {services.map((service, index) => (
             <SwiperSlide key={index} className="py-2">
               <div className="border border-gray-300 p-2 rounded-sm shadow">
-                <Link href={`/${service.slug}`}>
+                <Link href={`/services/${service.slug}`}>
                   <Image
                     src={service.featured_image}
                     width={200}
@@ -65,14 +65,14 @@ const Services = () => {
                 </Link>
 
                 <h1 className="text-base text-center mt-2">
-                  <Link href={`/${service.slug}`} className="p-1.5 text-sm capitalize">
+                  <Link href={`/services/${service.slug}`} className="p-1.5 text-sm capitalize">
                     {service.name}
                   </Link>
                 </h1>
 
                 <div className="flex justify-center mt-2">
                   <Link
-                    href={`/${service.slug}`}
+                    href={`/services/${service.slug}`}
                     className="bg-navBgColor text-white text-center p-1.5 text-sm capitalize"
                   >
                     Read more

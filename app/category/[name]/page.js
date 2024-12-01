@@ -10,7 +10,7 @@ import CategorySection from "@/components/CategorySection";
 const Category = ({ params }) => {
     const slugName = params.name;
 
-    const [categorys, setCategorys] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -22,10 +22,10 @@ const Category = ({ params }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const categoriesRes = await axiosInstance.get("/categories?taxonomy_type=categories");
-                setCategorys(categoriesRes.data.data);
+                const categoriesRes = await axiosInstance.get("/categories?taxonomy_type=categories&limit=40");
+                setCategories(categoriesRes.data.data);
 
-                const productsRes = await axiosInstance.get("/posts?term_type=product");
+                const productsRes = await axiosInstance.get("/posts?term_type=product&per_page=100");
                 const fetchedProducts = productsRes.data.data;
                 setProducts(fetchedProducts);
 
@@ -73,18 +73,17 @@ const Category = ({ params }) => {
 
     return (
         <>
-            <section className="py-10">
-                <div className="container mx-auto px-3 flex flex-col md:flex-row justify-between gap-5 md:gap-10">
-
-                    {/* Categories Section */}
-                    <CategorySection categories={categorys} isOpen={isOpen} toggleCategories={toggleCategories} />
-
-                    {/* Products Section */}
-                    <div className="md:basis-[80%]">
+            <div className="container mx-auto px-3 md:px-0 pt-3 pb-10">
+                <div className="md:flex md:justify-between gap-5">
+                    <div className="xl:w-1/4">
+                        <CategorySection categories={categories} isOpen={isOpen} toggleCategories={toggleCategories} height="500px" />
+                    </div>
+                    <div className="xl:w-full overflow-hidden">
+                    <div className="md:basis-[80%] pt-5 md:pt-0">
                         {selectCategory && filterProducts.length === 0 && (
                             <div className="text-red-500">No related products found</div>
                         )}
-                        <div className="md:w-full mx-auto flex flex-col gap-8">
+                        <div className="md:w-full mx-auto flex flex-col gap-5">
                             {filterProducts.map((product, index) => (
                                 <div key={index} className="flex gap-4">
                                     {/* Image Container */}
@@ -105,10 +104,10 @@ const Category = ({ params }) => {
                                     </div>
 
                                     {/* Product Details */}
-                                    <div className="w-1/2 md:w-[80%] flex flex-col gap-3">
-                                        <div className="flex gap-10 items-center">
+                                    <div className="w-1/2 md:w-[80%] flex flex-col gap-1 md:gap-3">
+                                        <div className="flex flex-col sm:flex-row gap-10 items-start sm:items-center">
                                             {product.categories.filter(category => category.taxonomy_type === "product_brands").map(category => (
-                                                <div key={category?.id} className="flex items-center gap-2">
+                                                <div key={category?.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
                                                     <Link href={`/category/${category?.slug}`}>
                                                         <Image
                                                             src={category?.media_url}
@@ -156,8 +155,9 @@ const Category = ({ params }) => {
                             ))}
                         </div>
                     </div>
+                    </div>
                 </div>
-            </section>
+            </div>
         </>
     );
 };

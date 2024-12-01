@@ -13,7 +13,7 @@ const Page = () => {
     useEffect(() => {
         const brandsList = async () => {
             try {
-                const res = await axiosInstance.get('/categories?taxonomy_type=product_brands');
+                const res = await axiosInstance.get('/categories?taxonomy_type=product_brands&limit=100');
                 setBrands(res.data.data); // Use axios to get data
             } catch (error) {
                 setError(error.message);

@@ -38,7 +38,7 @@ const ParaText = () => {
             </div>            
             <div className='flex items-center justify-center flex-col gap-5 py-2'>                
                 <div>
-                    <h2 className='text-2xl font-bold'>Techsense Bangladesh Ltd</h2>
+                    <h2 className='text-2xl font-bold'>Techsense Bangladesh Ltd.</h2>
                     <p className='text-center font-semibold'>Our concern</p>
                 </div>
 

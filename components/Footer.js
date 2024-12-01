@@ -5,6 +5,10 @@ import { MdOutlineContentPasteSearch } from "react-icons/md";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import axiosInstance from '@/helpers/axiosInstance';
 import { getMetaValueByMetaName } from '@/helpers/metaHelpers';
+import Image from 'next/image';
+// image
+import we_chat from "./../public/image/we_chat.png";
+
 
 const Footer = () => {
   const [settings, setSettings] = useState(null);
@@ -27,33 +31,24 @@ const Footer = () => {
   const youtubeLink = getMetaValueByMetaName(settings, 'youtube_url') || '#';
   const careersEnabled = getMetaValueByMetaName(settings, 'careers_enabled') || null;
 
+  const support = getMetaValueByMetaName(settings, 'footer_content') || '#';
+  const german_address = getMetaValueByMetaName(settings, 'german_address') || '#';
 
   return (
     <>
       <footer className="bg-footerColor">
-        <div className="container mx-auto px-3 py-10 grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="container mx-auto px-3 py-10 grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="flex flex-col gap-2">
             <h1 className=" text-gray-200">Support</h1>
-            <p className="text-gray-400 text-sm">
-              House # 3, Block # A, Road # 5
-            </p>
-            <p className="text-gray-400 text-sm">
-              Section-6, Mirpur, Dhaka-1216 Beside of Aalok Hospital Mirpur 10
-            </p>
-            <p className="text-gray-400 text-sm">
-              info@sensor-shopbd.com
-            </p>
-            <p className="text-gray-400 text-sm">
-              +8801711261553
-            </p>
+            <div className='text-gray-400' dangerouslySetInnerHTML={{ __html: support }} />
             <div className="contact-buttons pt-4">
               <a href="https://wa.me/1711261553" className="contact-button whatsapp" target="_blank">
                 WhatsApp
               </a>
 
-              <a href="weixin://dl/chat?chatid=YOUR_WECHAT_ID" className="contact-button wechat">
+              {/* <a href="weixin://dl/chat?chatid=YOUR_WECHAT_ID" className="contact-button wechat">
                 WeChat
-              </a>
+              </a> */}
 
               <a href="tel:+1711261553" className="contact-button call">
                 Call
@@ -65,47 +60,33 @@ const Footer = () => {
             <h1 className=" text-gray-200">
               German Address
             </h1>
-            <p className="text-gray-400 text-sm">Md Rezaul Karim Siddique</p>
-            <p className="text-gray-400 text-sm">Tegernseer Landstraße</p>
-            <p className="text-gray-400 text-sm">Munich, Germany</p>
-            <p className="text-gray-400 text-sm">rezaul@sensor-shopbd.com</p>
+            <div className='text-gray-400' dangerouslySetInnerHTML={{ __html: german_address }} />
           </div>
-
-          {/* <div className="flex flex-col">
-            <h1 className=" text-gray-200">
-              Payment Method
-            </h1>
-            <p className="text-gray-400 text-sm">
-              BKash: 01711261553 (personal)
-            </p>
-            <p className="text-gray-400 text-sm">
-              Bank Account No:1555204780015001
-            </p>
-            <p className="text-gray-400 text-sm">
-              Account Name: Techsense Bangladesh Ltd.
-            </p>
-            <p className="text-gray-400 text-sm">
-              Bank Name: BRAC Bank Limited{" "}
-            </p>
-            <p className="text-gray-400 text-sm">
-              Branch of Bank: Banani 11, Dhaka, Bangladesh {" "}
-            </p>
-          </div> */}
-
           <div className="flex flex-col gap-2">
             <h1 className=" text-gray-200">
               Knowledge Base
             </h1>
             <div className="flex flex-col text-sm text-gray-400 gap-2">
               <Link href={"/page/about-us"}>About us</Link>
-              <Link href={"/contact-us"}>Contact us</Link>            
+              <Link href={"/contact-us"}>Contact us</Link>
             </div>
-            <div className='flex gap-6 items-center'>
-              <Link target='_blank' href={facebookLink} className='text-base text-white p-1'><FaFacebook /></Link>
-              <Link target='_blank' href={instagramLink} className='text-base text-white p-1'><FaInstagram /></Link>
-              <Link target='_blank' href={linkedinLink} className='text-base text-white p-1'><FaLinkedin /></Link>
-              <Link target='_blank' href={youtubeLink} className='text-base text-white p-1'><FaYoutube /></Link>
+            <div className='flex gap-2 items-center'>
+              <Link target='_blank' href={facebookLink} className='text-2xl text-white p-1'><FaFacebook /></Link>
+              <Link target='_blank' href={instagramLink} className='text-2xl text-white p-1'><FaInstagram /></Link>
+              <Link target='_blank' href={linkedinLink} className='text-2xl text-white p-1'><FaLinkedin /></Link>
+              <Link target='_blank' href={youtubeLink} className='text-2xl text-white p-1'><FaYoutube /></Link>
             </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <h1 className=" text-gray-200">
+              WeChat Connect
+            </h1>
+            <Image
+              src={we_chat}// Path relative to the `public` folder
+              alt="Team Member"
+              width={150}
+              height={150}
+            />
           </div>
         </div>
         <div className="w-full h-0.5 bg-gray-600 "></div>

@@ -13,7 +13,7 @@ const FeatureProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axiosInstance.get("/posts?term_type=product&per_page=8");
+        const res = await axiosInstance.get("/posts?term_type=product&per_page=20&is_featured=Yes");
         const featuredProducts = res.data.data.filter(product => product.is_featured === "Yes"); // Filter for featured products
         setProduct(featuredProducts); // Set the filtered products
       } catch (error) {
